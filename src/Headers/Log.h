@@ -1,0 +1,1 @@
+#define NSLog(fmt, ...) NSLog((@"[Velvet2] " fmt), ##__VA_ARGS__)

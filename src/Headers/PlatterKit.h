@@ -1,0 +1,2 @@
+@interface PLPlatterView : UIView
+@end
