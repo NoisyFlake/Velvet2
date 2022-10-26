@@ -9,14 +9,13 @@
     NCNotificationShortLookView *view = (NCNotificationShortLookView *)self.viewForPreview;
 
     UIView *borderView = [UIView new];
-
-    
+    borderView.clipsToBounds = YES;
 
     CAGradientLayer *gradientLayer = [CAGradientLayer layer];
-    // gradientLayer.mask = gradientShape;
     [borderView.layer insertSublayer:gradientLayer atIndex:0];
 
     [view.backgroundMaterialView.superview insertSubview:borderView atIndex:2];
+
     self.borderView = borderView;
 }
 -(void)viewDidLayoutSubviews {
@@ -29,17 +28,12 @@
     MTMaterialView *materialView = view.backgroundMaterialView;
     NCNotificationViewControllerView *controllerView = [self valueForKey:@"contentSizeManagingView"];
     UIView *stackDimmingView = [controllerView valueForKey:@"stackDimmingView"];
-
     CAGradientLayer *gradientLayer = self.borderView.layer.sublayers[0];
-    // CAShapeLayer *gradientShape = gradientLayer.mask;
-
-    self.borderView.frame = materialView.frame;
-    self.borderView.clipsToBounds = YES;
 
     // Corner Radius, maximum 22 OR half height for circle.
     // The reason for maximum 22 is https://stackoverflow.com/questions/24936003/
     BOOL useCircleRadius = NO;
-    CGFloat cornerRadius = useCircleRadius ? MIN(60, materialView.frame.size.height / 2) : 5;
+    CGFloat cornerRadius = useCircleRadius ? MIN(60, materialView.frame.size.height / 2) : 19;
 
     view.layer.cornerRadius = cornerRadius;
     materialView.layer.cornerRadius = cornerRadius;
@@ -51,12 +45,13 @@
     // materialView.backgroundColor = [UIColor.redColor colorWithAlphaComponent:1.0];
 
     // Gradient border
+    self.borderView.frame = materialView.frame;
     gradientLayer.frame = self.borderView.frame;
     gradientLayer.startPoint = CGPointMake(0, 0);
     gradientLayer.endPoint = CGPointMake(1, 0);
     gradientLayer.colors = @[(id)[UIColor colorWithRed: 0.25 green: 0.79 blue: 1.00 alpha: 1.00].CGColor, (id)[UIColor colorWithRed: 0.91 green: 0.11 blue: 1.00 alpha: 1.00].CGColor];
 
-    if (NO) {
+    if (YES) {
         // Full border
         CAShapeLayer *gradientShape = [CAShapeLayer new];
         gradientShape.fillColor = nil;
