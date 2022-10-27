@@ -35,7 +35,7 @@
     UIView *appIcon = badgedIconView.iconView;
 
     NSArray *gradientColors = @[(id)[UIColor colorWithRed: 0.25 green: 0.79 blue: 1.00 alpha: 1.00].CGColor, (id)[UIColor colorWithRed: 0.91 green: 0.11 blue: 1.00 alpha: 1.00].CGColor];
-    UIColor *gradientColor = [UIColor colorFromGradient:gradientColors withEndpoint:CGPointMake(1, 0) inFrame:materialView.frame];
+    UIColor *gradientColor = [UIColor colorFromGradient:gradientColors withDirection:DirectionCorner inFrame:materialView.frame];
     
     // Corner radius
     BOOL useCircleRadius = NO;
@@ -59,7 +59,7 @@
     materialView.layer.borderColor = gradientColor.CGColor;
 
     // Shadow
-	materialView.layer.shadowOpacity = 0.5;
+	materialView.layer.shadowOpacity = 0.75;
 	materialView.layer.shadowOffset = CGSizeZero;
 	materialView.layer.shadowRadius = 5;
 	materialView.layer.shadowColor = UIColor.whiteColor.CGColor;
