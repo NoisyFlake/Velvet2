@@ -34,3 +34,6 @@
 @property (nonatomic,readonly) UIView * viewForPreview;
 @property (nonatomic,retain) UIView *borderView;
 @end
+
+@interface NCNotificationStructuredListViewController : UIViewController
+@end

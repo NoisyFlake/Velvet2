@@ -22,20 +22,20 @@
     // NSLog(@"Notification: %@", self.notificationRequest.sectionIdentifier);
 
     // Initialize content variables
-    NCNotificationShortLookView *view = (NCNotificationShortLookView *)self.viewForPreview;
-    MTMaterialView *materialView = view.backgroundMaterialView;
-    NCNotificationViewControllerView *controllerView = [self valueForKey:@"contentSizeManagingView"];
-    UIView *stackDimmingView = [controllerView valueForKey:@"stackDimmingView"];
-    CAGradientLayer *singleBorder = self.borderView.layer.sublayers[0];
-    NCNotificationSeamlessContentView *contentView = [view valueForKey:@"notificationContentView"];
-    UILabel *title = [contentView valueForKey:@"primaryTextLabel"];
-    // UILabel *message = [contentView valueForKey:@"secondaryTextElement"];
-    // UILabel *dateLabel = [contentView valueForKey:@"dateLabel"];
-    NCBadgedIconView *badgedIconView = [contentView valueForKey:@"badgedIconView"];
-    UIView *appIcon = badgedIconView.iconView;
+    NCNotificationShortLookView *view                       = (NCNotificationShortLookView *)self.viewForPreview;
+    MTMaterialView *materialView                            = view.backgroundMaterialView;
+    NCNotificationViewControllerView *controllerView        = [self valueForKey:@"contentSizeManagingView"];
+    UIView *stackDimmingView                                = [controllerView valueForKey:@"stackDimmingView"];
+    CAGradientLayer *singleBorder                           = self.borderView.layer.sublayers[0];
+    NCNotificationSeamlessContentView *contentView          = [view valueForKey:@"notificationContentView"];
+    UILabel *title                                          = [contentView valueForKey:@"primaryTextLabel"];
+    // UILabel *message                                     = [contentView valueForKey:@"secondaryTextElement"];
+    // UILabel *dateLabel                                   = [contentView valueForKey:@"dateLabel"];
+    NCBadgedIconView *badgedIconView                        = [contentView valueForKey:@"badgedIconView"];
+    UIView *appIcon                                         = badgedIconView.iconView;
 
     NSArray *gradientColors = @[(id)[UIColor colorWithRed: 0.25 green: 0.79 blue: 1.00 alpha: 1.00].CGColor, (id)[UIColor colorWithRed: 0.91 green: 0.11 blue: 1.00 alpha: 1.00].CGColor];
-    UIColor *gradientColor = [UIColor colorFromGradient:gradientColors withDirection:DirectionCorner inFrame:materialView.frame];
+    UIColor *gradientColor = [UIColor colorFromGradient:gradientColors withDirection:DirectionRight inFrame:materialView.frame];
     
     // Corner radius
     BOOL useCircleRadius = NO;
@@ -78,5 +78,12 @@
     // Icon
     appIcon.layer.cornerRadius = 19;
     appIcon.clipsToBounds = YES;
+}
+%end
+
+%hook NCNotificationStructuredListViewController
+-(void)viewDidLoad {
+    %orig;
+    // self.overrideUserInterfaceStyle = UIUserInterfaceStyleDark;
 }
 %end
