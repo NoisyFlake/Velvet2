@@ -12,7 +12,16 @@
 @property (nonatomic,retain) NCNotificationRequest * notificationRequest;
 @end
 
-@interface NCNotificationSeamlessContentView : UIView
+@interface NCBadgedIconView : UIView
+@property (nonatomic,retain) UIView * iconView;
+@end
+
+@interface NCNotificationSeamlessContentView : UIView {
+	UILabel* _primaryTextLabel;
+	UIView* _secondaryTextElement;
+	UILabel* _dateLabel;
+	NCBadgedIconView* _badgedIconView;
+}
 @end
 
 @interface NCNotificationShortLookView : UIView {

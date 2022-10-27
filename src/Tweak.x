@@ -32,6 +32,8 @@
     CAGradientLayer *borderGradient = self.borderView.layer.sublayers[0];
     NCNotificationSeamlessContentView *contentView = [view valueForKey:@"notificationContentView"];
     UILabel *title = [contentView valueForKey:@"primaryTextLabel"];
+    NCBadgedIconView *badgedIconView = [contentView valueForKey:@"badgedIconView"];
+    UIView *appIcon = badgedIconView.iconView;
     // UILabel *message = [contentView valueForKey:@"secondaryTextElement"];
     // UILabel *dateLabel = [contentView valueForKey:@"dateLabel"];
 
@@ -87,5 +89,9 @@
     // Date
     // dateLabel.textColor = UIColor.redColor;
     // dateLabel.layer.filters = nil;
+
+    // Icon
+    appIcon.layer.cornerRadius = 19;
+    appIcon.clipsToBounds = YES;
 }
 %end
