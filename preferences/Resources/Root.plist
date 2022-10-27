@@ -1,0 +1,41 @@
+{
+	items = (
+		{
+			cell = PSSwitchCell;
+			default = 1;
+			defaults = "com.noisyflake.velvet2";
+			key = enabled;
+			label = "Enable Tweak";
+		},
+		{
+			cell = PSGroupCell;
+			footerText = "Global settings are overwritten by per-app settings";
+		},
+		{
+			cell = PSLinkCell;
+			isController = 1;
+			detail = Velvet2GlobalController;
+			label = "Global Settings";
+		},
+		{
+			cell = PSLinkCell;
+			isController = 1;
+			detail = Velvet2AppSelectController;
+			label = "Per-App Settings";
+		},
+		{
+			cell = PSGroupCell;
+		},
+		{
+			cell = PSButtonCell;
+			action = resetSettings;
+			label = "Reset Settings";
+		},
+		{
+			cell = PSGroupCell;
+			footerText = "Developed with \U2665 by NoisyFlake";
+			footerAlignment = 1;
+		}
+	);
+	title = "Velvet 2";
+}
