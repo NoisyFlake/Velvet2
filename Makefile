@@ -5,7 +5,7 @@ include $(THEOS)/makefiles/common.mk
 
 TWEAK_NAME = Velvet2
 
-Velvet2_FILES = src/Tweak.x
+Velvet2_FILES = src/Tweak.x src/UIColor+Velvet.m
 Velvet2_CFLAGS = -fobjc-arc
 
 include $(THEOS_MAKE_PATH)/tweak.mk

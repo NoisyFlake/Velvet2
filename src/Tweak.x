@@ -11,13 +11,14 @@
     UIView *borderView = [UIView new];
     borderView.clipsToBounds = YES;
 
-    CAGradientLayer *gradientLayer = [CAGradientLayer layer];
-    [borderView.layer insertSublayer:gradientLayer atIndex:0];
+    CAGradientLayer *borderGradient = [CAGradientLayer layer];
+    [borderView.layer insertSublayer:borderGradient atIndex:0];
 
     [view.backgroundMaterialView.superview insertSubview:borderView atIndex:2];
 
     self.borderView = borderView;
 }
+
 -(void)viewDidLayoutSubviews {
     %orig;
 
@@ -28,7 +29,11 @@
     MTMaterialView *materialView = view.backgroundMaterialView;
     NCNotificationViewControllerView *controllerView = [self valueForKey:@"contentSizeManagingView"];
     UIView *stackDimmingView = [controllerView valueForKey:@"stackDimmingView"];
-    CAGradientLayer *gradientLayer = self.borderView.layer.sublayers[0];
+    CAGradientLayer *borderGradient = self.borderView.layer.sublayers[0];
+    NCNotificationSeamlessContentView *contentView = [view valueForKey:@"notificationContentView"];
+    UILabel *title = [contentView valueForKey:@"primaryTextLabel"];
+    // UILabel *message = [contentView valueForKey:@"secondaryTextElement"];
+    // UILabel *dateLabel = [contentView valueForKey:@"dateLabel"];
 
     // Corner Radius, maximum 22 OR half height for circle.
     // The reason for maximum 22 is https://stackoverflow.com/questions/24936003/
@@ -42,46 +47,44 @@
     self.borderView.layer.cornerRadius = cornerRadius;
 
     // Background
-    // materialView.backgroundColor = [UIColor.redColor colorWithAlphaComponent:1.0];
+    // materialView.backgroundColor = [UIColor.blackColor colorWithAlphaComponent:1.0];
 
     // Gradient border
     self.borderView.frame = materialView.frame;
-    gradientLayer.frame = self.borderView.frame;
-    gradientLayer.startPoint = CGPointMake(0, 0);
-    gradientLayer.endPoint = CGPointMake(1, 0);
-    gradientLayer.colors = @[(id)[UIColor colorWithRed: 0.25 green: 0.79 blue: 1.00 alpha: 1.00].CGColor, (id)[UIColor colorWithRed: 0.91 green: 0.11 blue: 1.00 alpha: 1.00].CGColor];
+    borderGradient.frame = self.borderView.frame;
+    borderGradient.startPoint = CGPointMake(0, 0);
+    borderGradient.endPoint = CGPointMake(1, 0);
+    borderGradient.colors = @[(id)[UIColor colorWithRed: 0.25 green: 0.79 blue: 1.00 alpha: 1.00].CGColor, (id)[UIColor colorWithRed: 0.91 green: 0.11 blue: 1.00 alpha: 1.00].CGColor];
 
     if (YES) {
         // Full border
-        CAShapeLayer *gradientShape = [CAShapeLayer new];
-        gradientShape.fillColor = nil;
-        gradientShape.strokeColor = UIColor.blackColor.CGColor;
-        gradientShape.lineWidth = 2;
-        gradientShape.path = [UIBezierPath bezierPathWithRoundedRect:CGRectInset(view.frame, gradientShape.lineWidth / 2, gradientShape.lineWidth / 2) cornerRadius:cornerRadius].CGPath;
-        gradientLayer.mask = gradientShape;
+        CAShapeLayer *borderShape = [CAShapeLayer new];
+        borderShape.fillColor = nil;
+        borderShape.strokeColor = UIColor.blackColor.CGColor;
+        borderShape.lineWidth = 2;
+        borderShape.path = [UIBezierPath bezierPathWithRoundedRect:CGRectInset(view.frame, borderShape.lineWidth / 2, borderShape.lineWidth / 2) cornerRadius:cornerRadius-1].CGPath;
+        borderGradient.mask = borderShape;
     } else {
         // Single border
-        gradientLayer.frame = CGRectMake(0, self.borderView.frame.size.height - 3, self.borderView.frame.size.width, 3);
+        borderGradient.frame = CGRectMake(0, self.borderView.frame.size.height - 3, self.borderView.frame.size.width, 3);
     }
 
     // Shadow
-	// materialView.layer.shadowOpacity = 1.0;
-	// materialView.layer.shadowOffset = CGSizeZero;
-	// materialView.layer.shadowRadius = 5;
-	// materialView.layer.shadowColor = UIColor.whiteColor.CGColor;
+	materialView.layer.shadowOpacity = 1.0;
+	materialView.layer.shadowOffset = CGSizeZero;
+	materialView.layer.shadowRadius = 5;
+	materialView.layer.shadowColor = UIColor.blackColor.CGColor;
 
     // Title
-    // NCNotificationSeamlessContentView *contentView = [view valueForKey:@"notificationContentView"];
-    // UILabel *title = [contentView valueForKey:@"primaryTextLabel"];
-    // title.textColor = UIColor.cyanColor;
+    NSArray *titleColors = @[(id)[UIColor colorWithRed: 0.25 green: 0.79 blue: 1.00 alpha: 1.00].CGColor, (id)[UIColor colorWithRed: 0.91 green: 0.11 blue: 1.00 alpha: 1.00].CGColor];
+    UIColor *titleGradient = [UIColor colorFromGradient:titleColors withEndpoint:CGPointMake(1, 0) inFrame:materialView.frame];
+    title.textColor = titleGradient;
 
     // Message
-    // UILabel *message = [contentView valueForKey:@"secondaryTextElement"];
-    // message.textColor = UIColor.redColor;
+    // message.textColor = customColor;
     // message.textAlignment = NSTextAlignmentCenter;
 
     // Date
-    // UILabel *dateLabel = [contentView valueForKey:@"dateLabel"];
     // dateLabel.textColor = UIColor.redColor;
     // dateLabel.layer.filters = nil;
 }
