@@ -1,6 +1,10 @@
 {
 	items = (
 		{
+			cell = PSGroupCell;
+			label = "Background Color";
+		},
+		{
 			cell = PSSwitchCell;
 			default = 1;
 			defaults = "com.noisyflake.velvet2";
