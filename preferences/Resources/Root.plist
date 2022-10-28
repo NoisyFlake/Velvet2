@@ -14,7 +14,7 @@
 		{
 			cell = PSLinkCell;
 			isController = 1;
-			detail = Velvet2GlobalController;
+			detail = Velvet2SettingsController;
 			label = "Global Settings";
 		},
 		{
@@ -30,9 +30,16 @@
 			cell = PSButtonCell;
 			action = resetSettings;
 			label = "Reset Settings";
+			confirmation = {
+				title = "Reset Settings";
+				prompt = "Reset all settings to their default value.\nThis action cannot be undone.";
+				cancelTitle = "Cancel";
+			};
+			isDestructive = 1;
 		},
 		{
 			cell = PSGroupCell;
+			id = "footer";
 			footerText = "Developed with \U2665 by NoisyFlake";
 			footerAlignment = 1;
 		}

@@ -1,0 +1,12 @@
+{
+	items = (
+		{
+			cell = PSSwitchCell;
+			default = 1;
+			defaults = "com.noisyflake.velvet2";
+			key = test;
+			label = "Test";
+        }
+	);
+	title = "Global Settings";
+}
