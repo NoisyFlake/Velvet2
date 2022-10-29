@@ -1,6 +1,12 @@
 #import "../headers/Velvet2/Velvet2PrefsManager.h"
+#import "../headers/Velvet2/UIColor+Velvet.h"
 
 @implementation Velvet2PrefsManager
+
+static void sendUpdateNotification() {
+    // Send the notification to our hooks
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"com.noisyflake.velvet2/updateStyle" object:nil];
+}
 
 + (instancetype)sharedInstance {
     static Velvet2PrefsManager *sharedInstance = nil;
@@ -21,6 +27,8 @@
         @"backgroundType": @"default",
     }];
 
+    CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), NULL, (CFNotificationCallback)sendUpdateNotification, CFSTR("com.noisyflake.velvet2/preferenceUpdate"), NULL, CFNotificationSuspensionBehaviorCoalesce);
+
     return prefs;
 }
 
@@ -35,7 +43,7 @@
 
 - (UIColor *)colorForKey:(NSString *)key withIdentifier:(NSString *)identifier {
     NSString *colorString = [self settingForKey:key withIdentifier:identifier];
-    return [UIColor colorWithCIColor:[CIColor colorWithString:colorString]];
+    return [UIColor colorFromP3String:colorString];
 }
 
 @end

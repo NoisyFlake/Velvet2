@@ -29,7 +29,7 @@
 			key = "backgroundType";
 			detail = PSListItemsController;
 			label = "Background Color";
-			validValues = ("default", "icon", "custom", "gradient");
+			validValues = ("default", "icon", "color", "gradient");
 			validTitles = ("Default", "App Icon Color", "Custom Color", "Custom Gradient");
 		},
 		{

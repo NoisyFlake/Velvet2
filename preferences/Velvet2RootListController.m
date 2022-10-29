@@ -57,6 +57,13 @@
 	});
 }
 
+-(void)resetSettings {
+	[[NSUserDefaults standardUserDefaults] removePersistentDomainForName:@"com.noisyflake.velvet2"];
+	[self reload];
+
+	CFNotificationCenterPostNotification(CFNotificationCenterGetDarwinNotifyCenter(), (CFStringRef)@"com.noisyflake.velvet2/preferenceUpdate", NULL, NULL, YES);
+}
+
 -(void)showController:(id)controller {
 	
 	// if ([controller isKindOfClass:NSClassFromString(@"Velvet2SettingsController")]) {

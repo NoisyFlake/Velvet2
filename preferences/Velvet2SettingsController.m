@@ -10,6 +10,7 @@
 
 		for (PSSpecifier *specifier in [mutableSpecifiers reverseObjectEnumerator]) {
 			if ([specifier.properties[@"key"] isEqual:@"cornerRadiusCustom"] && ![[manager settingForKey:@"cornerRadiusEnabled" withIdentifier:self.identifier] boolValue]) [mutableSpecifiers removeObject:specifier];
+			if ([specifier.properties[@"key"] isEqual:@"backgroundColor"] && ![[manager settingForKey:@"backgroundType" withIdentifier:self.identifier] isEqual:@"color"]) [mutableSpecifiers removeObject:specifier];
 		}
 
 		_specifiers = mutableSpecifiers;
@@ -21,6 +22,9 @@
 - (void)setPreferenceValue:(id)value specifier:(PSSpecifier*)specifier {
 	[super setPreferenceValue:value specifier:specifier];
 	[self updatePreview];
+
+	// This wouldn't usually be necessary, but I don't want to write the update string into every Specifier in Settings.plist
+	CFNotificationCenterPostNotification(CFNotificationCenterGetDarwinNotifyCenter(), (CFStringRef)@"com.noisyflake.velvet2/preferenceUpdate", NULL, NULL, YES);
 
 	dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
 		[self reloadSpecifiers];
@@ -34,15 +38,17 @@
 }
 
 -(void)updatePreview {
-	Velvet2PrefsManager *manager = [NSClassFromString(@"Velvet2PrefsManager") sharedInstance];
+	NSString *identifier = self.identifier;
+	Velvet2PrefsManager *prefsManager = [NSClassFromString(@"Velvet2PrefsManager") sharedInstance];
 
-	CGFloat cornerRadiusCustom = [[manager settingForKey:@"cornerRadiusEnabled" withIdentifier:self.identifier] boolValue] ? [[manager settingForKey:@"cornerRadiusCustom" withIdentifier:self.identifier] floatValue] : 19;
-	self.materialView.layer.continuousCorners = cornerRadiusCustom < self.materialView.frame.size.height / 2;
-	self.materialView.layer.cornerRadius = MIN(cornerRadiusCustom, self.materialView.frame.size.height / 2);
+	CGFloat cornerRadius = [[prefsManager settingForKey:@"cornerRadiusEnabled" withIdentifier:identifier] boolValue] ? [[prefsManager settingForKey:@"cornerRadiusCustom" withIdentifier:identifier] floatValue] : 19;
+	self.materialView.layer.continuousCorners = cornerRadius < self.materialView.frame.size.height / 2;
+	self.materialView.layer.cornerRadius = MIN(cornerRadius, self.materialView.frame.size.height / 2);
+	self.velvetView.layer.continuousCorners = cornerRadius < self.velvetView.frame.size.height / 2;
+	self.velvetView.layer.cornerRadius = MIN(cornerRadius, self.velvetView.frame.size.height / 2);
 
-	NSString *backgroundType = [manager settingForKey:@"backgroundType" withIdentifier:self.identifier];
-	self.materialView.backgroundColor = [backgroundType isEqual:@"custom"] ? [manager colorForKey:@"backgroundColor" withIdentifier:self.identifier] : nil;
-	self.materialView.layer.filters = nil; // TODO: Check if we might still need a filter like gaussian blur
+	NSString *backgroundType = [prefsManager settingForKey:@"backgroundType" withIdentifier:identifier];
+	self.velvetView.backgroundColor = [backgroundType isEqual:@"color"] ? [prefsManager colorForKey:@"backgroundColor" withIdentifier:identifier] : nil;
 }
 
 -(void)viewDidLayoutSubviews {
@@ -66,10 +72,14 @@
 	[notificationView insertSubview:materialView atIndex:0];
 	self.materialView = materialView;
 
+	UIView *velvetView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 355, 75.3)];
+	[notificationView insertSubview:velvetView atIndex:1];
+	self.velvetView = velvetView;
+
 	UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(materialView.frame.origin.x + 58, materialView.frame.origin.y + 10.3, 203, 18)];
 	title.text = @"Notification Title";
 	title.font = [UIFont boldSystemFontOfSize:15];
-	[notificationView insertSubview:title atIndex:1];
+	[notificationView insertSubview:title atIndex:2];
 	self.titleLabel = title;
 
 	UILabel *message = [[UILabel alloc] initWithFrame:CGRectMake(materialView.frame.origin.x + 58, materialView.frame.origin.y + 28.6, 283, 36)];
@@ -77,7 +87,7 @@
 	message.font = [message.font fontWithSize:15];
 	message.numberOfLines = 2;
 	message.lineBreakMode = NSLineBreakByWordWrapping;
-	[notificationView insertSubview:message atIndex:1];
+	[notificationView insertSubview:message atIndex:2];
 	self.messageLabel = message;
 
 	UILabel *date = [[UILabel alloc] initWithFrame:CGRectMake(materialView.frame.origin.x + 306, materialView.frame.origin.y + 11.3, 34.3, 16)];
@@ -85,12 +95,12 @@
 	date.font = [date.font fontWithSize:13];
 	date.textAlignment = NSTextAlignmentRight;
 	date.textColor = [UIColor.labelColor colorWithAlphaComponent:0.5];
-	[notificationView insertSubview:date atIndex:1];
+	[notificationView insertSubview:date atIndex:2];
 	self.dateLabel = date;
 
 	UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(materialView.frame.origin.x + 10, materialView.frame.origin.y + 18.6, 38, 38)];
 	imageView.contentMode = UIViewContentModeScaleAspectFit;
-	[notificationView insertSubview:imageView atIndex:1];
+	[notificationView insertSubview:imageView atIndex:2];
 	self.appIcon = imageView;
 
 	if (!self.identifier) {

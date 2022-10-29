@@ -16,4 +16,9 @@
 
     return [UIColor colorWithPatternImage:image];
 }
+
++ (UIColor *)colorFromP3String:(NSString *)string {
+    NSArray *components = [string componentsSeparatedByString:@" "];
+    return [UIColor colorWithDisplayP3Red:[components[0] floatValue] green:[components[1] floatValue] blue:[components[2] floatValue] alpha:[components[3] floatValue]];
+}
 @end

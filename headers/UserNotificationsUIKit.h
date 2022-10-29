@@ -32,7 +32,8 @@
 
 @interface NCNotificationShortLookViewController : NCNotificationViewController
 @property (nonatomic,readonly) UIView * viewForPreview;
-@property (nonatomic,retain) UIView *borderView;
+@property (nonatomic,retain) UIView *velvetView;
+-(void)velvetUpdateStyle;
 @end
 
 @interface NCNotificationStructuredListViewController : UIViewController
