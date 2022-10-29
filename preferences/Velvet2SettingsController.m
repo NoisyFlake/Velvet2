@@ -48,8 +48,8 @@
 	NSString *identifier = self.identifier;
 	Velvet2PrefsManager *prefsManager = [NSClassFromString(@"Velvet2PrefsManager") sharedInstance];
 
-	NSArray *iconColors = [[CCColorCube new] extractColorsFromImage:self.appIcon.image flags:CCAvoidWhite|CCOnlyBrightColors count:1];
-	UIColor *iconColor = iconColors.count ? iconColors[0] : nil;
+	Velvet2Colorizer *colorizer = [[Velvet2Colorizer alloc] initWithIdentifier:identifier];
+    colorizer.appIcon = self.appIcon.image;
 
 	// =============== Corner Radius =============== //
 
@@ -61,19 +61,11 @@
 
 	// =============== Background =============== //
 
-	NSString *backgroundType = [prefsManager settingForKey:@"backgroundType" withIdentifier:identifier];
-	UIColor *backgroundColor;
+	[colorizer colorBackground:self.velvetView];
 
-	if ([backgroundType isEqual:@"color"]) {
-        backgroundColor = [prefsManager colorForKey:@"backgroundColor" withIdentifier:identifier];
-    } else if ([backgroundType isEqual:@"gradient"]) {
-        NSArray *gradientColors = @[(id)[prefsManager colorForKey:@"backgroundGradient1" withIdentifier:identifier].CGColor, (id)[prefsManager colorForKey:@"backgroundGradient2" withIdentifier:identifier].CGColor];
-        backgroundColor = [UIColor colorFromGradient:gradientColors withDirection:[prefsManager settingForKey:@"backgroundGradientDirection" withIdentifier:identifier] inFrame:self.velvetView.frame];
-    } else if ([backgroundType isEqual:@"icon"]) {
-		backgroundColor = [iconColor colorWithAlphaComponent:[prefsManager alphaValueForKey:@"backgroundIconAlpha" withIdentifier:identifier]];
-	}
+	// =============== Border =============== //
 
-    self.velvetView.backgroundColor = backgroundColor;
+    [colorizer colorBorder:self.velvetView];
 }
 
 -(void)viewDidLayoutSubviews {

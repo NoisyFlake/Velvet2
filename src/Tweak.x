@@ -45,10 +45,10 @@ Velvet2PrefsManager *prefsManager;
     NCBadgedIconView *badgedIconView                        = [contentView valueForKey:@"badgedIconView"];
     UIImageView *appIconView                                = (UIImageView *)badgedIconView.iconView;
 
-    NSArray *iconColors = [[CCColorCube new] extractColorsFromImage:appIconView.image flags:CCAvoidWhite|CCOnlyBrightColors count:1];
-	UIColor *iconColor = iconColors.count ? iconColors[0] : UIColor.clearColor;
-
     self.velvetView.frame = materialView.frame;
+
+    Velvet2Colorizer *colorizer = [[Velvet2Colorizer alloc] initWithIdentifier:identifier];
+    colorizer.appIcon = appIconView.image;
     
     // =============== Corner Radius =============== //
 
@@ -64,27 +64,15 @@ Velvet2PrefsManager *prefsManager;
 
     // =============== Background =============== //
 
-    NSString *backgroundType = [prefsManager settingForKey:@"backgroundType" withIdentifier:identifier];
-    UIColor *backgroundColor;
+    [colorizer colorBackground:self.velvetView];
 
-    if ([backgroundType isEqual:@"color"]) {
-        backgroundColor = [prefsManager colorForKey:@"backgroundColor" withIdentifier:identifier];
-    } else if ([backgroundType isEqual:@"gradient"]) {
-        NSArray *gradientColors = @[(id)[prefsManager colorForKey:@"backgroundGradient1" withIdentifier:identifier].CGColor, (id)[prefsManager colorForKey:@"backgroundGradient2" withIdentifier:identifier].CGColor];
-        backgroundColor = [UIColor colorFromGradient:gradientColors withDirection:[prefsManager settingForKey:@"backgroundGradientDirection" withIdentifier:identifier] inFrame:self.velvetView.frame];
-    } else if ([backgroundType isEqual:@"icon"]) {
-        backgroundColor = [iconColor colorWithAlphaComponent:[prefsManager alphaValueForKey:@"backgroundIconAlpha" withIdentifier:identifier]];
-    }
+    // =============== Border =============== //
 
-    self.velvetView.backgroundColor = backgroundColor;
-    
+    [colorizer colorBorder:self.velvetView];
+
     // Single border
     // singleBorder.frame = CGRectMake(0, materialView.frame.size.height - 3, materialView.frame.size.width, 3);
     // singleBorder.backgroundColor = gradientColor.CGColor;
-
-    // Full border
-    // self.velvetView.layer.borderWidth = 2;
-    // self.velvetView.layer.borderColor = gradientColor.CGColor;
 
     // Shadow
 	// materialView.layer.shadowOpacity = 0.75;
