@@ -5,7 +5,7 @@ include $(THEOS)/makefiles/common.mk
 
 BUNDLE_NAME = Velvet2
 
-Velvet2_FILES = Velvet2RootListController.m Velvet2SettingsController.m
+Velvet2_FILES = Velvet2RootListController.m Velvet2SettingsController.m ../src/Velvet2PrefsManager.m CustomCells/Velvet2ColorPicker.m
 Velvet2_FRAMEWORKS = UIKit
 Velvet2_PRIVATE_FRAMEWORKS = Preferences
 Velvet2_INSTALL_PATH = /Library/PreferenceBundles

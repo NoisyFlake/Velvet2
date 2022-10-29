@@ -4,10 +4,12 @@
 
 - (NSArray *)specifiers {
 	if (!_specifiers) {
+		Velvet2PrefsManager *manager = [NSClassFromString(@"Velvet2PrefsManager") sharedInstance];
+
 		NSMutableArray *mutableSpecifiers = [[self loadSpecifiersFromPlistName:@"Settings" target:self] mutableCopy];
 
-		for (PSSpecifier *spec in [mutableSpecifiers reverseObjectEnumerator]) {
-			spec.properties[@"key"] = [NSString stringWithFormat:@"%@_%@", spec.properties[@"key"], self.identifier ? self.identifier : @"global"];
+		for (PSSpecifier *specifier in [mutableSpecifiers reverseObjectEnumerator]) {
+			if ([specifier.properties[@"key"] isEqual:@"cornerRadiusCustom"] && ![[manager settingForKey:@"cornerRadiusEnabled" withIdentifier:self.identifier] boolValue]) [mutableSpecifiers removeObject:specifier];
 		}
 
 		_specifiers = mutableSpecifiers;
@@ -19,16 +21,28 @@
 - (void)setPreferenceValue:(id)value specifier:(PSSpecifier*)specifier {
 	[super setPreferenceValue:value specifier:specifier];
 	[self updatePreview];
+
+	dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
+		[self reloadSpecifiers];
+	});
+	
+}
+
+-(id)readPreferenceValue:(PSSpecifier*)specifier {
+	Velvet2PrefsManager *manager = [NSClassFromString(@"Velvet2PrefsManager") sharedInstance];
+	return [manager settingForKey:specifier.properties[@"key"] withIdentifier:self.identifier];
 }
 
 -(void)updatePreview {
-	NSInteger aRedValue = arc4random()%255;
-	NSInteger aGreenValue = arc4random()%255;
-	NSInteger aBlueValue = arc4random()%255;
+	Velvet2PrefsManager *manager = [NSClassFromString(@"Velvet2PrefsManager") sharedInstance];
 
-	UIColor *randColor = [UIColor colorWithRed:aRedValue/255.0f green:aGreenValue/255.0f blue:aBlueValue/255.0f alpha:1.0f];
-	self.materialView.layer.borderColor = randColor.CGColor;
-	self.materialView.layer.borderWidth = 2;
+	CGFloat cornerRadiusCustom = [[manager settingForKey:@"cornerRadiusEnabled" withIdentifier:self.identifier] boolValue] ? [[manager settingForKey:@"cornerRadiusCustom" withIdentifier:self.identifier] floatValue] : 19;
+	self.materialView.layer.continuousCorners = cornerRadiusCustom < self.materialView.frame.size.height / 2;
+	self.materialView.layer.cornerRadius = MIN(cornerRadiusCustom, self.materialView.frame.size.height / 2);
+
+	NSString *backgroundType = [manager settingForKey:@"backgroundType" withIdentifier:self.identifier];
+	self.materialView.backgroundColor = [backgroundType isEqual:@"custom"] ? [manager colorForKey:@"backgroundColor" withIdentifier:self.identifier] : nil;
+	self.materialView.layer.filters = nil; // TODO: Check if we might still need a filter like gaussian blur
 }
 
 -(void)viewDidLayoutSubviews {
@@ -40,7 +54,7 @@
 	self.table.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.table.frame.size.width, headerHeight + (self.identifier ? 0 : 16))]; // Make room after notification
 
 	UIView *header = [[UIView alloc] initWithFrame:CGRectMake(0, self._contentOverlayInsets.top, self.view.frame.size.width, headerHeight)];
-	header.backgroundColor = UIColor.systemGroupedBackgroundColor;
+	header.backgroundColor = UIColor.systemBackgroundColor;
 
 	UIView *notificationView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 355, 75.3)];
 	notificationView.center = CGPointMake(header.frame.size.width / 2, header.frame.size.height / 2);
@@ -49,9 +63,6 @@
 
 	MTMaterialView *materialView = [NSClassFromString(@"MTMaterialView") materialViewWithRecipe:1 configuration:0];
 	materialView.frame = CGRectMake(0, 0, 355, 75.3);
-	// materialView.center = CGPointMake(header.frame.size.width / 2, header.frame.size.height / 2 - 16);
-	materialView.layer.cornerRadius = 19;
-	materialView.layer.continuousCorners = YES;
 	[notificationView insertSubview:materialView atIndex:0];
 	self.materialView = materialView;
 
@@ -130,5 +141,13 @@
 	}];
 
 	[self updateAppIconWithIdentifier:nil];
+}
+
+- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
+	[super traitCollectionDidChange:previousTraitCollection];
+
+	dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
+		[self updatePreview];
+	});
 }
 @end

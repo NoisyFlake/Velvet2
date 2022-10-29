@@ -2,15 +2,44 @@
 	items = (
 		{
 			cell = PSGroupCell;
-			label = "Background Color";
+			label = "Corner Radius";
 		},
 		{
 			cell = PSSwitchCell;
 			default = 1;
 			defaults = "com.noisyflake.velvet2";
-			key = test;
-			label = "Test";
-        }
+			key = cornerRadiusEnabled;
+			label = "Custom Corner Radius";
+        },
+		{
+			cell = PSSliderCell;
+			defaults = "com.noisyflake.velvet2";
+			key = cornerRadiusCustom;
+			min = 0;
+			max = 60;
+			showValue = 1;
+		},
+		{
+			cell = PSGroupCell;
+			label = "Background";
+		},
+		{
+			cell = PSLinkListCell;
+			defaults = "com.noisyflake.velvet2";
+			key = "backgroundType";
+			detail = PSListItemsController;
+			label = "Background Color";
+			validValues = ("default", "icon", "custom", "gradient");
+			validTitles = ("Default", "App Icon Color", "Custom Color", "Custom Gradient");
+		},
+		{
+			cell = PSLinkCell;
+			isController = 0;
+			defaults = "com.noisyflake.velvet2";
+			cellClass = Velvet2ColorPicker;
+			key = "backgroundColor";
+			label = "Color";
+		}
 	);
 	title = "Global Settings";
 }
