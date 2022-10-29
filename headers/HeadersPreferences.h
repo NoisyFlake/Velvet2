@@ -18,3 +18,4 @@
 #import "Velvet2/Velvet2PrefsManager.h"
 #import "Velvet2/Velvet2RootListController.h"
 #import "Velvet2/Velvet2SettingsController.h"
+#import "Velvet2/Velvet2Slider.h"

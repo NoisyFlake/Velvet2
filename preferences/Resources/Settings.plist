@@ -16,6 +16,7 @@
         },
 		{
 			cell = PSSliderCell;
+			cellClass = Velvet2Slider;
 			defaults = "com.noisyflake.velvet2";
 			key = cornerRadiusCustom;
 			min = 0;
@@ -40,7 +41,8 @@
 			validTitles = ("Default", "App Icon Color", "Custom Color", "Custom Gradient");
 		},
 		{
-			cell = PSSliderCell; // TODO: Use own slider class to fix the Apple nonsense 
+			cell = PSSliderCell;
+			cellClass = Velvet2Slider;
 			defaults = "com.noisyflake.velvet2";
 			key = backgroundIconAlpha;
 			min = 0;
@@ -100,7 +102,8 @@
 			validTitles = ("Default (None)", "App Icon Color", "Custom Color", "Custom Gradient");
 		},
 		{
-			cell = PSSliderCell; // TODO: Use own slider class to fix the Apple nonsense 
+			cell = PSSliderCell;
+			cellClass = Velvet2Slider;
 			defaults = "com.noisyflake.velvet2";
 			key = borderIconAlpha;
 			min = 0;
