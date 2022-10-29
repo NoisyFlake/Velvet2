@@ -1,5 +1,5 @@
 #import <UIKit/UIKit.h>
-#import "Headers/UIColor+Velvet.h"
+#import "../headers/Velvet2/UIColor+Velvet.h"
 
 @implementation UIColor (Velvet)
 + (UIColor *)colorFromGradient:(NSArray*)colors withDirection:(enum Direction)direction inFrame:(CGRect)frame {

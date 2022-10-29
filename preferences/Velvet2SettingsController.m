@@ -1,4 +1,4 @@
-#import "Headers/Headers.h"
+#import "../headers/HeadersPreferences.h"
 
 @implementation Velvet2SettingsController
 

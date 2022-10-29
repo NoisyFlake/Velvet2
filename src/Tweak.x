@@ -1,4 +1,4 @@
-#import "Headers/Tweak.h"
+#import "../headers/HeadersTweak.h"
 
 %hook NCNotificationShortLookViewController
 %property (nonatomic,retain) UIView *borderView;

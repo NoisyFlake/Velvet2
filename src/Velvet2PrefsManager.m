@@ -1,4 +1,4 @@
-#import "Headers/Velvet2PrefsManager.h"
+#import "../headers/Velvet2/Velvet2PrefsManager.h"
 
 @implementation Velvet2PrefsManager
 

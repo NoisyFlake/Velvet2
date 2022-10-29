@@ -1,4 +1,4 @@
-#import "../Headers/Headers.h"
+#import "../../headers/HeadersPreferences.h"
 
 @implementation Velvet2ColorPicker
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)identifier specifier:(PSSpecifier *)specifier {
