@@ -21,8 +21,10 @@
 
     PSViewController *psController = (PSViewController*)[self _viewControllerForAncestor];
     NSString *colorString = [psController readPreferenceValue:self.specifier];
-    self.selectedColor = [UIColor colorFromP3String:colorString];
-
+    if (colorString) {
+        self.selectedColor = [UIColor colorFromP3String:colorString];
+    }
+    
     self.cellColorDisplay.backgroundColor = self.selectedColor;
 }
 

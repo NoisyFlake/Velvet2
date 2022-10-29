@@ -1,5 +1,4 @@
-#import "../headers/Velvet2/Velvet2PrefsManager.h"
-#import "../headers/Velvet2/UIColor+Velvet.h"
+#import "../headers/HeadersTweak.h"
 
 @implementation Velvet2PrefsManager
 
@@ -25,6 +24,8 @@ static void sendUpdateNotification() {
         @"cornerRadiusEnabled": @NO,
         @"cornerRadiusCustom": @19,
         @"backgroundType": @"default",
+        @"backgroundIconAlpha": @100,
+        @"backgroundGradientDirection": @"right"
     }];
 
     CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), NULL, (CFNotificationCallback)sendUpdateNotification, CFSTR("com.noisyflake.velvet2/preferenceUpdate"), NULL, CFNotificationSuspensionBehaviorCoalesce);
@@ -46,4 +47,8 @@ static void sendUpdateNotification() {
     return [UIColor colorFromP3String:colorString];
 }
 
+- (CGFloat)alphaValueForKey:(NSString *)key withIdentifier:(NSString *)identifier {
+    NSString *string = [self settingForKey:key withIdentifier:identifier];
+    return [string floatValue] / 100;
+}
 @end

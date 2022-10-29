@@ -9,8 +9,15 @@
 		NSMutableArray *mutableSpecifiers = [[self loadSpecifiersFromPlistName:@"Settings" target:self] mutableCopy];
 
 		for (PSSpecifier *specifier in [mutableSpecifiers reverseObjectEnumerator]) {
-			if ([specifier.properties[@"key"] isEqual:@"cornerRadiusCustom"] && ![[manager settingForKey:@"cornerRadiusEnabled" withIdentifier:self.identifier] boolValue]) [mutableSpecifiers removeObject:specifier];
-			if ([specifier.properties[@"key"] isEqual:@"backgroundColor"] && ![[manager settingForKey:@"backgroundType" withIdentifier:self.identifier] isEqual:@"color"]) [mutableSpecifiers removeObject:specifier];
+			NSString *requirement = specifier.properties[@"require"];
+			if (requirement) {
+				if ([requirement containsString:@"="]) {
+					NSArray *kv = [requirement componentsSeparatedByString:@"="];
+					if (![[manager settingForKey:kv[0] withIdentifier:self.identifier] isEqual:kv[1]]) [mutableSpecifiers removeObject:specifier];
+				} else {
+					if (![[manager settingForKey:requirement withIdentifier:self.identifier] boolValue]) [mutableSpecifiers removeObject:specifier];
+				}
+			}
 		}
 
 		_specifiers = mutableSpecifiers;
@@ -41,14 +48,32 @@
 	NSString *identifier = self.identifier;
 	Velvet2PrefsManager *prefsManager = [NSClassFromString(@"Velvet2PrefsManager") sharedInstance];
 
+	NSArray *iconColors = [[CCColorCube new] extractColorsFromImage:self.appIcon.image flags:CCAvoidWhite|CCOnlyBrightColors count:1];
+	UIColor *iconColor = iconColors.count ? iconColors[0] : nil;
+
+	// =============== Corner Radius =============== //
+
 	CGFloat cornerRadius = [[prefsManager settingForKey:@"cornerRadiusEnabled" withIdentifier:identifier] boolValue] ? [[prefsManager settingForKey:@"cornerRadiusCustom" withIdentifier:identifier] floatValue] : 19;
 	self.materialView.layer.continuousCorners = cornerRadius < self.materialView.frame.size.height / 2;
 	self.materialView.layer.cornerRadius = MIN(cornerRadius, self.materialView.frame.size.height / 2);
 	self.velvetView.layer.continuousCorners = cornerRadius < self.velvetView.frame.size.height / 2;
 	self.velvetView.layer.cornerRadius = MIN(cornerRadius, self.velvetView.frame.size.height / 2);
 
+	// =============== Background =============== //
+
 	NSString *backgroundType = [prefsManager settingForKey:@"backgroundType" withIdentifier:identifier];
-	self.velvetView.backgroundColor = [backgroundType isEqual:@"color"] ? [prefsManager colorForKey:@"backgroundColor" withIdentifier:identifier] : nil;
+	UIColor *backgroundColor;
+
+	if ([backgroundType isEqual:@"color"]) {
+        backgroundColor = [prefsManager colorForKey:@"backgroundColor" withIdentifier:identifier];
+    } else if ([backgroundType isEqual:@"gradient"]) {
+        NSArray *gradientColors = @[(id)[prefsManager colorForKey:@"backgroundGradient1" withIdentifier:identifier].CGColor, (id)[prefsManager colorForKey:@"backgroundGradient2" withIdentifier:identifier].CGColor];
+        backgroundColor = [UIColor colorFromGradient:gradientColors withDirection:[prefsManager settingForKey:@"backgroundGradientDirection" withIdentifier:identifier] inFrame:self.velvetView.frame];
+    } else if ([backgroundType isEqual:@"icon"]) {
+		backgroundColor = [iconColor colorWithAlphaComponent:[prefsManager alphaValueForKey:@"backgroundIconAlpha" withIdentifier:identifier]];
+	}
+
+    self.velvetView.backgroundColor = backgroundColor;
 }
 
 -(void)viewDidLayoutSubviews {

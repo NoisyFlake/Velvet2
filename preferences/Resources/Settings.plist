@@ -18,6 +18,7 @@
 			min = 0;
 			max = 60;
 			showValue = 1;
+			require="cornerRadiusEnabled";
 		},
 		{
 			cell = PSGroupCell;
@@ -33,12 +34,51 @@
 			validTitles = ("Default", "App Icon Color", "Custom Color", "Custom Gradient");
 		},
 		{
+			cell = PSSliderCell; // TODO: Use own slider class to fix the Apple nonsense 
+			defaults = "com.noisyflake.velvet2";
+			key = backgroundIconAlpha;
+			min = 0;
+			max = 100;
+			showValue = 1;
+			require="backgroundType=icon";
+			label="Opacity";
+		},
+		{
 			cell = PSLinkCell;
 			isController = 0;
 			defaults = "com.noisyflake.velvet2";
 			cellClass = Velvet2ColorPicker;
 			key = "backgroundColor";
 			label = "Color";
+			require = "backgroundType=color";
+		},
+		{
+			cell = PSLinkListCell;
+			defaults = "com.noisyflake.velvet2";
+			key = "backgroundGradientDirection";
+			detail = PSListItemsController;
+			label = "Gradient Direction";
+			validValues = ("cornerTop", "right", "bottom", "cornerBottom");
+			validTitles = ("\U2197", "\U2192", "\U2193", "\U2198");
+			require = "backgroundType=gradient";
+		},
+		{
+			cell = PSLinkCell;
+			isController = 0;
+			defaults = "com.noisyflake.velvet2";
+			cellClass = Velvet2ColorPicker;
+			key = "backgroundGradient1";
+			label = "Color 1";
+			require = "backgroundType=gradient";
+		},
+		{
+			cell = PSLinkCell;
+			isController = 0;
+			defaults = "com.noisyflake.velvet2";
+			cellClass = Velvet2ColorPicker;
+			key = "backgroundGradient2";
+			label = "Color 2";
+			require = "backgroundType=gradient";
 		}
 	);
 	title = "Global Settings";

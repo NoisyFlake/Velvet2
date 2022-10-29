@@ -37,16 +37,16 @@ Velvet2PrefsManager *prefsManager;
     MTMaterialView *materialView                            = view.backgroundMaterialView;
     NCNotificationViewControllerView *controllerView        = [self valueForKey:@"contentSizeManagingView"];
     UIView *stackDimmingView                                = [controllerView valueForKey:@"stackDimmingView"];
-    CAGradientLayer *singleBorder                           = self.velvetView.layer.sublayers[0];
+    // CAGradientLayer *singleBorder                           = self.velvetView.layer.sublayers[0];
     NCNotificationSeamlessContentView *contentView          = [view valueForKey:@"notificationContentView"];
-    UILabel *title                                          = [contentView valueForKey:@"primaryTextLabel"];
+    // UILabel *title                                          = [contentView valueForKey:@"primaryTextLabel"];
     // UILabel *message                                     = [contentView valueForKey:@"secondaryTextElement"];
     // UILabel *dateLabel                                   = [contentView valueForKey:@"dateLabel"];
     NCBadgedIconView *badgedIconView                        = [contentView valueForKey:@"badgedIconView"];
-    UIView *appIcon                                         = badgedIconView.iconView;
+    UIImageView *appIconView                                = (UIImageView *)badgedIconView.iconView;
 
-    NSArray *gradientColors = @[(id)[UIColor colorWithRed: 0.25 green: 0.79 blue: 1.00 alpha: 1.00].CGColor, (id)[UIColor colorWithRed: 0.91 green: 0.11 blue: 1.00 alpha: 1.00].CGColor];
-    UIColor *gradientColor = [UIColor colorFromGradient:gradientColors withDirection:DirectionRight inFrame:materialView.frame];
+    NSArray *iconColors = [[CCColorCube new] extractColorsFromImage:appIconView.image flags:CCAvoidWhite|CCOnlyBrightColors count:1];
+	UIColor *iconColor = iconColors.count ? iconColors[0] : UIColor.clearColor;
 
     self.velvetView.frame = materialView.frame;
     
@@ -65,26 +65,35 @@ Velvet2PrefsManager *prefsManager;
     // =============== Background =============== //
 
     NSString *backgroundType = [prefsManager settingForKey:@"backgroundType" withIdentifier:identifier];
-    self.velvetView.backgroundColor = [backgroundType isEqual:@"color"] ? [prefsManager colorForKey:@"backgroundColor" withIdentifier:identifier] : nil;
+    UIColor *backgroundColor;
 
-    // materialView.layer.filters = nil;
+    if ([backgroundType isEqual:@"color"]) {
+        backgroundColor = [prefsManager colorForKey:@"backgroundColor" withIdentifier:identifier];
+    } else if ([backgroundType isEqual:@"gradient"]) {
+        NSArray *gradientColors = @[(id)[prefsManager colorForKey:@"backgroundGradient1" withIdentifier:identifier].CGColor, (id)[prefsManager colorForKey:@"backgroundGradient2" withIdentifier:identifier].CGColor];
+        backgroundColor = [UIColor colorFromGradient:gradientColors withDirection:[prefsManager settingForKey:@"backgroundGradientDirection" withIdentifier:identifier] inFrame:self.velvetView.frame];
+    } else if ([backgroundType isEqual:@"icon"]) {
+        backgroundColor = [iconColor colorWithAlphaComponent:[prefsManager alphaValueForKey:@"backgroundIconAlpha" withIdentifier:identifier]];
+    }
 
+    self.velvetView.backgroundColor = backgroundColor;
+    
     // Single border
-    singleBorder.frame = CGRectMake(0, materialView.frame.size.height - 3, materialView.frame.size.width, 3);
+    // singleBorder.frame = CGRectMake(0, materialView.frame.size.height - 3, materialView.frame.size.width, 3);
     // singleBorder.backgroundColor = gradientColor.CGColor;
 
     // Full border
-    self.velvetView.layer.borderWidth = 2;
-    self.velvetView.layer.borderColor = gradientColor.CGColor;
+    // self.velvetView.layer.borderWidth = 2;
+    // self.velvetView.layer.borderColor = gradientColor.CGColor;
 
     // Shadow
-	materialView.layer.shadowOpacity = 0.75;
-	materialView.layer.shadowOffset = CGSizeZero;
-	materialView.layer.shadowRadius = 5;
-	materialView.layer.shadowColor = UIColor.whiteColor.CGColor;
+	// materialView.layer.shadowOpacity = 0.75;
+	// materialView.layer.shadowOffset = CGSizeZero;
+	// materialView.layer.shadowRadius = 5;
+	// materialView.layer.shadowColor = UIColor.whiteColor.CGColor;
 
     // Title
-    title.textColor = gradientColor;
+    // title.textColor = gradientColor;
 
     // Message
     // message.textColor = customColor;
@@ -95,8 +104,8 @@ Velvet2PrefsManager *prefsManager;
     // dateLabel.layer.filters = nil;
 
     // Icon
-    appIcon.layer.cornerRadius = 19;
-    appIcon.clipsToBounds = YES;
+    // appIcon.layer.cornerRadius = 19;
+    // appIcon.clipsToBounds = YES;
 }
 %end
 
