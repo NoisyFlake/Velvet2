@@ -2,10 +2,13 @@
 	items = (
 		{
 			cell = PSSwitchCell;
+			cellClass = Velvet2Switch;
+			cellSubtitleText = "Requires a Respring";
 			default = 1;
 			defaults = "com.noisyflake.velvet2";
 			key = enabled;
 			label = "Enable Tweak";
+			systemIcon = "power";
 		},
 		{
 			cell = PSGroupCell;
@@ -13,15 +16,19 @@
 		},
 		{
 			cell = PSLinkCell;
+			cellClass = Velvet2LinkCell;
 			isController = 1;
 			detail = Velvet2SettingsController;
 			label = "Global Settings";
+			systemIcon = "gear";
 		},
 		{
 			cell = PSLinkCell;
+			cellClass = Velvet2LinkCell;
 			isController = 1;
 			detail = Velvet2AppSelectController;
 			label = "Per-App Settings";
+			systemIcon = "ellipsis";
 		},
 		{
 			cell = PSGroupCell;
