@@ -4,5 +4,8 @@
 -(void)showController:(id)controller;
 @end
 
+@interface PSSegmentableSlider : UISlider
+@end
+
 @interface PSSubtitleSwitchTableCell : PSSwitchTableCell
 @end

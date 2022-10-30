@@ -1,8 +1,11 @@
 #import "../../headers/HeadersPreferences.h"
 
-@implementation Velvet2LinkCell
+@implementation Velvet2Button
 -(void)layoutSubviews {
     [super layoutSubviews];
+
+    self.textLabel.textColor = kVelvetColor;
+    self.textLabel.highlightedTextColor = kVelvetColor;
 
     if (self.specifier.properties[@"systemIcon"]) {
         UIImageSymbolConfiguration *config = [UIImageSymbolConfiguration configurationWithFont:[UIFont systemFontOfSize:24]];

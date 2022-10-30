@@ -35,6 +35,7 @@
 		},
 		{
 			cell = PSButtonCell;
+			cellClass = Velvet2Button;
 			action = resetSettings;
 			label = "Reset Settings";
 			confirmation = {
@@ -43,6 +44,7 @@
 				cancelTitle = "Cancel";
 			};
 			isDestructive = 1;
+			systemIcon = "gobackward";
 		},
 		{
 			cell = PSGroupCell;

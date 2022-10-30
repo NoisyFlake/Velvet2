@@ -9,6 +9,7 @@
 		},
 		{
 			cell = PSSwitchCell;
+			cellClass = Velvet2Switch;
 			default = 1;
 			defaults = "com.noisyflake.velvet2";
 			key = cornerRadiusEnabled;
@@ -33,6 +34,7 @@
 		},
 		{
 			cell = PSLinkListCell;
+			cellClass = Velvet2LinkCell;
 			defaults = "com.noisyflake.velvet2";
 			key = "backgroundType";
 			detail = PSListItemsController;

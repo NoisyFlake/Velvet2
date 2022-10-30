@@ -5,13 +5,14 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier specifier:specifier];
 
     if (self) {
+        [((PSSegmentableSlider *)[self control]) setMinimumTrackTintColor:kVelvetColor];
+
         if (specifier.properties[@"label"]) {
             self.nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 11, 0, 0)];
             self.nameLabel.text = specifier.properties[@"label"];
             [self.nameLabel sizeToFit];
             [self.contentView insertSubview:self.nameLabel atIndex:0];
         }
-        
     }
 
     return self;
