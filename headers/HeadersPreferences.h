@@ -23,4 +23,4 @@
 #import "Velvet2/Velvet2Slider.h"
 #import "Velvet2/Velvet2Switch.h"
 
-#define kVelvetColor [UIColor colorWithRed: 0.46 green: 0.83 blue: 1.00 alpha: 1.00]
+#define kVelvetColor [UIColor colorWithRed: 0.38 green: 0.76 blue: 1.00 alpha: 1.00]

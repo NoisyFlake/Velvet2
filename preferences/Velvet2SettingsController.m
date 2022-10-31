@@ -73,23 +73,27 @@
 
 	if ([self.view.subviews count] > 1) return;
 
+	CGFloat pageWidth = self.table.subviews[0].frame.size.width;
+
 	CGFloat headerHeight = 93;
-	self.table.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.table.frame.size.width, headerHeight + (self.identifier ? 0 : 16))]; // Make room after notification
+	self.table.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, pageWidth, headerHeight + (self.identifier ? 0 : 16))]; // Make room after notification
 
 	UIView *header = [[UIView alloc] initWithFrame:CGRectMake(0, self._contentOverlayInsets.top, self.view.frame.size.width, headerHeight)];
+	header.center = CGPointMake(self.view.frame.size.width / 2, header.center.y);
 	header.backgroundColor = UIColor.systemBackgroundColor;
+	header.layer.cornerRadius = 10;
 
-	UIView *notificationView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 355, 75.3)];
+	UIView *notificationView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, pageWidth, 75.3)];
 	notificationView.center = CGPointMake(header.frame.size.width / 2, header.frame.size.height / 2);
 	[header insertSubview:notificationView atIndex:0];
 	self.notificationView = notificationView;
 
 	MTMaterialView *materialView = [NSClassFromString(@"MTMaterialView") materialViewWithRecipe:1 configuration:0];
-	materialView.frame = CGRectMake(0, 0, 355, 75.3);
+	materialView.frame = CGRectMake(0, 0, pageWidth, 75.3);
 	[notificationView insertSubview:materialView atIndex:0];
 	self.materialView = materialView;
 
-	UIView *velvetView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 355, 75.3)];
+	UIView *velvetView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, pageWidth, 75.3)];
 	[notificationView insertSubview:velvetView atIndex:1];
 	self.velvetView = velvetView;
 
@@ -107,7 +111,7 @@
 	[notificationView insertSubview:message atIndex:2];
 	self.messageLabel = message;
 
-	UILabel *date = [[UILabel alloc] initWithFrame:CGRectMake(materialView.frame.origin.x + 306, materialView.frame.origin.y + 11.3, 34.3, 16)];
+	UILabel *date = [[UILabel alloc] initWithFrame:CGRectMake(materialView.frame.origin.x + materialView.frame.size.width - 15 - 34.3, materialView.frame.origin.y + 11.3, 34.3, 16)];
 	date.text = @"now";
 	date.font = [date.font fontWithSize:13];
 	date.textAlignment = NSTextAlignmentRight;
@@ -124,7 +128,7 @@
 		UITapGestureRecognizer *singleFingerTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleHeaderTouch:)];
 		[notificationView addGestureRecognizer:singleFingerTap];
 
-		UILabel *hint = [[UILabel alloc] initWithFrame:CGRectMake(0, header.frame.origin.y + header.frame.size.height, header.frame.size.width, 24)];
+		UILabel *hint = [[UILabel alloc] initWithFrame:CGRectMake(header.frame.origin.x, header.frame.origin.y + header.frame.size.height, header.frame.size.width, 24)];
 		hint.text = @"Tap notification to change the icon";
 		hint.font = [hint.font fontWithSize:13];
 		hint.textColor = UIColor.systemGrayColor;

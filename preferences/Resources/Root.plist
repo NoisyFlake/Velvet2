@@ -45,13 +45,7 @@
 			};
 			isDestructive = 1;
 			systemIcon = "gobackward";
-		},
-		{
-			cell = PSGroupCell;
-			id = "footer";
-			footerText = "Developed with \U2665 by NoisyFlake";
-			footerAlignment = 1;
 		}
 	);
-	title = "Velvet 2";
+	title = "";
 }

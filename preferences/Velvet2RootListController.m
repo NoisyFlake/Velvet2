@@ -47,11 +47,23 @@
 		[file closeFile];
 
 		dispatch_async(dispatch_get_main_queue(), ^(void){
-			// Update specifier on the main queue
+			// Insert footer on the main queue
 			if ([outputString length] > 0) {
-				PSSpecifier *spec = [self specifierForID:@"footer"];
-				[spec setProperty:[NSString stringWithFormat:@"Version %@\nDeveloped with \u2665 by NoisyFlake", outputString] forKey:@"footerText"];
-				[self reloadSpecifierID:@"footer" animated:NO];
+				NSString *firstLine = [NSString stringWithFormat:@"Velvet %@", outputString];
+
+				NSMutableAttributedString *fullFooter =  [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@\nwith \u2665 from NoisyFlake", firstLine]];
+
+				[fullFooter beginEditing];
+				[fullFooter addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize:18] range:NSMakeRange(0, [firstLine length])];
+				[fullFooter endEditing];
+				
+				UILabel *footerLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 100)];
+				footerLabel.font = [UIFont systemFontOfSize:13];
+				footerLabel.textColor = UIColor.systemGrayColor;
+				footerLabel.numberOfLines = 2;
+				footerLabel.attributedText = fullFooter;
+				footerLabel.textAlignment = NSTextAlignmentCenter;
+				self.table.tableFooterView = footerLabel;
 			}
 		});
 	});

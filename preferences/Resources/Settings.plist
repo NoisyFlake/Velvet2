@@ -1,31 +1,6 @@
 {
 	items = (
 
-		// ========== CORNER RADIUS ========== //
-
-		{
-			cell = PSGroupCell;
-			label = "Corner Radius";
-		},
-		{
-			cell = PSSwitchCell;
-			cellClass = Velvet2Switch;
-			default = 1;
-			defaults = "com.noisyflake.velvet2";
-			key = cornerRadiusEnabled;
-			label = "Custom Corner Radius";
-        },
-		{
-			cell = PSSliderCell;
-			cellClass = Velvet2Slider;
-			defaults = "com.noisyflake.velvet2";
-			key = cornerRadiusCustom;
-			min = 0;
-			max = 60;
-			showValue = 1;
-			require="cornerRadiusEnabled";
-		},
-
 		// ========== BACKGROUND ========== //
 
 		{
@@ -147,7 +122,32 @@
 			key = "borderGradient2";
 			label = "Color 2";
 			require = "borderType=gradient";
-		}
+		},
+		
+		// ========== CORNER RADIUS ========== //
+
+		{
+			cell = PSGroupCell;
+			label = "Corner Radius";
+		},
+		{
+			cell = PSSwitchCell;
+			cellClass = Velvet2Switch;
+			default = 1;
+			defaults = "com.noisyflake.velvet2";
+			key = cornerRadiusEnabled;
+			label = "Custom Corner Radius";
+        },
+		{
+			cell = PSSliderCell;
+			cellClass = Velvet2Slider;
+			defaults = "com.noisyflake.velvet2";
+			key = cornerRadiusCustom;
+			min = 0;
+			max = 60;
+			showValue = 1;
+			require="cornerRadiusEnabled";
+		},
 
 	);
 	title = "Global Settings";
