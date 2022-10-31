@@ -8,6 +8,7 @@
 #import "NSTask.h"
 #import "Preferences.h"
 #import "QuartzCore.h"
+#import "UIColor+Private.h"
 #import "UIImage+Private.h"
 #import "UIView+Private.h"
 #import "UIViewController+Private.h"

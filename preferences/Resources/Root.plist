@@ -12,11 +12,12 @@
 		},
 		{
 			cell = PSGroupCell;
-			footerText = "Global settings are overwritten by per-app settings";
+			label = "Settings";
 		},
 		{
 			cell = PSLinkCell;
 			cellClass = Velvet2LinkCell;
+			cellSubtitleText = "Apply to all notifications";
 			isController = 1;
 			detail = Velvet2SettingsController;
 			label = "Global Settings";
@@ -25,13 +26,11 @@
 		{
 			cell = PSLinkCell;
 			cellClass = Velvet2LinkCell;
+			cellSubtitleText = "Overwrite Global Settings";
 			isController = 1;
 			detail = Velvet2AppSelectController;
 			label = "Per-App Settings";
 			systemIcon = "ellipsis";
-		},
-		{
-			cell = PSGroupCell;
 		},
 		{
 			cell = PSButtonCell;
@@ -45,7 +44,26 @@
 			};
 			isDestructive = 1;
 			systemIcon = "gobackward";
-		}
+		},
+		{
+			cell = PSGroupCell;
+			label = "Developer";
+		},
+		{
+			cell = PSButtonCell;
+			cellClass = Velvet2Button;
+			action = twitter;
+			label = "Follow on Twitter";
+			systemIcon = "heart";
+		},
+		{
+			cell = PSButtonCell;
+			cellClass = Velvet2Button;
+			action = paypal;
+			label = "Buy me a coffee";
+			systemIcon = "cup.and.saucer";
+		},
+
 	);
 	title = "";
 }

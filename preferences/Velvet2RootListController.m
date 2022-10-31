@@ -51,7 +51,7 @@
 			if ([outputString length] > 0) {
 				NSString *firstLine = [NSString stringWithFormat:@"Velvet %@", outputString];
 
-				NSMutableAttributedString *fullFooter =  [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@\nwith \u2665 from NoisyFlake", firstLine]];
+				NSMutableAttributedString *fullFooter =  [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@\nwith \u2665 by NoisyFlake", firstLine]];
 
 				[fullFooter beginEditing];
 				[fullFooter addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize:18] range:NSMakeRange(0, [firstLine length])];
@@ -74,6 +74,27 @@
 	[self reload];
 
 	CFNotificationCenterPostNotification(CFNotificationCenterGetDarwinNotifyCenter(), (CFStringRef)@"com.noisyflake.velvet2/preferenceUpdate", NULL, NULL, YES);
+}
+
+-(void)twitter {
+	NSURL *tweetbot = [NSURL URLWithString:@"tweetbot://NoisyFlake/user_profile/NoisyFlake"];
+	NSURL *twitterrific = [NSURL URLWithString:@"twitterrific://profile?screen_name=NoisyFlake"];
+	NSURL *twitter = [NSURL URLWithString:@"twitter://user?screen_name=NoisyFlake"];
+	NSURL *web = [NSURL URLWithString:@"http://www.twitter.com/NoisyFlake"];
+	
+	if ([[UIApplication sharedApplication] canOpenURL:tweetbot]) {
+        [[UIApplication sharedApplication] openURL:tweetbot options:@{} completionHandler:nil];
+    } else if ([[UIApplication sharedApplication] canOpenURL:twitterrific]) {
+        [[UIApplication sharedApplication] openURL:twitterrific options:@{} completionHandler:nil];
+    } else if ([[UIApplication sharedApplication] canOpenURL:twitter]) {
+        [[UIApplication sharedApplication] openURL:twitter options:@{} completionHandler:nil];
+    } else {
+        [[UIApplication sharedApplication] openURL:web options:@{} completionHandler:nil];
+    }
+}
+
+-(void)paypal {
+	[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.paypal.me/NoisyFlake"] options:@{} completionHandler:nil];
 }
 
 -(void)showController:(id)controller {

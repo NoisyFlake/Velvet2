@@ -2,7 +2,7 @@
 
 @implementation Velvet2ColorPicker
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)identifier specifier:(PSSpecifier *)specifier {
-    self = [super initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier specifier:specifier];
+    self = [super initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier specifier:specifier];
 
     [specifier setTarget:self];
     [specifier setButtonAction:@selector(openColorPicker)];
@@ -23,6 +23,7 @@
     NSString *colorString = [psController readPreferenceValue:self.specifier];
     if (colorString) {
         self.selectedColor = [UIColor colorFromP3String:colorString];
+        self.detailTextLabel.text = self.selectedColor.pkaxApproximateColorDescription.capitalizedString;
     }
     
     self.cellColorDisplay.backgroundColor = self.selectedColor;
