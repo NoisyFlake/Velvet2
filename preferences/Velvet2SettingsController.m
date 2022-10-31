@@ -53,19 +53,26 @@
 
 	// =============== Corner Radius =============== //
 
-	CGFloat cornerRadius = [[prefsManager settingForKey:@"cornerRadiusEnabled" withIdentifier:identifier] boolValue] ? [[prefsManager settingForKey:@"cornerRadiusCustom" withIdentifier:identifier] floatValue] : 19;
-	self.materialView.layer.continuousCorners = cornerRadius < self.materialView.frame.size.height / 2;
-	self.materialView.layer.cornerRadius = MIN(cornerRadius, self.materialView.frame.size.height / 2);
-	self.velvetView.layer.continuousCorners = cornerRadius < self.velvetView.frame.size.height / 2;
-	self.velvetView.layer.cornerRadius = MIN(cornerRadius, self.velvetView.frame.size.height / 2);
+	[UIView animateWithDuration:0.1 animations:^{
+		CGFloat cornerRadius = [[prefsManager settingForKey:@"cornerRadiusEnabled" withIdentifier:identifier] boolValue] ? [[prefsManager settingForKey:@"cornerRadiusCustom" withIdentifier:identifier] floatValue] : 19;
+		self.materialView.layer.continuousCorners = cornerRadius < self.materialView.frame.size.height / 2;
+		self.materialView.layer.cornerRadius = MIN(cornerRadius, self.materialView.frame.size.height / 2);
+		self.velvetView.layer.continuousCorners = cornerRadius < self.velvetView.frame.size.height / 2;
+		self.velvetView.layer.cornerRadius = MIN(cornerRadius, self.velvetView.frame.size.height / 2);
+
+		[colorizer colorBackground:self.velvetView];
+		[colorizer colorBorder:self.velvetView];
+	}];
+
+	
 
 	// =============== Background =============== //
 
-	[colorizer colorBackground:self.velvetView];
+	
 
 	// =============== Border =============== //
 
-    [colorizer colorBorder:self.velvetView];
+    
 }
 
 -(void)viewDidLayoutSubviews {

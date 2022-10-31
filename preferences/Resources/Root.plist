@@ -54,14 +54,14 @@
 			cellClass = Velvet2Button;
 			action = twitter;
 			label = "Follow on Twitter";
-			systemIcon = "heart";
+			systemIcon = "person.crop.circle.badge.plus";
 		},
 		{
 			cell = PSButtonCell;
 			cellClass = Velvet2Button;
 			action = paypal;
 			label = "Buy me a coffee";
-			systemIcon = "cup.and.saucer";
+			systemIcon = "gift";
 		},
 
 	);
