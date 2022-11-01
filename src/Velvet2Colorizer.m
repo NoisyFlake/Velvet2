@@ -42,19 +42,24 @@
 }
 
 - (void)colorBorder:(UIView *)borderView {
-    NSString *borderType = [self.manager settingForKey:@"borderType" withIdentifier:self.identifier];
     UIColor *borderColor;
 
-    if ([borderType isEqual:@"color"]) {
-        borderColor = [self.manager colorForKey:@"borderColor" withIdentifier:self.identifier];
-    } else if ([borderType isEqual:@"gradient"]) {
-        NSArray *gradientColors = @[(id)[self.manager colorForKey:@"borderGradient1" withIdentifier:self.identifier].CGColor, (id)[self.manager colorForKey:@"borderGradient2" withIdentifier:self.identifier].CGColor];
-        borderColor = [UIColor colorFromGradient:gradientColors withDirection:[self.manager settingForKey:@"borderGradientDirection" withIdentifier:self.identifier] inFrame:borderView.frame];
-    } else if ([borderType isEqual:@"icon"]) {
-        borderColor = [self.iconColor colorWithAlphaComponent:[self.manager alphaValueForKey:@"borderIconAlpha" withIdentifier:self.identifier]];
+    BOOL borderEnabled = [[self.manager settingForKey:@"borderEnabled" withIdentifier:self.identifier] boolValue];
+
+    if (borderEnabled) {
+        NSString *borderType = [self.manager settingForKey:@"borderType" withIdentifier:self.identifier];
+
+        if ([borderType isEqual:@"color"]) {
+            borderColor = [self.manager colorForKey:@"borderColor" withIdentifier:self.identifier];
+        } else if ([borderType isEqual:@"gradient"]) {
+            NSArray *gradientColors = @[(id)[self.manager colorForKey:@"borderGradient1" withIdentifier:self.identifier].CGColor, (id)[self.manager colorForKey:@"borderGradient2" withIdentifier:self.identifier].CGColor];
+            borderColor = [UIColor colorFromGradient:gradientColors withDirection:[self.manager settingForKey:@"borderGradientDirection" withIdentifier:self.identifier] inFrame:borderView.frame];
+        } else if ([borderType isEqual:@"icon"]) {
+            borderColor = [self.iconColor colorWithAlphaComponent:[self.manager alphaValueForKey:@"borderIconAlpha" withIdentifier:self.identifier]];
+        }
     }
 
-    borderView.layer.borderWidth = borderColor ? 2 : 0;
+    borderView.layer.borderWidth = borderColor ? [[self.manager settingForKey:@"borderWidth" withIdentifier:self.identifier] floatValue] : 0;
     borderView.layer.borderColor = borderColor ? borderColor.CGColor : nil;
 }
 

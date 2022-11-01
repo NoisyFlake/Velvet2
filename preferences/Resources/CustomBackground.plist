@@ -48,15 +48,6 @@
 			label = "Options";
 			require = "backgroundEnabled";
 		},
-		// {
-		// 	cell = PSLinkListCell;
-		// 	defaults = "com.noisyflake.velvet2";
-		// 	key = "backgroundType";
-		// 	detail = PSListItemsController;
-		// 	label = "Background Color";
-		// 	validValues = ("default", "icon", "color", "gradient");
-		// 	validTitles = ("Default", "App Icon Color", "Custom Color", "Custom Gradient");
-		// },
 		{
 			cell = PSSliderCell;
 			cellClass = Velvet2Slider;

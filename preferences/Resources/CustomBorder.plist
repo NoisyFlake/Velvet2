@@ -2,16 +2,62 @@
 	items = (
 		{
 			cell = PSGroupCell;
-			label = "Border";
 		},
 		{
-			cell = PSLinkListCell;
+			cell = PSSwitchCell;
+			cellClass = Velvet2Switch;
+			cellSubtitleText = "Use a custom border color";
+			default = 1;
+			defaults = "com.noisyflake.velvet2";
+			key = borderEnabled;
+			label = "Enable Border";
+			systemIcon = "power";
+		},
+		{
+			cell = PSSliderCell;
+			cellClass = Velvet2Slider;
+			defaults = "com.noisyflake.velvet2";
+			key = borderWidth;
+			min = 1;
+			max = 5;
+			showValue = 1;
+			require="borderEnabled";
+			label="Width";
+		},
+		{
+			cell = PSGroupCell;
+			label = "Type";
+			require = "borderEnabled";
+		},
+		{
+			cell = PSDefaultCell;
+			cellClass = Velvet2AppearanceCell;
+			options = (
+				{
+					text = "Icon Color";
+					value = "icon";
+					systemIcon = "wand.and.stars";
+				},
+				{
+					text = "Static Color";
+					value = "color";
+					systemIcon = "paintbrush";
+				},
+				{
+					text = "Gradient";
+					value = "gradient";
+					systemIcon = "circle.righthalf.filled";
+				},
+			);
 			defaults = "com.noisyflake.velvet2";
 			key = "borderType";
-			detail = PSListItemsController;
-			label = "Border Color";
-			validValues = ("default", "icon", "color", "gradient");
-			validTitles = ("Default (None)", "App Icon Color", "Custom Color", "Custom Gradient");
+			height = 130;
+			require = "borderEnabled";
+		},
+		{
+			cell = PSGroupCell;
+			label = "Options";
+			require = "borderEnabled";
 		},
 		{
 			cell = PSSliderCell;
@@ -21,7 +67,7 @@
 			min = 0;
 			max = 100;
 			showValue = 1;
-			require="borderType=icon";
+			require="borderEnabled&borderType=icon";
 			label="Opacity";
 		},
 		{
@@ -30,17 +76,19 @@
 			cellClass = Velvet2ColorPicker;
 			key = "borderColor";
 			label = "Color";
-			require = "borderType=color";
+			require = "borderEnabled&borderType=color";
 		},
 		{
 			cell = PSLinkListCell;
+			cellClass = "Velvet2LinkCell";
 			defaults = "com.noisyflake.velvet2";
 			key = "borderGradientDirection";
 			detail = PSListItemsController;
 			label = "Gradient Direction";
 			validValues = ("cornerTop", "right", "bottom", "cornerBottom");
 			validTitles = ("\U2197", "\U2192", "\U2193", "\U2198");
-			require = "borderType=gradient";
+			require = "borderEnabled&borderType=gradient";
+			systemIcon = "arrow.left.arrow.right.circle";
 		},
 		{
 			cell = PSLinkCell;
@@ -48,7 +96,8 @@
 			cellClass = Velvet2ColorPicker;
 			key = "borderGradient1";
 			label = "Color 1";
-			require = "borderType=gradient";
+			require = "borderEnabled&borderType=gradient";
+			systemIcon = "1.circle";
 		},
 		{
 			cell = PSLinkCell;
@@ -56,8 +105,9 @@
 			cellClass = Velvet2ColorPicker;
 			key = "borderGradient2";
 			label = "Color 2";
-			require = "borderType=gradient";
+			require = "borderEnabled&borderType=gradient";
+			systemIcon = "2.circle";
 		},
 	);
-	title = "Background";
+	title = "Border";
 }

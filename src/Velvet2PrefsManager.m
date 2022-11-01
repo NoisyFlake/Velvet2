@@ -26,7 +26,8 @@ static void sendUpdateNotification() {
         @"backgroundType": @"icon",
         @"backgroundIconAlpha": @50,
         @"backgroundGradientDirection": @"right",
-        @"borderType": @"default",
+        @"borderWidth": @2,
+        @"borderType": @"icon",
         @"borderIconAlpha": @100,
         @"borderGradientDirection": @"right"
     }];
