@@ -4,7 +4,7 @@
 
 - (NSArray *)specifiers {
 	if (!_specifiers) {
-        _specifiers = [self visibleSpecifiersFromPlist:@"Customization"];
+        _specifiers = [self visibleSpecifiersFromPlist:[NSString stringWithFormat:@"Custom%@", self.currentKey]];
 	}
 
 	return _specifiers;

@@ -12,6 +12,7 @@
 			cellClass = Velvet2LinkCell;
 			isController = 1;
 			detail = Velvet2CustomizationController;
+			key = "Background";
 			label = "Background";
 			systemIcon = "rectangle.fill";
 		},
@@ -20,6 +21,7 @@
 			cellClass = Velvet2LinkCell;
 			isController = 1;
 			detail = Velvet2CustomizationController;
+			key = "Border";
 			label = "Border";
 			systemIcon = "rectangle";
 		},
@@ -28,6 +30,7 @@
 			cellClass = Velvet2LinkCell;
 			isController = 1;
 			detail = Velvet2CustomizationController;
+			key = "Shadow";
 			label = "Glow";
 			systemIcon = "wand.and.stars";
 		},
@@ -40,6 +43,7 @@
 			cellClass = Velvet2LinkCell;
 			isController = 1;
 			detail = Velvet2CustomizationController;
+			key = "Title";
 			label = "Title";
 			systemIcon = "character.bubble";
 		},
@@ -48,6 +52,7 @@
 			cellClass = Velvet2LinkCell;
 			isController = 1;
 			detail = Velvet2CustomizationController;
+			key = "Message";
 			label = "Message";
 			systemIcon = "text.bubble";
 		},
@@ -56,6 +61,7 @@
 			cellClass = Velvet2LinkCell;
 			isController = 1;
 			detail = Velvet2CustomizationController;
+			key = "Date";
 			label = "Date";
 			systemIcon = "calendar";
 		},

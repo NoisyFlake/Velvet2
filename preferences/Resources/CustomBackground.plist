@@ -2,62 +2,62 @@
 	items = (
 		{
 			cell = PSGroupCell;
-            label = "Border";
+			label = "Background";
 		},
 		{
 			cell = PSLinkListCell;
 			defaults = "com.noisyflake.velvet2";
-			key = "borderType";
+			key = "backgroundType";
 			detail = PSListItemsController;
-			label = "Border Color";
+			label = "Background Color";
 			validValues = ("default", "icon", "color", "gradient");
-			validTitles = ("Default (None)", "App Icon Color", "Custom Color", "Custom Gradient");
+			validTitles = ("Default", "App Icon Color", "Custom Color", "Custom Gradient");
 		},
 		{
 			cell = PSSliderCell;
 			cellClass = Velvet2Slider;
 			defaults = "com.noisyflake.velvet2";
-			key = borderIconAlpha;
+			key = backgroundIconAlpha;
 			min = 0;
 			max = 100;
 			showValue = 1;
-			require="borderType=icon";
+			require="backgroundType=icon";
 			label="Opacity";
 		},
 		{
 			cell = PSLinkCell;
 			defaults = "com.noisyflake.velvet2";
 			cellClass = Velvet2ColorPicker;
-			key = "borderColor";
+			key = "backgroundColor";
 			label = "Color";
-			require = "borderType=color";
+			require = "backgroundType=color";
 		},
 		{
 			cell = PSLinkListCell;
 			defaults = "com.noisyflake.velvet2";
-			key = "borderGradientDirection";
+			key = "backgroundGradientDirection";
 			detail = PSListItemsController;
 			label = "Gradient Direction";
 			validValues = ("cornerTop", "right", "bottom", "cornerBottom");
 			validTitles = ("\U2197", "\U2192", "\U2193", "\U2198");
-			require = "borderType=gradient";
+			require = "backgroundType=gradient";
 		},
 		{
 			cell = PSLinkCell;
 			defaults = "com.noisyflake.velvet2";
 			cellClass = Velvet2ColorPicker;
-			key = "borderGradient1";
+			key = "backgroundGradient1";
 			label = "Color 1";
-			require = "borderType=gradient";
+			require = "backgroundType=gradient";
 		},
 		{
 			cell = PSLinkCell;
 			defaults = "com.noisyflake.velvet2";
 			cellClass = Velvet2ColorPicker;
-			key = "borderGradient2";
+			key = "backgroundGradient2";
 			label = "Color 2";
-			require = "borderType=gradient";
-		}
+			require = "backgroundType=gradient";
+		},
 	);
-	title = "Global Settings";
+	title = "Background";
 }

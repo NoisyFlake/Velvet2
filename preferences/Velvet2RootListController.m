@@ -97,11 +97,12 @@
 	[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.paypal.me/NoisyFlake"] options:@{} completionHandler:nil];
 }
 
--(void)showController:(id)controller {
+// -(void)showController:(id)controller {
 	
-	// if ([controller isKindOfClass:NSClassFromString(@"Velvet2SettingsController")]) {
-	// 	((Velvet2SettingsController *)controller).identifier = @"globaltest";
-	// }
-	return [super showController:controller]; 
-}
+// 	if ([controller isKindOfClass:NSClassFromString(@"Velvet2SettingsController")]) {
+// 		((Velvet2SettingsController *)controller).identifier = @"globaltest";
+// 	}
+
+// 	return [super showController:controller]; 
+// }
 @end
