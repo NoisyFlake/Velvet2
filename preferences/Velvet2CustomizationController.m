@@ -1,10 +1,10 @@
 #import "../headers/HeadersPreferences.h"
 
-@implementation Velvet2SettingsController
+@implementation Velvet2CustomizationController
 
 - (NSArray *)specifiers {
 	if (!_specifiers) {
-        _specifiers = [self visibleSpecifiersFromPlist:@"Settings"];
+        _specifiers = [self visibleSpecifiersFromPlist:@"Customization"];
 	}
 
 	return _specifiers;

@@ -101,6 +101,11 @@
 		}
 	}
 
+	// Save the current identifier so we can use it in the sub- or parent controller
+	Velvet2PrefsManager *manager = [NSClassFromString(@"Velvet2PrefsManager") sharedInstance];
+	[manager setObject:identifier forKey:@"currentIcon"];
+	self.currentIconIdentifier = identifier;
+
 	self.appIcon.image = [UIImage _applicationIconImageForBundleIdentifier:identifier format:2 scale:UIScreen.mainScreen.scale];
 	[self updatePreview];
 }
@@ -125,6 +130,17 @@
 	dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
 		[self updatePreview];
 	});
+}
+
+- (void)didMoveToWindow {
+	[super didMoveToWindow];
+
+	Velvet2PrefsManager *manager = [NSClassFromString(@"Velvet2PrefsManager") sharedInstance];
+	NSString *currentIcon = [manager settingForKey:@"currentIcon" withIdentifier:nil];
+	if (currentIcon) {
+		// This causes the icon to update correctly in the SettingsController when returning from a sub-controller
+		[self updateAppIconWithIdentifier:currentIcon];
+	}	
 }
 
 @end

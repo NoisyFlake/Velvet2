@@ -11,7 +11,7 @@
 			cell = PSLinkCell;
 			cellClass = Velvet2LinkCell;
 			isController = 1;
-			detail = Velvet2SettingsController;
+			detail = Velvet2CustomizationController;
 			label = "Background";
 			systemIcon = "rectangle.fill";
 		},
@@ -19,7 +19,7 @@
 			cell = PSLinkCell;
 			cellClass = Velvet2LinkCell;
 			isController = 1;
-			detail = Velvet2SettingsController;
+			detail = Velvet2CustomizationController;
 			label = "Border";
 			systemIcon = "rectangle";
 		},
@@ -27,7 +27,7 @@
 			cell = PSLinkCell;
 			cellClass = Velvet2LinkCell;
 			isController = 1;
-			detail = Velvet2SettingsController;
+			detail = Velvet2CustomizationController;
 			label = "Glow";
 			systemIcon = "wand.and.stars";
 		},
@@ -39,7 +39,7 @@
 			cell = PSLinkCell;
 			cellClass = Velvet2LinkCell;
 			isController = 1;
-			detail = Velvet2SettingsController;
+			detail = Velvet2CustomizationController;
 			label = "Title";
 			systemIcon = "character.bubble";
 		},
@@ -47,7 +47,7 @@
 			cell = PSLinkCell;
 			cellClass = Velvet2LinkCell;
 			isController = 1;
-			detail = Velvet2SettingsController;
+			detail = Velvet2CustomizationController;
 			label = "Message";
 			systemIcon = "text.bubble";
 		},
@@ -55,7 +55,7 @@
 			cell = PSLinkCell;
 			cellClass = Velvet2LinkCell;
 			isController = 1;
-			detail = Velvet2SettingsController;
+			detail = Velvet2CustomizationController;
 			label = "Date";
 			systemIcon = "calendar";
 		},

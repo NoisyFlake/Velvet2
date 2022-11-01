@@ -7,6 +7,7 @@
 @property (nonatomic,retain) UILabel *messageLabel;
 @property (nonatomic,retain) UILabel *dateLabel;
 @property (nonatomic,retain) UIImageView *appIcon;
+@property (nonatomic,copy) NSString * currentIconIdentifier;
 -(instancetype)initWithFrame:(CGRect)frame notificationWidth:(CGFloat)width identifier:(NSString *)identifier;
 -(void)updatePreview;
 -(void)updateAppIconWithIdentifier:(NSString*)identifier;
