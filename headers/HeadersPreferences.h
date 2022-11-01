@@ -19,6 +19,7 @@
 #import "Velvet2/Velvet2ColorPicker.h"
 #import "Velvet2/Velvet2LinkCell.h"
 #import "Velvet2/Velvet2PrefsManager.h"
+#import "Velvet2/Velvet2PreviewView.h"
 #import "Velvet2/Velvet2RootListController.h"
 #import "Velvet2/Velvet2SettingsController.h"
 #import "Velvet2/Velvet2Slider.h"
