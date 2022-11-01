@@ -100,7 +100,7 @@
 // -(void)showController:(id)controller {
 	
 // 	if ([controller isKindOfClass:NSClassFromString(@"Velvet2SettingsController")]) {
-// 		((Velvet2SettingsController *)controller).identifier = @"globaltest";
+// 		((Velvet2SettingsController *)controller).identifier = @"com.apple.mobilecal";
 // 	}
 
 // 	return [super showController:controller]; 

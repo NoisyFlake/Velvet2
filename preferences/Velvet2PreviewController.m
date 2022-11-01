@@ -10,12 +10,23 @@
 	for (PSSpecifier *specifier in [mutableSpecifiers reverseObjectEnumerator]) {
 		NSString *requirement = specifier.properties[@"require"];
 		if (requirement) {
-			if ([requirement containsString:@"="]) {
-				NSArray *kv = [requirement componentsSeparatedByString:@"="];
-				if (![[manager settingForKey:kv[0] withIdentifier:self.identifier] isEqual:kv[1]]) [mutableSpecifiers removeObject:specifier];
-			} else {
-				if (![[manager settingForKey:requirement withIdentifier:self.identifier] boolValue]) [mutableSpecifiers removeObject:specifier];
+
+			NSArray *requirementList = [requirement componentsSeparatedByString:@"&"];
+			for (NSString *singleRequirement in requirementList) {
+				if ([singleRequirement containsString:@"="]) {
+					NSArray *kv = [singleRequirement componentsSeparatedByString:@"="];
+					if (![[manager settingForKey:kv[0] withIdentifier:self.identifier] isEqual:kv[1]]) {
+						[mutableSpecifiers removeObject:specifier];
+						break;
+					} 
+				} else {
+					if (![[manager settingForKey:singleRequirement withIdentifier:self.identifier] boolValue]) {
+						[mutableSpecifiers removeObject:specifier];
+						break;
+					}
+				}
 			}
+			
 		}
 	}
 
@@ -23,6 +34,10 @@
 }
 
 - (void)setPreferenceValue:(id)value specifier:(PSSpecifier*)specifier {
+	if (self.identifier) {
+		specifier.properties[@"key"] = [NSString stringWithFormat:@"%@_%@", specifier.properties[@"key"], self.identifier];
+	}
+
 	[super setPreferenceValue:value specifier:specifier];
 	[self.preview updatePreview];
 
@@ -52,11 +67,15 @@
 
 	if ([self.navigationController.previousViewController isKindOfClass:NSClassFromString(@"Velvet2SettingsController")]) {
 		// Use the same icon that our parent displayed
+		// self.preview.disableAnimationOnce = YES;
 		[self.preview updateAppIconWithIdentifier:((Velvet2SettingsController *)self.navigationController.previousViewController).preview.currentIconIdentifier];
 	}
 
 	[self.view insertSubview:self.preview atIndex:1];
 
-	self.table.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, notificationWidth, 93 + (self.identifier ? 0 : 16))]; // Make room after notification
+	// Need additional space if we don't have a group label first
+	CGFloat additionalHeight = [self specifierAtIndex:0].name ? 0 : 32;
+
+	self.table.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, notificationWidth, 93 + additionalHeight + (self.identifier ? 0 : 16))]; // Make room after notification
 }
 @end

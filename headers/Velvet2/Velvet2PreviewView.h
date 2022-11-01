@@ -8,6 +8,7 @@
 @property (nonatomic,retain) UILabel *dateLabel;
 @property (nonatomic,retain) UIImageView *appIcon;
 @property (nonatomic,copy) NSString * currentIconIdentifier;
+@property (nonatomic, assign) BOOL disableAnimations;
 -(instancetype)initWithFrame:(CGRect)frame notificationWidth:(CGFloat)width identifier:(NSString *)identifier;
 -(void)updatePreview;
 -(void)updateAppIconWithIdentifier:(NSString*)identifier;

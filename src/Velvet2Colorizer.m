@@ -21,16 +21,21 @@
 }
 
 - (void)colorBackground:(UIView *)backgroundView {
-    NSString *backgroundType = [self.manager settingForKey:@"backgroundType" withIdentifier:self.identifier];
     UIColor *backgroundColor;
 
-    if ([backgroundType isEqual:@"color"]) {
-        backgroundColor = [self.manager colorForKey:@"backgroundColor" withIdentifier:self.identifier];
-    } else if ([backgroundType isEqual:@"gradient"]) {
-        NSArray *gradientColors = @[(id)[self.manager colorForKey:@"backgroundGradient1" withIdentifier:self.identifier].CGColor, (id)[self.manager colorForKey:@"backgroundGradient2" withIdentifier:self.identifier].CGColor];
-        backgroundColor = [UIColor colorFromGradient:gradientColors withDirection:[self.manager settingForKey:@"backgroundGradientDirection" withIdentifier:self.identifier] inFrame:backgroundView.frame];
-    } else if ([backgroundType isEqual:@"icon"]) {
-        backgroundColor = [self.iconColor colorWithAlphaComponent:[self.manager alphaValueForKey:@"backgroundIconAlpha" withIdentifier:self.identifier]];
+    BOOL backgroundEnabled = [[self.manager settingForKey:@"backgroundEnabled" withIdentifier:self.identifier] boolValue];
+
+    if (backgroundEnabled) {
+        NSString *backgroundType = [self.manager settingForKey:@"backgroundType" withIdentifier:self.identifier];
+        
+        if ([backgroundType isEqual:@"color"]) {
+            backgroundColor = [self.manager colorForKey:@"backgroundColor" withIdentifier:self.identifier];
+        } else if ([backgroundType isEqual:@"gradient"]) {
+            NSArray *gradientColors = @[(id)[self.manager colorForKey:@"backgroundGradient1" withIdentifier:self.identifier].CGColor, (id)[self.manager colorForKey:@"backgroundGradient2" withIdentifier:self.identifier].CGColor];
+            backgroundColor = [UIColor colorFromGradient:gradientColors withDirection:[self.manager settingForKey:@"backgroundGradientDirection" withIdentifier:self.identifier] inFrame:backgroundView.frame];
+        } else if ([backgroundType isEqual:@"icon"]) {
+            backgroundColor = [self.iconColor colorWithAlphaComponent:[self.manager alphaValueForKey:@"backgroundIconAlpha" withIdentifier:self.identifier]];
+        }
     }
 
     backgroundView.backgroundColor = backgroundColor;

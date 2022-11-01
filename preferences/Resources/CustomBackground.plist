@@ -2,17 +2,61 @@
 	items = (
 		{
 			cell = PSGroupCell;
-			label = "Background";
 		},
 		{
-			cell = PSLinkListCell;
+			cell = PSSwitchCell;
+			cellClass = Velvet2Switch;
+			cellSubtitleText = "Use a custom background color";
+			default = 1;
+			defaults = "com.noisyflake.velvet2";
+			key = backgroundEnabled;
+			label = "Enable Background";
+			systemIcon = "power";
+		},
+		{
+			cell = PSGroupCell;
+			label = "Type";
+			require = "backgroundEnabled";
+		},
+		{
+			cell = PSDefaultCell;
+			cellClass = Velvet2AppearanceCell;
+			options = (
+				{
+					text = "Icon Color";
+					value = "icon";
+					systemIcon = "wand.and.stars";
+				},
+				{
+					text = "Static Color";
+					value = "color";
+					systemIcon = "paintbrush";
+				},
+				{
+					text = "Gradient";
+					value = "gradient";
+					systemIcon = "circle.righthalf.filled";
+				},
+			);
 			defaults = "com.noisyflake.velvet2";
 			key = "backgroundType";
-			detail = PSListItemsController;
-			label = "Background Color";
-			validValues = ("default", "icon", "color", "gradient");
-			validTitles = ("Default", "App Icon Color", "Custom Color", "Custom Gradient");
+			height = 130;
+			require = "backgroundEnabled";
 		},
+		{
+			cell = PSGroupCell;
+			label = "Options";
+			require = "backgroundEnabled";
+		},
+		// {
+		// 	cell = PSLinkListCell;
+		// 	defaults = "com.noisyflake.velvet2";
+		// 	key = "backgroundType";
+		// 	detail = PSListItemsController;
+		// 	label = "Background Color";
+		// 	validValues = ("default", "icon", "color", "gradient");
+		// 	validTitles = ("Default", "App Icon Color", "Custom Color", "Custom Gradient");
+		// },
 		{
 			cell = PSSliderCell;
 			cellClass = Velvet2Slider;
@@ -21,7 +65,7 @@
 			min = 0;
 			max = 100;
 			showValue = 1;
-			require="backgroundType=icon";
+			require="backgroundEnabled&backgroundType=icon";
 			label="Opacity";
 		},
 		{
@@ -30,17 +74,19 @@
 			cellClass = Velvet2ColorPicker;
 			key = "backgroundColor";
 			label = "Color";
-			require = "backgroundType=color";
+			require = "backgroundEnabled&backgroundType=color";
 		},
 		{
 			cell = PSLinkListCell;
+			cellClass = "Velvet2LinkCell";
 			defaults = "com.noisyflake.velvet2";
 			key = "backgroundGradientDirection";
 			detail = PSListItemsController;
 			label = "Gradient Direction";
 			validValues = ("cornerTop", "right", "bottom", "cornerBottom");
 			validTitles = ("\U2197", "\U2192", "\U2193", "\U2198");
-			require = "backgroundType=gradient";
+			require = "backgroundEnabled&backgroundType=gradient";
+			systemIcon = "arrow.left.arrow.right.circle";
 		},
 		{
 			cell = PSLinkCell;
@@ -48,7 +94,8 @@
 			cellClass = Velvet2ColorPicker;
 			key = "backgroundGradient1";
 			label = "Color 1";
-			require = "backgroundType=gradient";
+			require = "backgroundEnabled&backgroundType=gradient";
+			systemIcon = "1.circle";
 		},
 		{
 			cell = PSLinkCell;
@@ -56,7 +103,8 @@
 			cellClass = Velvet2ColorPicker;
 			key = "backgroundGradient2";
 			label = "Color 2";
-			require = "backgroundType=gradient";
+			require = "backgroundEnabled&backgroundType=gradient";
+			systemIcon = "2.circle";
 		},
 	);
 	title = "Background";

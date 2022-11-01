@@ -8,6 +8,9 @@
     self.identifier = identifier;
     self.backgroundColor = UIColor.systemBackgroundColor;
 
+	// Prevent animations from playing while loading
+	self.disableAnimations = YES;
+
     UIView *notificationView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width, 75.3)];
 	notificationView.center = CGPointMake(self.frame.size.width / 2, self.frame.size.height / 2);
 	[self insertSubview:notificationView atIndex:0];
@@ -74,7 +77,7 @@
 	Velvet2Colorizer *colorizer = [[Velvet2Colorizer alloc] initWithIdentifier:identifier];
     colorizer.appIcon = self.appIcon.image;
 
-	[UIView animateWithDuration:0.1 animations:^{
+	[UIView animateWithDuration:self.disableAnimations ? 0 : 0.5 animations:^{
 		CGFloat cornerRadius = [[prefsManager settingForKey:@"cornerRadiusEnabled" withIdentifier:identifier] boolValue] ? [[prefsManager settingForKey:@"cornerRadiusCustom" withIdentifier:identifier] floatValue] : 19;
 		self.materialView.layer.continuousCorners = cornerRadius < self.materialView.frame.size.height / 2;
 		self.materialView.layer.cornerRadius = MIN(cornerRadius, self.materialView.frame.size.height / 2);
@@ -84,6 +87,8 @@
 		[colorizer colorBackground:self.velvetView];
 		[colorizer colorBorder:self.velvetView];
 	}];
+
+	// self.disableAnimationOnce = NO;
 }
 
 -(void)updateAppIconWithIdentifier:(NSString*)identifier {
@@ -141,6 +146,8 @@
 		// This causes the icon to update correctly in the SettingsController when returning from a sub-controller
 		[self updateAppIconWithIdentifier:currentIcon];
 	}	
+
+	self.disableAnimations = NO;
 }
 
 @end
