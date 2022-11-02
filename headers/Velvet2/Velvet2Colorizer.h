@@ -12,5 +12,6 @@
 - (void)colorBackground:(UIView *)backgroundView;
 - (void)colorBorder:(UIView *)borderView;
 - (void)colorShadow:(UIView *)shadowView;
+- (void)colorLine:(UIView *)lineView inFrame:(CGRect)frame;
 
 @end

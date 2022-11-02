@@ -84,4 +84,41 @@
     shadowView.layer.shadowOpacity = 1;
 }
 
+- (void)colorLine:(UIView *)lineView inFrame:(CGRect)frame {
+    NSString *position = [self.manager settingForKey:@"linePosition" withIdentifier:self.identifier];
+    CGFloat size = [[self.manager settingForKey:@"lineWidth" withIdentifier:self.identifier] floatValue];
+
+    CGFloat x = [position isEqual:@"right"] || [position isEqual:@"leftRight"] ? frame.size.width - size : 0;
+    CGFloat y = [position isEqual:@"bottom"] || [position isEqual:@"topBottom"] ? frame.size.height - size : 0;
+    CGFloat width = [position isEqual:@"top"] || [position isEqual:@"bottom"] || [position isEqual:@"topBottom"] ? frame.size.width : size;
+    CGFloat height = [position isEqual:@"left"] || [position isEqual:@"right"] || [position isEqual:@"leftRight"] ? frame.size.height : size;
+    lineView.layer.sublayers[0].frame = CGRectMake(x, y, width, height);
+
+    if ([position isEqual:@"topBottom"] || [position isEqual:@"leftRight"]) {
+        lineView.layer.sublayers[1].frame = CGRectMake(0, 0, width, height);
+    } else {
+        lineView.layer.sublayers[1].frame = CGRectZero;
+    }
+
+    UIColor *lineColor;
+
+    BOOL lineEnabled = [[self.manager settingForKey:@"lineEnabled" withIdentifier:self.identifier] boolValue];
+
+    if (lineEnabled) {
+        NSString *lineType = [self.manager settingForKey:@"lineType" withIdentifier:self.identifier];
+
+        if ([lineType isEqual:@"color"]) {
+            lineColor = [self.manager colorForKey:@"lineColor" withIdentifier:self.identifier];
+        } else if ([lineType isEqual:@"gradient"]) {
+            NSArray *gradientColors = @[(id)[self.manager colorForKey:@"lineGradient1" withIdentifier:self.identifier].CGColor, (id)[self.manager colorForKey:@"lineGradient2" withIdentifier:self.identifier].CGColor];
+            lineColor = [UIColor colorFromGradient:gradientColors withDirection:[self.manager settingForKey:@"lineGradientDirection" withIdentifier:self.identifier] inFrame:lineView.layer.frame];
+        } else if ([lineType isEqual:@"icon"]) {
+            lineColor = [self.iconColor colorWithAlphaComponent:[self.manager alphaValueForKey:@"lineIconAlpha" withIdentifier:self.identifier]];
+        }
+    }
+
+    lineView.layer.sublayers[0].backgroundColor = lineColor ? lineColor.CGColor : nil;
+    lineView.layer.sublayers[1].backgroundColor = lineColor ? lineColor.CGColor : nil;
+}
+
 @end

@@ -22,6 +22,9 @@
 	self.materialView = materialView;
 
 	UIView *velvetView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width, 75.3)];
+	[velvetView.layer insertSublayer:[CALayer layer] atIndex:0];
+	[velvetView.layer insertSublayer:[CALayer layer] atIndex:0];
+	velvetView.clipsToBounds = YES;
 	[notificationView insertSubview:velvetView atIndex:1];
 	self.velvetView = velvetView;
 
@@ -86,6 +89,7 @@
 		[colorizer colorBackground:self.velvetView];
 		[colorizer colorBorder:self.velvetView];
 		[colorizer colorShadow:self.materialView];
+		[colorizer colorLine:self.velvetView inFrame:self.materialView.frame];
 	}];
 }
 

@@ -11,7 +11,8 @@ Velvet2PrefsManager *prefsManager;
     NCNotificationShortLookView *view = (NCNotificationShortLookView *)self.viewForPreview;
 
     UIView *velvetView = [UIView new];
-    [velvetView.layer insertSublayer:[CAGradientLayer layer] atIndex:0];
+    [velvetView.layer insertSublayer:[CALayer layer] atIndex:0];
+    [velvetView.layer insertSublayer:[CALayer layer] atIndex:0];
     [view.backgroundMaterialView.superview insertSubview:velvetView atIndex:1];
 
     self.velvetView = velvetView;
@@ -49,8 +50,6 @@ Velvet2PrefsManager *prefsManager;
 
     Velvet2Colorizer *colorizer = [[Velvet2Colorizer alloc] initWithIdentifier:identifier];
     colorizer.appIcon = appIconView.image;
-    
-    // =============== Corner Radius =============== //
 
     CGFloat cornerRadius = [[prefsManager settingForKey:@"cornerRadiusEnabled" withIdentifier:identifier] boolValue] ? [[prefsManager settingForKey:@"cornerRadiusCustom" withIdentifier:identifier] floatValue] : 19;
 	materialView.layer.continuousCorners = cornerRadius < materialView.frame.size.height / 2;
@@ -62,19 +61,10 @@ Velvet2PrefsManager *prefsManager;
     materialView.superview.layer.cornerRadius = MIN(cornerRadius, materialView.frame.size.height / 2);
     stackDimmingView.layer.cornerRadius = MIN(cornerRadius, materialView.frame.size.height / 2);
 
-    // =============== Background =============== //
-
     [colorizer colorBackground:self.velvetView];
-
-    // =============== Border =============== //
-
     [colorizer colorBorder:self.velvetView];
-
     [colorizer colorShadow:materialView];
-
-    // Single border
-    // singleBorder.frame = CGRectMake(0, materialView.frame.size.height - 3, materialView.frame.size.width, 3);
-    // singleBorder.backgroundColor = gradientColor.CGColor;
+    [colorizer colorLine:self.velvetView inFrame:materialView.frame];
 
     // Title
     // title.textColor = gradientColor;

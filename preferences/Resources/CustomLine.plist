@@ -6,29 +6,41 @@
 		{
 			cell = PSSwitchCell;
 			cellClass = Velvet2Switch;
-			cellSubtitleText = "Show a custom border";
+			cellSubtitleText = "Show a custom line at the edge";
 			default = 1;
 			defaults = "com.noisyflake.velvet2";
-			key = borderEnabled;
-			label = "Enable Border";
+			key = lineEnabled;
+			label = "Enable Line";
 			systemIcon = "power";
 		},
-		{
+        {
+			cell = PSLinkListCell;
+			cellClass = "Velvet2LinkCell";
+			defaults = "com.noisyflake.velvet2";
+			key = "linePosition";
+			detail = PSListItemsController;
+			label = "Position";
+			validValues = ("top", "right", "bottom", "left", "topBottom", "leftRight");
+			validTitles = ("Top", "Right", "Bottom", "Left", "Top & Bottom", "Left & Right");
+			require = "lineEnabled";
+			systemIcon = "mappin.and.ellipse";
+		},
+        {
 			cell = PSSliderCell;
 			cellClass = Velvet2Slider;
 			defaults = "com.noisyflake.velvet2";
-			key = borderWidth;
+			key = lineWidth;
 			min = 1;
 			max = 5;
 			showValue = 1;
-			require = "borderEnabled";
+			require = "lineEnabled";
 			label = "Size";
 			systemIcon = "textformat.size";
 		},
 		{
 			cell = PSGroupCell;
 			label = "Type";
-			require = "borderEnabled";
+			require = "lineEnabled";
 		},
 		{
 			cell = PSDefaultCell;
@@ -51,24 +63,24 @@
 				},
 			);
 			defaults = "com.noisyflake.velvet2";
-			key = "borderType";
+			key = "lineType";
 			height = 130;
-			require = "borderEnabled";
+			require = "lineEnabled";
 		},
 		{
 			cell = PSGroupCell;
 			label = "Options";
-			require = "borderEnabled";
+			require = "lineEnabled";
 		},
 		{
 			cell = PSSliderCell;
 			cellClass = Velvet2Slider;
 			defaults = "com.noisyflake.velvet2";
-			key = borderIconAlpha;
+			key = lineIconAlpha;
 			min = 0;
 			max = 100;
 			showValue = 1;
-			require = "borderEnabled&borderType=icon";
+			require = "lineEnabled&lineType=icon";
 			label = "Opacity";
 			systemIcon = "eye";
 		},
@@ -76,41 +88,41 @@
 			cell = PSLinkCell;
 			defaults = "com.noisyflake.velvet2";
 			cellClass = Velvet2ColorPicker;
-			key = "borderColor";
+			key = "lineColor";
 			label = "Color";
-			require = "borderEnabled&borderType=color";
+			require = "lineEnabled&lineType=color";
 			systemIcon = "eyedropper";
 		},
 		{
 			cell = PSLinkListCell;
 			cellClass = "Velvet2LinkCell";
 			defaults = "com.noisyflake.velvet2";
-			key = "borderGradientDirection";
+			key = "lineGradientDirection";
 			detail = PSListItemsController;
 			label = "Gradient Direction";
 			validValues = ("cornerTop", "right", "bottom", "cornerBottom");
 			validTitles = ("\U2197", "\U2192", "\U2193", "\U2198");
-			require = "borderEnabled&borderType=gradient";
+			require = "lineEnabled&lineType=gradient";
 			systemIcon = "arrow.left.arrow.right";
 		},
 		{
 			cell = PSLinkCell;
 			defaults = "com.noisyflake.velvet2";
 			cellClass = Velvet2ColorPicker;
-			key = "borderGradient1";
+			key = "lineGradient1";
 			label = "Color 1";
-			require = "borderEnabled&borderType=gradient";
+			require = "lineEnabled&lineType=gradient";
 			systemIcon = "eyedropper";
 		},
 		{
 			cell = PSLinkCell;
 			defaults = "com.noisyflake.velvet2";
 			cellClass = Velvet2ColorPicker;
-			key = "borderGradient2";
+			key = "lineGradient2";
 			label = "Color 2";
-			require = "borderEnabled&borderType=gradient";
+			require = "lineEnabled&lineType=gradient";
 			systemIcon = "eyedropper";
 		},
 	);
-	title = "Border";
+	title = "Line";
 }

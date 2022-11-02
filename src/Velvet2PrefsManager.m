@@ -32,7 +32,12 @@ static void sendUpdateNotification() {
         @"borderGradientDirection": @"right",
         @"shadowWidth": @5,
         @"shadowType": @"icon",
-        @"shadowIconAlpha": @100
+        @"shadowIconAlpha": @100,
+        @"linePosition": @"left",
+        @"lineWidth": @3,
+        @"lineType": @"icon",
+        @"lineIconAlpha": @100,
+        @"lineGradientDirection": @"left",
     }];
 
     CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), NULL, (CFNotificationCallback)sendUpdateNotification, CFSTR("com.noisyflake.velvet2/preferenceUpdate"), NULL, CFNotificationSuspensionBehaviorCoalesce);

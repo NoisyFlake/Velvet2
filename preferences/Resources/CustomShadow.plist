@@ -6,7 +6,7 @@
 		{
 			cell = PSSwitchCell;
 			cellClass = Velvet2Switch;
-			cellSubtitleText = "Use a glow effect";
+			cellSubtitleText = "Show a custom glow effect";
 			default = 1;
 			defaults = "com.noisyflake.velvet2";
 			key = shadowEnabled;
@@ -22,7 +22,7 @@
 			max = 10;
 			showValue = 1;
 			require = "shadowEnabled";
-			label = "Width";
+			label = "Size";
 			systemIcon = "textformat.size";
 		},
 		{

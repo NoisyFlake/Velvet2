@@ -30,9 +30,18 @@
 			cellClass = Velvet2LinkCell;
 			isController = 1;
 			detail = Velvet2CustomizationController;
+			key = "Line";
+			label = "Line";
+			systemIcon = "line.horizontal.star.fill.line.horizontal";
+		},
+		{
+			cell = PSLinkCell;
+			cellClass = Velvet2LinkCell;
+			isController = 1;
+			detail = Velvet2CustomizationController;
 			key = "Shadow";
 			label = "Glow";
-			systemIcon = "wand.and.stars";
+			systemIcon = "sparkles";
 		},
 		{
 			cell = PSGroupCell;
