@@ -90,6 +90,9 @@
 		[colorizer colorBorder:self.velvetView];
 		[colorizer colorShadow:self.materialView];
 		[colorizer colorLine:self.velvetView inFrame:self.materialView.frame];
+		[colorizer colorTitle:self.titleLabel];
+		[colorizer colorMessage:self.messageLabel];
+		[colorizer colorDate:self.dateLabel];
 	}];
 }
 

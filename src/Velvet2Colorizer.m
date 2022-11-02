@@ -121,4 +121,72 @@
     lineView.layer.sublayers[1].backgroundColor = lineColor ? lineColor.CGColor : nil;
 }
 
+- (void)colorTitle:(UILabel*)title {
+    UIColor *titleColor;
+
+    BOOL titleEnabled = [[self.manager settingForKey:@"titleEnabled" withIdentifier:self.identifier] boolValue];
+
+    if (titleEnabled) {
+        NSString *titleType = [self.manager settingForKey:@"titleType" withIdentifier:self.identifier];
+        
+        if ([titleType isEqual:@"color"]) {
+            titleColor = [self.manager colorForKey:@"titleColor" withIdentifier:self.identifier];
+        } else if ([titleType isEqual:@"gradient"]) {
+            NSArray *gradientColors = @[(id)[self.manager colorForKey:@"titleGradient1" withIdentifier:self.identifier].CGColor, (id)[self.manager colorForKey:@"titleGradient2" withIdentifier:self.identifier].CGColor];
+            CGSize size = [title sizeThatFits:title.frame.size];
+            titleColor = [UIColor colorFromGradient:gradientColors withDirection:[self.manager settingForKey:@"titleGradientDirection" withIdentifier:self.identifier] inFrame:CGRectMake(title.frame.origin.x, title.frame.origin.y, size.width, size.height)];
+        } else if ([titleType isEqual:@"icon"]) {
+            titleColor = [self.iconColor colorWithAlphaComponent:[self.manager alphaValueForKey:@"titleIconAlpha" withIdentifier:self.identifier]];
+        }
+    }
+
+    title.textColor = titleColor ? titleColor : [UIColor.labelColor colorWithAlphaComponent:0.9];
+}
+
+- (void)colorMessage:(UILabel*)message {
+    UIColor *messageColor;
+
+    BOOL messageEnabled = [[self.manager settingForKey:@"messageEnabled" withIdentifier:self.identifier] boolValue];
+
+    if (messageEnabled) {
+        NSString *messageType = [self.manager settingForKey:@"messageType" withIdentifier:self.identifier];
+        
+        if ([messageType isEqual:@"color"]) {
+            messageColor = [self.manager colorForKey:@"messageColor" withIdentifier:self.identifier];
+        } else if ([messageType isEqual:@"gradient"]) {
+            NSArray *gradientColors = @[(id)[self.manager colorForKey:@"messageGradient1" withIdentifier:self.identifier].CGColor, (id)[self.manager colorForKey:@"messageGradient2" withIdentifier:self.identifier].CGColor];
+            CGSize size = [message sizeThatFits:message.frame.size];
+            messageColor = [UIColor colorFromGradient:gradientColors withDirection:[self.manager settingForKey:@"messageGradientDirection" withIdentifier:self.identifier] inFrame:CGRectMake(message.frame.origin.x, message.frame.origin.y, size.width, size.height)];
+        } else if ([messageType isEqual:@"icon"]) {
+            messageColor = [self.iconColor colorWithAlphaComponent:[self.manager alphaValueForKey:@"messageIconAlpha" withIdentifier:self.identifier]];
+        }
+    }
+
+    message.textColor = messageColor ? messageColor : [UIColor.labelColor colorWithAlphaComponent:0.9];
+}
+
+- (void)colorDate:(UILabel*)date {
+    UIColor *dateColor;
+
+    BOOL dateEnabled = [[self.manager settingForKey:@"dateEnabled" withIdentifier:self.identifier] boolValue];
+
+    if (dateEnabled) {
+        NSString *dateType = [self.manager settingForKey:@"dateType" withIdentifier:self.identifier];
+        
+        if ([dateType isEqual:@"color"]) {
+            dateColor = [self.manager colorForKey:@"dateColor" withIdentifier:self.identifier];
+        } else if ([dateType isEqual:@"gradient"]) {
+            NSArray *gradientColors = @[(id)[self.manager colorForKey:@"dateGradient1" withIdentifier:self.identifier].CGColor, (id)[self.manager colorForKey:@"dateGradient2" withIdentifier:self.identifier].CGColor];
+            dateColor = [UIColor colorFromGradient:gradientColors withDirection:[self.manager settingForKey:@"dateGradientDirection" withIdentifier:self.identifier] inFrame:date.frame];
+        } else if ([dateType isEqual:@"icon"]) {
+            dateColor = [self.iconColor colorWithAlphaComponent:[self.manager alphaValueForKey:@"dateIconAlpha" withIdentifier:self.identifier]];
+        }
+    }
+
+    date.layer.filters = nil;
+
+    // Let's fake the label color here, since the stupid filter won't play nice
+    date.textColor = dateColor ? dateColor : [UIColor.labelColor colorWithAlphaComponent:0.5];
+}
+
 @end

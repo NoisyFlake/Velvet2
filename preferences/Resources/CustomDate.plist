@@ -1,0 +1,104 @@
+{
+	items = (
+		{
+			cell = PSGroupCell;
+		},
+		{
+			cell = PSSwitchCell;
+			cellClass = Velvet2Switch;
+			cellSubtitleText = "Use a custom date color";
+			default = 1;
+			defaults = "com.noisyflake.velvet2";
+			key = dateEnabled;
+			label = "Enable Date";
+			systemIcon = "power";
+		},
+		{
+			cell = PSGroupCell;
+			label = "Type";
+			require = "dateEnabled";
+		},
+		{
+			cell = PSDefaultCell;
+			cellClass = Velvet2AppearanceCell;
+			options = (
+				{
+					text = "Icon Color";
+					value = "icon";
+					systemIcon = "wand.and.stars";
+				},
+				{
+					text = "Static Color";
+					value = "color";
+					systemIcon = "paintbrush";
+				},
+				{
+					text = "Gradient";
+					value = "gradient";
+					systemIcon = "circle.righthalf.filled";
+				},
+			);
+			defaults = "com.noisyflake.velvet2";
+			key = "dateType";
+			height = 130;
+			require = "dateEnabled";
+		},
+		{
+			cell = PSGroupCell;
+			label = "Options";
+			require = "dateEnabled";
+		},
+		{
+			cell = PSSliderCell;
+			cellClass = Velvet2Slider;
+			defaults = "com.noisyflake.velvet2";
+			key = dateIconAlpha;
+			min = 0;
+			max = 100;
+			showValue = 1;
+			require = "dateEnabled&dateType=icon";
+			label = "Opacity";
+			systemIcon = "eye";
+		},
+		{
+			cell = PSLinkCell;
+			defaults = "com.noisyflake.velvet2";
+			cellClass = Velvet2ColorPicker;
+			key = "dateColor";
+			label = "Color";
+			require = "dateEnabled&dateType=color";
+			systemIcon = "eyedropper";
+		},
+		{
+			cell = PSLinkListCell;
+			cellClass = "Velvet2LinkCell";
+			defaults = "com.noisyflake.velvet2";
+			key = "dateGradientDirection";
+			detail = PSListItemsController;
+			label = "Gradient Direction";
+			validValues = ("cornerTop", "right", "bottom", "cornerBottom");
+			validTitles = ("\U2197", "\U2192", "\U2193", "\U2198");
+			require = "dateEnabled&dateType=gradient";
+			systemIcon = "arrow.left.arrow.right";
+		},
+		{
+			cell = PSLinkCell;
+			defaults = "com.noisyflake.velvet2";
+			cellClass = Velvet2ColorPicker;
+			key = "dateGradient1";
+			label = "Color 1";
+			require = "dateEnabled&dateType=gradient";
+			systemIcon = "eyedropper";
+		},
+		{
+			cell = PSLinkCell;
+			defaults = "com.noisyflake.velvet2";
+			cellClass = Velvet2ColorPicker;
+			key = "dateGradient2";
+			label = "Color 2";
+			require = "dateEnabled&dateType=gradient";
+			systemIcon = "eyedropper";
+		},
+	);
+	title = "Date";
+}

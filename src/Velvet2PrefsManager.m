@@ -38,6 +38,15 @@ static void sendUpdateNotification() {
         @"lineType": @"icon",
         @"lineIconAlpha": @100,
         @"lineGradientDirection": @"left",
+        @"titleType": @"icon",
+        @"titleIconAlpha": @100,
+        @"titleGradientDirection": @"right",
+        @"messageType": @"icon",
+        @"messageIconAlpha": @100,
+        @"messageGradientDirection": @"right",
+        @"dateType": @"icon",
+        @"dateIconAlpha": @100,
+        @"dateGradientDirection": @"right",
     }];
 
     CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), NULL, (CFNotificationCallback)sendUpdateNotification, CFSTR("com.noisyflake.velvet2/preferenceUpdate"), NULL, CFNotificationSuspensionBehaviorCoalesce);

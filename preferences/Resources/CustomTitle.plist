@@ -1,0 +1,104 @@
+{
+	items = (
+		{
+			cell = PSGroupCell;
+		},
+		{
+			cell = PSSwitchCell;
+			cellClass = Velvet2Switch;
+			cellSubtitleText = "Use a custom title color";
+			default = 1;
+			defaults = "com.noisyflake.velvet2";
+			key = titleEnabled;
+			label = "Enable Title";
+			systemIcon = "power";
+		},
+		{
+			cell = PSGroupCell;
+			label = "Type";
+			require = "titleEnabled";
+		},
+		{
+			cell = PSDefaultCell;
+			cellClass = Velvet2AppearanceCell;
+			options = (
+				{
+					text = "Icon Color";
+					value = "icon";
+					systemIcon = "wand.and.stars";
+				},
+				{
+					text = "Static Color";
+					value = "color";
+					systemIcon = "paintbrush";
+				},
+				{
+					text = "Gradient";
+					value = "gradient";
+					systemIcon = "circle.righthalf.filled";
+				},
+			);
+			defaults = "com.noisyflake.velvet2";
+			key = "titleType";
+			height = 130;
+			require = "titleEnabled";
+		},
+		{
+			cell = PSGroupCell;
+			label = "Options";
+			require = "titleEnabled";
+		},
+		{
+			cell = PSSliderCell;
+			cellClass = Velvet2Slider;
+			defaults = "com.noisyflake.velvet2";
+			key = titleIconAlpha;
+			min = 0;
+			max = 100;
+			showValue = 1;
+			require = "titleEnabled&titleType=icon";
+			label = "Opacity";
+			systemIcon = "eye";
+		},
+		{
+			cell = PSLinkCell;
+			defaults = "com.noisyflake.velvet2";
+			cellClass = Velvet2ColorPicker;
+			key = "titleColor";
+			label = "Color";
+			require = "titleEnabled&titleType=color";
+			systemIcon = "eyedropper";
+		},
+		{
+			cell = PSLinkListCell;
+			cellClass = "Velvet2LinkCell";
+			defaults = "com.noisyflake.velvet2";
+			key = "titleGradientDirection";
+			detail = PSListItemsController;
+			label = "Gradient Direction";
+			validValues = ("cornerTop", "right", "bottom", "cornerBottom");
+			validTitles = ("\U2197", "\U2192", "\U2193", "\U2198");
+			require = "titleEnabled&titleType=gradient";
+			systemIcon = "arrow.left.arrow.right";
+		},
+		{
+			cell = PSLinkCell;
+			defaults = "com.noisyflake.velvet2";
+			cellClass = Velvet2ColorPicker;
+			key = "titleGradient1";
+			label = "Color 1";
+			require = "titleEnabled&titleType=gradient";
+			systemIcon = "eyedropper";
+		},
+		{
+			cell = PSLinkCell;
+			defaults = "com.noisyflake.velvet2";
+			cellClass = Velvet2ColorPicker;
+			key = "titleGradient2";
+			label = "Color 2";
+			require = "titleEnabled&titleType=gradient";
+			systemIcon = "eyedropper";
+		},
+	);
+	title = "Title";
+}

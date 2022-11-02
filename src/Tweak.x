@@ -29,6 +29,20 @@ Velvet2PrefsManager *prefsManager;
     [self velvetUpdateStyle];
 }
 
+-(void)viewDidAppear:(BOOL)arg1 {
+    %orig;
+    
+    Velvet2Colorizer *colorizer = [[Velvet2Colorizer alloc] initWithIdentifier:self.notificationRequest.sectionIdentifier];
+    NCNotificationShortLookView *view                       = (NCNotificationShortLookView *)self.viewForPreview;
+    NCNotificationSeamlessContentView *contentView          = [view valueForKey:@"notificationContentView"];
+    NCBadgedIconView *badgedIconView                        = [contentView valueForKey:@"badgedIconView"];
+    UIImageView *appIconView                                = (UIImageView *)badgedIconView.iconView;
+    colorizer.appIcon = appIconView.image;
+
+    // For some reason, dateLabel isn't fully initialized yet after viewDidLayoutSubviews
+    [colorizer colorDate:[contentView valueForKey:@"dateLabel"]];
+}
+
 %new
 -(void)velvetUpdateStyle {
     NSString *identifier = self.notificationRequest.sectionIdentifier;
@@ -38,11 +52,10 @@ Velvet2PrefsManager *prefsManager;
     MTMaterialView *materialView                            = view.backgroundMaterialView;
     NCNotificationViewControllerView *controllerView        = [self valueForKey:@"contentSizeManagingView"];
     UIView *stackDimmingView                                = [controllerView valueForKey:@"stackDimmingView"];
-    // CAGradientLayer *singleBorder                           = self.velvetView.layer.sublayers[0];
     NCNotificationSeamlessContentView *contentView          = [view valueForKey:@"notificationContentView"];
-    // UILabel *title                                          = [contentView valueForKey:@"primaryTextLabel"];
-    // UILabel *message                                     = [contentView valueForKey:@"secondaryTextElement"];
-    // UILabel *dateLabel                                   = [contentView valueForKey:@"dateLabel"];
+    UILabel *title                                          = [contentView valueForKey:@"primaryTextLabel"];
+    UILabel *message                                        = [contentView valueForKey:@"secondaryTextElement"];
+    UILabel *dateLabel                                      = [contentView valueForKey:@"dateLabel"];
     NCBadgedIconView *badgedIconView                        = [contentView valueForKey:@"badgedIconView"];
     UIImageView *appIconView                                = (UIImageView *)badgedIconView.iconView;
 
@@ -65,17 +78,9 @@ Velvet2PrefsManager *prefsManager;
     [colorizer colorBorder:self.velvetView];
     [colorizer colorShadow:materialView];
     [colorizer colorLine:self.velvetView inFrame:materialView.frame];
-
-    // Title
-    // title.textColor = gradientColor;
-
-    // Message
-    // message.textColor = customColor;
-    // message.textAlignment = NSTextAlignmentCenter;
-
-    // Date
-    // dateLabel.textColor = UIColor.redColor;
-    // dateLabel.layer.filters = nil;
+    [colorizer colorTitle:title];
+    [colorizer colorMessage:message];
+    [colorizer colorDate:dateLabel];
 
     // Icon
     // appIcon.layer.cornerRadius = 19;

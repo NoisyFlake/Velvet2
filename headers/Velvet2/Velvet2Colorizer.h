@@ -13,5 +13,8 @@
 - (void)colorBorder:(UIView *)borderView;
 - (void)colorShadow:(UIView *)shadowView;
 - (void)colorLine:(UIView *)lineView inFrame:(CGRect)frame;
+- (void)colorTitle:(UILabel*)title;
+- (void)colorMessage:(UILabel*)message;
+- (void)colorDate:(UILabel*)date;
 
 @end
