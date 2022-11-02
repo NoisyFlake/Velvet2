@@ -21,8 +21,9 @@
 			min = 1;
 			max = 10;
 			showValue = 1;
-			require="shadowEnabled";
-			label="Width";
+			require = "shadowEnabled";
+			label = "Width";
+			systemIcon = "textformat.size";
 		},
 		{
 			cell = PSGroupCell;
@@ -64,6 +65,7 @@
 			showValue = 1;
 			require="shadowEnabled&shadowType=icon";
 			label="Opacity";
+			systemIcon = "eye";
 		},
 		{
 			cell = PSLinkCell;
@@ -72,6 +74,7 @@
 			key = "shadowColor";
 			label = "Color";
 			require = "shadowEnabled&shadowType=color";
+			systemIcon = "eyedropper";
 		}
 	);
 	title = "Glow";

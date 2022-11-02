@@ -40,7 +40,7 @@
     NSString *colorString = [psController readPreferenceValue:self.specifier];
     if (colorString) {
         self.selectedColor = [UIColor colorFromP3String:colorString];
-        self.detailTextLabel.text = self.selectedColor.pkaxApproximateColorDescription.capitalizedString;
+        // self.detailTextLabel.text = self.selectedColor.pkaxApproximateColorDescription.capitalizedString;
     }
     
     self.cellColorDisplay.backgroundColor = self.selectedColor;

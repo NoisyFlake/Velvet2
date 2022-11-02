@@ -21,8 +21,9 @@
 			min = 1;
 			max = 5;
 			showValue = 1;
-			require="borderEnabled";
-			label="Width";
+			require = "borderEnabled";
+			label = "Width";
+			systemIcon = "textformat.size";
 		},
 		{
 			cell = PSGroupCell;
@@ -67,8 +68,9 @@
 			min = 0;
 			max = 100;
 			showValue = 1;
-			require="borderEnabled&borderType=icon";
-			label="Opacity";
+			require = "borderEnabled&borderType=icon";
+			label = "Opacity";
+			systemIcon = "eye";
 		},
 		{
 			cell = PSLinkCell;
@@ -77,6 +79,7 @@
 			key = "borderColor";
 			label = "Color";
 			require = "borderEnabled&borderType=color";
+			systemIcon = "eyedropper";
 		},
 		{
 			cell = PSLinkListCell;
@@ -88,7 +91,7 @@
 			validValues = ("cornerTop", "right", "bottom", "cornerBottom");
 			validTitles = ("\U2197", "\U2192", "\U2193", "\U2198");
 			require = "borderEnabled&borderType=gradient";
-			systemIcon = "arrow.left.arrow.right.circle";
+			systemIcon = "arrow.left.arrow.right";
 		},
 		{
 			cell = PSLinkCell;
@@ -97,7 +100,7 @@
 			key = "borderGradient1";
 			label = "Color 1";
 			require = "borderEnabled&borderType=gradient";
-			systemIcon = "1.circle";
+			systemIcon = "eyedropper";
 		},
 		{
 			cell = PSLinkCell;
@@ -106,7 +109,7 @@
 			key = "borderGradient2";
 			label = "Color 2";
 			require = "borderEnabled&borderType=gradient";
-			systemIcon = "2.circle";
+			systemIcon = "eyedropper";
 		},
 	);
 	title = "Border";

@@ -16,7 +16,7 @@
 		},
 		{
 			cell = PSLinkCell;
-			cellClass = Velvet2LinkCell;
+			cellClass = Velvet2SubtitleLinkCell;
 			cellSubtitleText = "Apply to all notifications";
 			isController = 1;
 			detail = Velvet2SettingsController;
@@ -25,7 +25,7 @@
 		},
 		{
 			cell = PSLinkCell;
-			cellClass = Velvet2LinkCell;
+			cellClass = Velvet2SubtitleLinkCell;
 			cellSubtitleText = "Overwrite Global Settings";
 			isController = 1;
 			detail = Velvet2AppSelectController;

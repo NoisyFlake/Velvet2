@@ -8,10 +8,18 @@
         [((PSSegmentableSlider *)[self control]) setMinimumTrackTintColor:kVelvetColor];
 
         if (specifier.properties[@"label"]) {
-            self.nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 11, 0, 0)];
+            self.nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(specifier.properties[@"systemIcon"] ? 60 : 15, 11, 0, 0)];
             self.nameLabel.text = specifier.properties[@"label"];
             [self.nameLabel sizeToFit];
             [self.contentView insertSubview:self.nameLabel atIndex:0];
+        }
+
+        if (specifier.properties[@"systemIcon"]) {
+            UIImageSymbolConfiguration *config = [UIImageSymbolConfiguration configurationWithFont:[UIFont systemFontOfSize:25]];
+            UIImage *image = [UIImage systemImageNamed:specifier.properties[@"systemIcon"] withConfiguration:config];
+            [specifier setProperty:image forKey:@"iconImage"];
+
+            self.imageView.tintColor = kVelvetColor;
         }
     }
 
@@ -21,7 +29,8 @@
 - (void)layoutSubviews {
     [super layoutSubviews];
     if (self.nameLabel) {
-        [self.control setFrame:CGRectMake(self.control.frame.origin.x + self.nameLabel.frame.size.width + 10, self.control.frame.origin.y, self.control.frame.size.width - self.nameLabel.frame.size.width - 10, self.control.frame.size.height)];
+        self.nameLabel.frame = CGRectMake(self.specifier.properties[@"systemIcon"] ? 60 : 15, self.nameLabel.frame.origin.y, self.nameLabel.frame.size.width, self.nameLabel.frame.size.height);
+        [self.control setFrame:CGRectMake(self.control.frame.origin.x + self.nameLabel.frame.size.width + (self.specifier.properties[@"systemIcon"] ? 60 : 10), self.control.frame.origin.y, self.control.frame.size.width - self.nameLabel.frame.size.width - (self.specifier.properties[@"systemIcon"] ? 60 : 10), self.control.frame.size.height)];
     }
 
     if (![self.specifier.properties[@"showValue"] boolValue]) return;
