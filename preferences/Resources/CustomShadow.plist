@@ -1,0 +1,78 @@
+{
+	items = (
+		{
+			cell = PSGroupCell;
+		},
+		{
+			cell = PSSwitchCell;
+			cellClass = Velvet2Switch;
+			cellSubtitleText = "Use a glow effect";
+			default = 1;
+			defaults = "com.noisyflake.velvet2";
+			key = shadowEnabled;
+			label = "Enable Glow";
+			systemIcon = "power";
+		},
+		{
+			cell = PSSliderCell;
+			cellClass = Velvet2Slider;
+			defaults = "com.noisyflake.velvet2";
+			key = shadowWidth;
+			min = 1;
+			max = 10;
+			showValue = 1;
+			require="shadowEnabled";
+			label="Width";
+		},
+		{
+			cell = PSGroupCell;
+			label = "Type";
+			require = "shadowEnabled";
+		},
+		{
+			cell = PSDefaultCell;
+			cellClass = Velvet2AppearanceCell;
+			options = (
+				{
+					text = "Icon Color";
+					value = "icon";
+					systemIcon = "wand.and.stars";
+				},
+				{
+					text = "Static Color";
+					value = "color";
+					systemIcon = "paintbrush";
+				}
+			);
+			defaults = "com.noisyflake.velvet2";
+			key = "shadowType";
+			height = 130;
+			require = "shadowEnabled";
+		},
+		{
+			cell = PSGroupCell;
+			label = "Options";
+			require = "shadowEnabled";
+		},
+		{
+			cell = PSSliderCell;
+			cellClass = Velvet2Slider;
+			defaults = "com.noisyflake.velvet2";
+			key = shadowIconAlpha;
+			min = 0;
+			max = 100;
+			showValue = 1;
+			require="shadowEnabled&shadowType=icon";
+			label="Opacity";
+		},
+		{
+			cell = PSLinkCell;
+			defaults = "com.noisyflake.velvet2";
+			cellClass = Velvet2ColorPicker;
+			key = "shadowColor";
+			label = "Color";
+			require = "shadowEnabled&shadowType=color";
+		}
+	);
+	title = "Glow";
+}

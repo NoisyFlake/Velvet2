@@ -12,7 +12,7 @@
 	self.disableAnimations = YES;
 
     UIView *notificationView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width, 75.3)];
-	notificationView.center = CGPointMake(self.frame.size.width / 2, self.frame.size.height / 2);
+	notificationView.center = CGPointMake(self.frame.size.width / 2, self.frame.size.height / 2 - 6);
 	[self insertSubview:notificationView atIndex:0];
 	self.notificationView = notificationView;
 
@@ -58,12 +58,11 @@
 		UITapGestureRecognizer *singleFingerTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTouch:)];
 		[notificationView addGestureRecognizer:singleFingerTap];
 
-		UILabel *hint = [[UILabel alloc] initWithFrame:CGRectMake(self.frame.origin.x, self.frame.size.height, self.frame.size.width, 24)];
+		UILabel *hint = [[UILabel alloc] initWithFrame:CGRectMake(self.frame.origin.x, self.frame.size.height - 24, self.frame.size.width, 24)];
 		hint.text = @"Tap notification to change the icon";
 		hint.font = [hint.font fontWithSize:13];
 		hint.textColor = UIColor.systemGrayColor;
 		hint.textAlignment = NSTextAlignmentCenter;
-		hint.backgroundColor = UIColor.systemGroupedBackgroundColor;
 		[self insertSubview:hint atIndex:1];
 	}
 
@@ -86,9 +85,8 @@
 
 		[colorizer colorBackground:self.velvetView];
 		[colorizer colorBorder:self.velvetView];
+		[colorizer colorShadow:self.materialView];
 	}];
-
-	// self.disableAnimationOnce = NO;
 }
 
 -(void)updateAppIconWithIdentifier:(NSString*)identifier {

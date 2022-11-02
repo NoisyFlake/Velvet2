@@ -70,15 +70,11 @@ Velvet2PrefsManager *prefsManager;
 
     [colorizer colorBorder:self.velvetView];
 
+    [colorizer colorShadow:materialView];
+
     // Single border
     // singleBorder.frame = CGRectMake(0, materialView.frame.size.height - 3, materialView.frame.size.width, 3);
     // singleBorder.backgroundColor = gradientColor.CGColor;
-
-    // Shadow
-	// materialView.layer.shadowOpacity = 0.75;
-	// materialView.layer.shadowOffset = CGSizeZero;
-	// materialView.layer.shadowRadius = 5;
-	// materialView.layer.shadowColor = UIColor.whiteColor.CGColor;
 
     // Title
     // title.textColor = gradientColor;

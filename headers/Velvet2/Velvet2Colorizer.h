@@ -11,5 +11,6 @@
 - (instancetype)initWithIdentifier:(NSString *)identifier;
 - (void)colorBackground:(UIView *)backgroundView;
 - (void)colorBorder:(UIView *)borderView;
+- (void)colorShadow:(UIView *)shadowView;
 
 @end

@@ -63,4 +63,25 @@
     borderView.layer.borderColor = borderColor ? borderColor.CGColor : nil;
 }
 
+- (void)colorShadow:(UIView *)shadowView {
+    UIColor *shadowColor;
+
+    BOOL shadowEnabled = [[self.manager settingForKey:@"shadowEnabled" withIdentifier:self.identifier] boolValue];
+
+    if (shadowEnabled) {
+        NSString *shadowType = [self.manager settingForKey:@"shadowType" withIdentifier:self.identifier];
+
+        if ([shadowType isEqual:@"color"]) {
+            shadowColor = [self.manager colorForKey:@"shadowColor" withIdentifier:self.identifier];
+        } else if ([shadowType isEqual:@"icon"]) {
+            shadowColor = [self.iconColor colorWithAlphaComponent:[self.manager alphaValueForKey:@"shadowIconAlpha" withIdentifier:self.identifier]];
+        }
+    }
+
+    shadowView.layer.shadowRadius = shadowColor ? [[self.manager settingForKey:@"shadowWidth" withIdentifier:self.identifier] floatValue] : 0;
+    shadowView.layer.shadowOffset = CGSizeZero;
+    shadowView.layer.shadowColor = shadowColor ? shadowColor.CGColor : nil;
+    shadowView.layer.shadowOpacity = 1;
+}
+
 @end

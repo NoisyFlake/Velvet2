@@ -62,7 +62,7 @@
 
 	CGFloat notificationWidth = self.table.subviews[0].frame.size.width;
 
-	CGRect previewFrame = CGRectMake(0, self._contentOverlayInsets.top, self.view.frame.size.width, 93);
+	CGRect previewFrame = CGRectMake(0, self._contentOverlayInsets.top, self.view.frame.size.width, 93 + 30);
 	self.preview = [[Velvet2PreviewView alloc] initWithFrame:previewFrame notificationWidth:notificationWidth identifier:self.identifier];
 
 	if ([self.navigationController.previousViewController isKindOfClass:NSClassFromString(@"Velvet2SettingsController")]) {
