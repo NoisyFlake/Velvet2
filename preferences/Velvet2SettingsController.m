@@ -4,7 +4,11 @@
 
 - (NSArray *)specifiers {
 	if (!_specifiers) {
-        _specifiers = [self visibleSpecifiersFromPlist:@"Settings"];
+	    _specifiers = [self visibleSpecifiersFromPlist:@"Settings"];
+	}
+
+	if (self.identifier && self.identifierName) {
+	    self.title = self.identifierName;
 	}
 
 	return _specifiers;

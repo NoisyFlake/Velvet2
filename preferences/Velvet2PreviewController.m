@@ -9,8 +9,8 @@
 
 	for (PSSpecifier *specifier in [mutableSpecifiers reverseObjectEnumerator]) {
 		NSString *requirement = specifier.properties[@"require"];
-		if (requirement) {
 
+		if (requirement) {
 			NSArray *requirementList = [requirement componentsSeparatedByString:@"&"];
 			for (NSString *singleRequirement in requirementList) {
 				if ([singleRequirement containsString:@"="]) {
@@ -26,7 +26,6 @@
 					}
 				}
 			}
-			
 		}
 	}
 

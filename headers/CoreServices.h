@@ -2,6 +2,7 @@
 @end
 
 @interface LSResourceProxy : _LSQueryResult
+@property (setter=_setLocalizedName:,nonatomic,copy) NSString * localizedName;
 @end
 
 @interface LSBundleProxy : LSResourceProxy

@@ -4,6 +4,7 @@
 @interface Velvet2PreviewController : PSListController
 
 @property (nonatomic,copy) NSString * identifier;
+@property (nonatomic,copy) NSString * identifierName;
 @property (nonatomic,retain) Velvet2PreviewView *preview;
 
 - (NSMutableArray*)visibleSpecifiersFromPlist:(NSString*)plist;
