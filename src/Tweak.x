@@ -73,7 +73,8 @@ Velvet2PrefsManager *prefsManager;
     view.layer.cornerRadius = MIN(cornerRadius, materialView.frame.size.height / 2);
     materialView.superview.layer.cornerRadius = MIN(cornerRadius, materialView.frame.size.height / 2);
     stackDimmingView.layer.cornerRadius = MIN(cornerRadius, materialView.frame.size.height / 2);
-
+    
+    [colorizer setAppIconCornerRadius:appIconView];
     [colorizer colorBackground:self.velvetView];
     [colorizer colorBorder:self.velvetView];
     [colorizer colorShadow:materialView];
@@ -81,19 +82,23 @@ Velvet2PrefsManager *prefsManager;
     [colorizer colorTitle:title];
     [colorizer colorMessage:message];
     [colorizer colorDate:dateLabel];
-
-    // Icon
-    // appIcon.layer.cornerRadius = 19;
-    // appIcon.clipsToBounds = YES;
+    [colorizer setAppearance:self.view];
 }
 %end
 
-%hook NCNotificationStructuredListViewController
--(void)viewDidLoad {
-    %orig;
-    // self.overrideUserInterfaceStyle = UIUserInterfaceStyleDark;
-}
-%end
+// %hook NCNotificationStructuredListViewController
+// -(void)viewDidLoad {
+//     %orig;
+
+//     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(velvetUpdateStyle) name:@"com.noisyflake.velvet2/updateStyle" object:nil];
+//     [self velvetUpdateStyle];
+// }
+
+// %new
+// -(void)velvetUpdateStyle {
+    
+// }
+// %end
 
 %ctor {
     prefsManager = [NSClassFromString(@"Velvet2PrefsManager") sharedInstance];

@@ -16,5 +16,7 @@
 - (void)colorTitle:(UILabel*)title;
 - (void)colorMessage:(UILabel*)message;
 - (void)colorDate:(UILabel*)date;
+- (void)setAppIconCornerRadius:(UIView*)appIcon;
+- (void)setAppearance:(UIView*)view;
 
 @end

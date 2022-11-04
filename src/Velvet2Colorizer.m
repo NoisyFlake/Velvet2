@@ -189,4 +189,14 @@
     date.textColor = dateColor ? dateColor : [UIColor.labelColor colorWithAlphaComponent:0.5];
 }
 
+- (void)setAppIconCornerRadius:(UIView*)appIcon {
+    appIcon.clipsToBounds = YES;
+    appIcon.layer.cornerRadius = [[self.manager settingForKey:@"appIconCornerRadiusCircle" withIdentifier:self.identifier] boolValue] ? appIcon.frame.size.height / 2 : 0;
+}
+
+- (void)setAppearance:(UIView*)view {
+    NSString *appearance = [self.manager settingForKey:@"appearance" withIdentifier:self.identifier];
+	view.overrideUserInterfaceStyle = [appearance isEqual:@"dark"] ? UIUserInterfaceStyleDark : [appearance isEqual:@"light"] ? UIUserInterfaceStyleLight : UIUserInterfaceStyleUnspecified;
+}
+
 @end

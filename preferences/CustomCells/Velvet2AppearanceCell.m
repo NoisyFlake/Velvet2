@@ -113,9 +113,6 @@
         [self.containerStackView.heightAnchor constraintEqualToAnchor:self.heightAnchor].active = true;
         [self.containerStackView.centerXAnchor constraintEqualToAnchor:self.centerXAnchor].active = true;
         [self.containerStackView.centerYAnchor constraintEqualToAnchor:self.centerYAnchor].active = true;
-
-        
-        self.detailTextLabel.text = nil;
     }
 
     return self;

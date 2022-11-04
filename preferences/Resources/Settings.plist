@@ -1,8 +1,33 @@
 {
 	items = (
-
-		// ========== BACKGROUND ========== //
-
+		{
+			cell = PSGroupCell;
+			label = "Appearance";
+		},
+		{
+			cell = PSDefaultCell;
+			cellClass = Velvet2AppearanceCell;
+			options = (
+				{
+					text = "System";
+					value = "default";
+					systemIcon = "circle.righthalf.filled";
+				},
+				{
+					text = "Light";
+					value = "light";
+					systemIcon = "sun.max";
+				},
+				{
+					text = "Dark";
+					value = "dark";
+					systemIcon = "moon.stars";
+				}
+			);
+			defaults = "com.noisyflake.velvet2";
+			key = "appearance";
+			height = 120;
+		},
 		{
 			cell = PSGroupCell;
 			label = "Surface";
@@ -105,24 +130,13 @@
 		{
 			cell = PSSwitchCell;
 			cellClass = Velvet2Switch;
-			cellSubtitleText = "Custom app icon corner radius";
+			cellSubtitleText = "Display app icon as a circle";
 			default = 1;
 			defaults = "com.noisyflake.velvet2";
-			key = appIconCornerRadiusEnabled;
-			label = "Icon Corner Radius";
+			key = appIconCornerRadiusCircle;
+			label = "Round App Icon";
 			systemIcon = "circle.square";
-        },
-		{
-			cell = PSSliderCell;
-			cellClass = Velvet2Slider;
-			defaults = "com.noisyflake.velvet2";
-			key = appIconcornerRadiusCustom;
-			min = 0;
-			max = 60;
-			showValue = 1;
-			require="appIconCornerRadiusEnabled";
-		},
-
+        }
 	);
 	title = "Global Settings";
 }

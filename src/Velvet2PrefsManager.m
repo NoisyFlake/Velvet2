@@ -47,6 +47,7 @@ static void sendUpdateNotification() {
         @"dateType": @"icon",
         @"dateIconAlpha": @100,
         @"dateGradientDirection": @"right",
+        @"appearance": @"default"
     }];
 
     CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), NULL, (CFNotificationCallback)sendUpdateNotification, CFSTR("com.noisyflake.velvet2/preferenceUpdate"), NULL, CFNotificationSuspensionBehaviorCoalesce);

@@ -86,6 +86,7 @@
 		self.velvetView.layer.continuousCorners = cornerRadius < self.velvetView.frame.size.height / 2;
 		self.velvetView.layer.cornerRadius = MIN(cornerRadius, self.velvetView.frame.size.height / 2);
 
+		[colorizer setAppIconCornerRadius:self.appIcon];
 		[colorizer colorBackground:self.velvetView];
 		[colorizer colorBorder:self.velvetView];
 		[colorizer colorShadow:self.materialView];
@@ -93,6 +94,7 @@
 		[colorizer colorTitle:self.titleLabel];
 		[colorizer colorMessage:self.messageLabel];
 		[colorizer colorDate:self.dateLabel];
+		[colorizer setAppearance:self.notificationView];
 	}];
 }
 

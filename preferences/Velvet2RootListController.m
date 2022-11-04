@@ -97,6 +97,18 @@
 	[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.paypal.me/NoisyFlake"] options:@{} completionHandler:nil];
 }
 
+-(void)setTweakEnabled:(id)value specifier:(PSSpecifier *)specifier {
+	[self setPreferenceValue:value specifier:specifier];
+
+	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Respring" style:UIBarButtonItemStylePlain target:self action:@selector(respring)];
+}
+
+-(void)respring {
+	pid_t pid;
+	const char* args[] = {"sbreload", NULL};
+	posix_spawn(&pid, "/usr/bin/sbreload", NULL, NULL, (char* const*)args, NULL);
+}
+
 // -(void)showController:(id)controller {
 	
 // 	if ([controller isKindOfClass:NSClassFromString(@"Velvet2SettingsController")]) {

@@ -9,6 +9,7 @@
 			key = enabled;
 			label = "Enable Tweak";
 			systemIcon = "power";
+			set = "setTweakEnabled:specifier:";
 		},
 		{
 			cell = PSGroupCell;
