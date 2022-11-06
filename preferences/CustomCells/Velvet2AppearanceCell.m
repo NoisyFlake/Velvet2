@@ -136,6 +136,15 @@
     NSString *value = [psController readPreferenceValue:self.specifier];
 
     [self updateSelected:value];
+
+    PSListController *controller = [self _viewControllerForAncestor];
+    if ([controller isKindOfClass:NSClassFromString(@"Velvet2PreviewController")]) {
+        Velvet2PreviewController *previewController = (Velvet2PreviewController *)controller;
+
+        if (previewController.identifier && [previewController appSettingForKeyExists:self.specifier.properties[@"key"]]) {
+            self.backgroundColor = [kVelvetColor colorWithAlphaComponent:0.3];
+        }
+    }
 }
 
 @end

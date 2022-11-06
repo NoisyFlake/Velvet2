@@ -1,4 +1,7 @@
 #import "../headers/HeadersPreferences.h"
+@interface UINavigationItem (Velvet)
+@property (assign,nonatomic) UINavigationBar * navigationBar;
+@end
 
 @implementation Velvet2PreviewController
 
@@ -33,11 +36,26 @@
 }
 
 - (void)setPreferenceValue:(id)value specifier:(PSSpecifier*)specifier {
+	BOOL skipSaving = NO;
 	if (self.identifier) {
-		specifier.properties[@"key"] = [NSString stringWithFormat:@"%@_%@", specifier.properties[@"key"], self.identifier];
+		NSString *fullKey = [NSString stringWithFormat:@"%@_%@", specifier.properties[@"key"], self.identifier];
+
+		Velvet2PrefsManager *manager = [NSClassFromString(@"Velvet2PrefsManager") sharedInstance];
+		NSString *globalValue = [manager settingForKey:specifier.properties[@"key"] withIdentifier:nil];
+		
+		if ([globalValue isEqual:value]) {
+			skipSaving = YES;
+			[manager removeObjectForKey:fullKey];
+		}
+
+		specifier.properties[@"key"] = fullKey;
 	}
 
-	[super setPreferenceValue:value specifier:specifier];
+	
+	if (!skipSaving) {
+		[super setPreferenceValue:value specifier:specifier];
+	}
+
 	[self.preview updatePreview];
 
 	// This wouldn't usually be necessary, but I don't want to write the update string into every Specifier in the plist
@@ -46,7 +64,6 @@
 	dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
 		[self reloadSpecifiers];
 	});
-	
 }
 
 -(id)readPreferenceValue:(PSSpecifier*)specifier {
@@ -61,12 +78,11 @@
 
 	CGFloat notificationWidth = self.table.subviews[0].frame.size.width;
 
-	CGRect previewFrame = CGRectMake(0, self._contentOverlayInsets.top, self.view.frame.size.width, 93 + 30);
+	CGRect previewFrame = CGRectMake(0, self._contentOverlayInsets.top, self.view.frame.size.width, 93 + 30 + 8);
 	self.preview = [[Velvet2PreviewView alloc] initWithFrame:previewFrame notificationWidth:notificationWidth identifier:self.identifier];
 
 	if ([self.navigationController.previousViewController isKindOfClass:NSClassFromString(@"Velvet2SettingsController")]) {
 		// Use the same icon that our parent displayed
-		// self.preview.disableAnimationOnce = YES;
 		[self.preview updateAppIconWithIdentifier:((Velvet2SettingsController *)self.navigationController.previousViewController).preview.currentIconIdentifier];
 	}
 
@@ -75,6 +91,11 @@
 	// Need additional space if we don't have a group label first
 	CGFloat additionalHeight = [self specifierAtIndex:0].name ? 0 : 32;
 
-	self.table.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, notificationWidth, 93 + additionalHeight + (self.identifier ? 0 : 16))]; // Make room after notification
+	self.table.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, notificationWidth, 93 + additionalHeight + 16 + 12)];
+}
+
+-(BOOL)appSettingForKeyExists:(NSString *)key {
+	Velvet2PrefsManager *manager = [NSClassFromString(@"Velvet2PrefsManager") sharedInstance];
+	return [manager objectForKey:[NSString stringWithFormat:@"%@_%@", key, self.identifier]] != nil;
 }
 @end

@@ -8,5 +8,6 @@
 @property (nonatomic,retain) Velvet2PreviewView *preview;
 
 - (NSMutableArray*)visibleSpecifiersFromPlist:(NSString*)plist;
+- (BOOL)appSettingForKeyExists:(NSString *)key;
 
 @end

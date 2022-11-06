@@ -12,7 +12,7 @@
 	self.disableAnimations = YES;
 
     UIView *notificationView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width, 75.3)];
-	notificationView.center = CGPointMake(self.frame.size.width / 2, self.frame.size.height / 2 - 6);
+	notificationView.center = CGPointMake(self.frame.size.width / 2, self.frame.size.height / 2 - 6 - 12);
 	[self insertSubview:notificationView atIndex:0];
 	self.notificationView = notificationView;
 
@@ -60,15 +60,16 @@
 	if (!self.identifier) {
 		UITapGestureRecognizer *singleFingerTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTouch:)];
 		[notificationView addGestureRecognizer:singleFingerTap];
-
-		UILabel *hint = [[UILabel alloc] initWithFrame:CGRectMake(self.frame.origin.x, self.frame.size.height - 24, self.frame.size.width, 24)];
-		hint.text = @"Tap notification to change the icon";
-		hint.font = [hint.font fontWithSize:13];
-		hint.textColor = UIColor.systemGrayColor;
-		hint.textAlignment = NSTextAlignmentCenter;
-		[self insertSubview:hint atIndex:1];
 	}
 
+	UILabel *hint = [[UILabel alloc] initWithFrame:CGRectMake(self.frame.origin.x, self.frame.size.height - 48, self.frame.size.width, 48)];
+	hint.text = self.identifier ? @"Settings that overwrite the global settings\nare highlighted with a blue background" : @"Tap notification to change the icon";
+	hint.numberOfLines = self.identifier ? 2 : 1;
+	hint.font = [hint.font fontWithSize:13];
+	hint.textColor = self.identifier ? kVelvetColor : UIColor.systemGrayColor;
+	hint.textAlignment = NSTextAlignmentCenter;
+	[self insertSubview:hint atIndex:1];
+	
     return self;
 }
 

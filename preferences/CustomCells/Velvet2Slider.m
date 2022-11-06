@@ -28,6 +28,16 @@
 
 - (void)layoutSubviews {
     [super layoutSubviews];
+
+    PSListController *controller = [self _viewControllerForAncestor];
+    if ([controller isKindOfClass:NSClassFromString(@"Velvet2PreviewController")]) {
+        Velvet2PreviewController *previewController = (Velvet2PreviewController *)controller;
+
+        if (previewController.identifier && [previewController appSettingForKeyExists:self.specifier.properties[@"key"]]) {
+            self.backgroundColor = [kVelvetColor colorWithAlphaComponent:0.3];
+        }
+    }
+    
     if (self.nameLabel) {
         self.nameLabel.frame = CGRectMake(self.specifier.properties[@"systemIcon"] ? 60 : 15, self.nameLabel.frame.origin.y, self.nameLabel.frame.size.width, self.nameLabel.frame.size.height);
         [self.control setFrame:CGRectMake(self.control.frame.origin.x + self.nameLabel.frame.size.width + (self.specifier.properties[@"systemIcon"] ? 60 : 10), self.control.frame.origin.y, self.control.frame.size.width - self.nameLabel.frame.size.width - (self.specifier.properties[@"systemIcon"] ? 60 : 10), self.control.frame.size.height)];
