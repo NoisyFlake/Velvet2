@@ -57,12 +57,13 @@ Velvet2PrefsManager *prefsManager;
     UILabel *message                                        = [contentView valueForKey:@"secondaryTextElement"];
     UILabel *dateLabel                                      = [contentView valueForKey:@"dateLabel"];
     NCBadgedIconView *badgedIconView                        = [contentView valueForKey:@"badgedIconView"];
-    UIImageView *appIconView                                = (UIImageView *)badgedIconView.iconView;
+    UIView *appIconView                                     = badgedIconView.iconView;
+    UIImage *appIcon                                        = contentView.prominentIcon;
 
     self.velvetView.frame = materialView.frame;
 
     Velvet2Colorizer *colorizer = [[Velvet2Colorizer alloc] initWithIdentifier:identifier];
-    colorizer.appIcon = appIconView.image;
+    colorizer.appIcon = appIcon;
 
     CGFloat cornerRadius = [[prefsManager settingForKey:@"cornerRadiusEnabled" withIdentifier:identifier] boolValue] ? [[prefsManager settingForKey:@"cornerRadiusCustom" withIdentifier:identifier] floatValue] : 19;
 	materialView.layer.continuousCorners = cornerRadius < materialView.frame.size.height / 2;
@@ -85,20 +86,6 @@ Velvet2PrefsManager *prefsManager;
     [colorizer setAppearance:self.view];
 }
 %end
-
-// %hook NCNotificationStructuredListViewController
-// -(void)viewDidLoad {
-//     %orig;
-
-//     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(velvetUpdateStyle) name:@"com.noisyflake.velvet2/updateStyle" object:nil];
-//     [self velvetUpdateStyle];
-// }
-
-// %new
-// -(void)velvetUpdateStyle {
-    
-// }
-// %end
 
 %ctor {
     prefsManager = [NSClassFromString(@"Velvet2PrefsManager") sharedInstance];

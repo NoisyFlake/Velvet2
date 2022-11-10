@@ -22,6 +22,7 @@
 	UILabel* _dateLabel;
 	NCBadgedIconView* _badgedIconView;
 }
+@property (nonatomic,copy) UIImage * prominentIcon;
 @end
 
 @interface NCNotificationShortLookView : UIView {
