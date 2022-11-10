@@ -23,6 +23,7 @@
 	NCBadgedIconView* _badgedIconView;
 }
 @property (nonatomic,copy) UIImage * prominentIcon;
+@property (nonatomic,copy) UIImage * subordinateIcon;
 @end
 
 @interface NCNotificationShortLookView : UIView {
