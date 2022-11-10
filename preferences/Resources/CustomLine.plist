@@ -54,12 +54,12 @@
 				{
 					text = "Static Color";
 					value = "color";
-					systemIcon = "paintbrush";
+					systemIcon = "eyedropper";
 				},
 				{
 					text = "Gradient";
 					value = "gradient";
-					systemIcon = "circle.righthalf.filled";
+					systemIcon = "humidity.fill";
 				},
 			);
 			defaults = "com.noisyflake.velvet2";
@@ -91,7 +91,7 @@
 			key = "lineColor";
 			label = "Color";
 			require = "lineEnabled&lineType=color";
-			systemIcon = "eyedropper";
+			systemIcon = "drop.circle";
 		},
 		{
 			cell = PSLinkListCell;
@@ -112,7 +112,7 @@
 			key = "lineGradient1";
 			label = "Color 1";
 			require = "lineEnabled&lineType=gradient";
-			systemIcon = "eyedropper";
+			systemIcon = "drop.circle";
 		},
 		{
 			cell = PSLinkCell;
@@ -121,7 +121,7 @@
 			key = "lineGradient2";
 			label = "Color 2";
 			require = "lineEnabled&lineType=gradient";
-			systemIcon = "eyedropper";
+			systemIcon = "drop.circle";
 		},
 	);
 	title = "Line";

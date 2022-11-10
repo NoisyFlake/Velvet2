@@ -30,12 +30,12 @@
 				{
 					text = "Static Color";
 					value = "color";
-					systemIcon = "paintbrush";
+					systemIcon = "eyedropper";
 				},
 				{
 					text = "Gradient";
 					value = "gradient";
-					systemIcon = "circle.righthalf.filled";
+					systemIcon = "humidity.fill";
 				},
 			);
 			defaults = "com.noisyflake.velvet2";
@@ -67,7 +67,7 @@
 			key = "backgroundColor";
 			label = "Color";
 			require = "backgroundEnabled&backgroundType=color";
-			systemIcon = "eyedropper";
+			systemIcon = "drop.circle";
 		},
 		{
 			cell = PSLinkListCell;
@@ -88,7 +88,7 @@
 			key = "backgroundGradient1";
 			label = "Color 1";
 			require = "backgroundEnabled&backgroundType=gradient";
-			systemIcon = "eyedropper";
+			systemIcon = "drop.circle";
 		},
 		{
 			cell = PSLinkCell;
@@ -97,7 +97,7 @@
 			key = "backgroundGradient2";
 			label = "Color 2";
 			require = "backgroundEnabled&backgroundType=gradient";
-			systemIcon = "eyedropper";
+			systemIcon = "drop.circle";
 		},
 	);
 	title = "Background";

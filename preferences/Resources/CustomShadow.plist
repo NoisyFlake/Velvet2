@@ -42,7 +42,7 @@
 				{
 					text = "Static Color";
 					value = "color";
-					systemIcon = "paintbrush";
+					systemIcon = "eyedropper";
 				}
 			);
 			defaults = "com.noisyflake.velvet2";
@@ -74,7 +74,7 @@
 			key = "shadowColor";
 			label = "Color";
 			require = "shadowEnabled&shadowType=color";
-			systemIcon = "eyedropper";
+			systemIcon = "drop.circle";
 		}
 	);
 	title = "Glow";

@@ -30,12 +30,12 @@
 				{
 					text = "Static Color";
 					value = "color";
-					systemIcon = "paintbrush";
+					systemIcon = "eyedropper";
 				},
 				{
 					text = "Gradient";
 					value = "gradient";
-					systemIcon = "circle.righthalf.filled";
+					systemIcon = "humidity.fill";
 				},
 			);
 			defaults = "com.noisyflake.velvet2";
@@ -67,7 +67,7 @@
 			key = "dateColor";
 			label = "Color";
 			require = "dateEnabled&dateType=color";
-			systemIcon = "eyedropper";
+			systemIcon = "drop.circle";
 		},
 		{
 			cell = PSLinkListCell;
@@ -88,7 +88,7 @@
 			key = "dateGradient1";
 			label = "Color 1";
 			require = "dateEnabled&dateType=gradient";
-			systemIcon = "eyedropper";
+			systemIcon = "drop.circle";
 		},
 		{
 			cell = PSLinkCell;
@@ -97,7 +97,7 @@
 			key = "dateGradient2";
 			label = "Color 2";
 			require = "dateEnabled&dateType=gradient";
-			systemIcon = "eyedropper";
+			systemIcon = "drop.circle";
 		},
 	);
 	title = "Date";
