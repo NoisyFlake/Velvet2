@@ -1,12 +1,19 @@
 #import "../headers/HeadersTweak.h"
 
 @implementation UIColor (Velvet)
-+ (UIColor *)colorFromGradient:(NSArray*)colors withDirection:(NSString *)direction inFrame:(CGRect)frame {
++ (UIColor *)colorFromGradient:(NSArray*)colors withDirection:(NSString *)direction inFrame:(CGRect)frame flipY:(BOOL)flipY {
     CAGradientLayer *gradientLayer = [CAGradientLayer layer];
     gradientLayer.frame = frame;
-    gradientLayer.startPoint = [direction isEqual:@"cornerTop"] ? CGPointMake(0,1) : CGPointMake(0, 0); // Corner is flipped because CGContext renders upside-down
-    gradientLayer.endPoint = [direction isEqual:@"cornerBottom"] ? CGPointMake(1,1) : [direction isEqual:@"cornerTop"] ? CGPointMake(1,0) : [direction isEqual:@"bottom"] ? CGPointMake(0,1) : CGPointMake(1,0);
     gradientLayer.colors = colors;
+
+    gradientLayer.startPoint = [direction isEqual:@"cornerTop"] ? CGPointMake(0,1) : CGPointMake(0, 0);
+    gradientLayer.endPoint = [direction isEqual:@"cornerBottom"] ? CGPointMake(1,1) : [direction isEqual:@"cornerTop"] ? CGPointMake(1,0) : [direction isEqual:@"bottom"] ? CGPointMake(0,1) : CGPointMake(1,0);
+    
+    // FlipY is necessary when working directly on a CALayer, since CoreAnimation renders upside-down
+    if (flipY) {
+        gradientLayer.startPoint = CGPointMake(gradientLayer.startPoint.x, gradientLayer.startPoint.y == 0 ? 1 : 0);
+        gradientLayer.endPoint = CGPointMake(gradientLayer.endPoint.x, gradientLayer.endPoint.y == 0 ? 1 : 0);
+    }
 
     UIGraphicsImageRenderer *renderer = [[UIGraphicsImageRenderer alloc] initWithSize:gradientLayer.frame.size];
     UIImage *image = [renderer imageWithActions:^(UIGraphicsImageRendererContext * _Nonnull context) {
@@ -14,6 +21,10 @@
     }];
 
     return [UIColor colorWithPatternImage:image];
+}
+
++ (UIColor *)colorFromGradient:(NSArray*)colors withDirection:(NSString *)direction inFrame:(CGRect)frame {
+    return [UIColor colorFromGradient:colors withDirection:direction inFrame:frame flipY:NO];
 }
 
 + (UIColor *)colorFromP3String:(NSString *)string {

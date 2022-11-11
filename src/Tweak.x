@@ -36,11 +36,14 @@ Velvet2PrefsManager *prefsManager;
     NCNotificationShortLookView *view                       = (NCNotificationShortLookView *)self.viewForPreview;
     NCNotificationSeamlessContentView *contentView          = [view valueForKey:@"notificationContentView"];
     UIImage *appIcon                                        = contentView.prominentIcon ?: contentView.subordinateIcon;
+    NCBadgedIconView *badgedIconView                        = [contentView valueForKey:@"badgedIconView"];
+    UIView *appIconView                                     = badgedIconView.iconView;
 
     colorizer.appIcon = appIcon;
 
-    // For some reason, dateLabel isn't fully initialized yet after viewDidLayoutSubviews
+    // For some reason, dateLabel and appIconView isn't fully initialized yet after viewDidLayoutSubviews
     [colorizer colorDate:[contentView valueForKey:@"dateLabel"]];
+    [colorizer setAppIconCornerRadius:appIconView];
 }
 
 %new

@@ -40,7 +40,7 @@ static void sendUpdateNotification() {
         @"lineWidth": @3,
         @"lineType": @"icon",
         @"lineIconAlpha": @100,
-        @"lineGradientDirection": @"left",
+        @"lineGradientDirection": @"right",
         @"titleEnabled": @NO,
         @"titleType": @"icon",
         @"titleIconAlpha": @100,

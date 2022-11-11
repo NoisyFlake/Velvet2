@@ -53,7 +53,7 @@
             borderColor = [self.manager colorForKey:@"borderColor" withIdentifier:self.identifier];
         } else if ([borderType isEqual:@"gradient"]) {
             NSArray *gradientColors = @[(id)[self.manager colorForKey:@"borderGradient1" withIdentifier:self.identifier].CGColor, (id)[self.manager colorForKey:@"borderGradient2" withIdentifier:self.identifier].CGColor];
-            borderColor = [UIColor colorFromGradient:gradientColors withDirection:[self.manager settingForKey:@"borderGradientDirection" withIdentifier:self.identifier] inFrame:borderView.frame];
+            borderColor = [UIColor colorFromGradient:gradientColors withDirection:[self.manager settingForKey:@"borderGradientDirection" withIdentifier:self.identifier] inFrame:borderView.frame flipY:YES];
         } else if ([borderType isEqual:@"icon"]) {
             borderColor = [self.iconColor colorWithAlphaComponent:[self.manager alphaValueForKey:@"borderIconAlpha" withIdentifier:self.identifier]];
         }
@@ -111,7 +111,7 @@
             lineColor = [self.manager colorForKey:@"lineColor" withIdentifier:self.identifier];
         } else if ([lineType isEqual:@"gradient"]) {
             NSArray *gradientColors = @[(id)[self.manager colorForKey:@"lineGradient1" withIdentifier:self.identifier].CGColor, (id)[self.manager colorForKey:@"lineGradient2" withIdentifier:self.identifier].CGColor];
-            lineColor = [UIColor colorFromGradient:gradientColors withDirection:[self.manager settingForKey:@"lineGradientDirection" withIdentifier:self.identifier] inFrame:lineView.layer.frame];
+            lineColor = [UIColor colorFromGradient:gradientColors withDirection:[self.manager settingForKey:@"lineGradientDirection" withIdentifier:self.identifier] inFrame:lineView.layer.sublayers[0].frame flipY:YES];
         } else if ([lineType isEqual:@"icon"]) {
             lineColor = [self.iconColor colorWithAlphaComponent:[self.manager alphaValueForKey:@"lineIconAlpha" withIdentifier:self.identifier]];
         }
