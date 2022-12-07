@@ -90,6 +90,42 @@ Velvet2PrefsManager *prefsManager;
 }
 %end
 
+%hook NCNotificationSummaryPlatterView
+-(void)didMoveToWindow {
+    %orig;
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(velvetUpdateStyle) name:@"com.noisyflake.velvet2/updateStyle" object:nil];
+}
+-(void)layoutSubviews {
+    %orig;
+
+    [self velvetUpdateStyle];
+}
+
+%new
+-(void)velvetUpdateStyle {
+    NCNotificationSummaryContentView *contentView           = [self valueForKey:@"summaryContentView"];
+    UILabel *title                                          = [contentView valueForKey:@"summaryTitleLabel"];
+    UILabel *message                                        = [contentView valueForKey:@"summaryLabel"];
+
+    Velvet2Colorizer *colorizer = [[Velvet2Colorizer alloc] initWithIdentifier:@"com.noisyflake.velvetFocus"];
+
+    CGFloat cornerRadius = [[prefsManager settingForKey:@"cornerRadiusEnabled" withIdentifier:@"com.noisyflake.velvetFocus"] boolValue] ? [[prefsManager settingForKey:@"cornerRadiusCustom" withIdentifier:@"com.noisyflake.velvetFocus"] floatValue] : 19;
+
+    if (self.subviews[0]) {
+        self.subviews[0].layer.continuousCorners = cornerRadius < self.frame.size.height / 2;
+        self.subviews[0].layer.cornerRadius = MIN(cornerRadius, self.frame.size.height / 2);
+    
+        [colorizer colorBackground:self.subviews[0]];
+        [colorizer colorBorder:self.subviews[0]];
+        [colorizer colorShadow:self.subviews[0]];
+        [colorizer colorTitle:title];
+        [colorizer colorMessage:message];
+        [colorizer setAppearance:self];
+    }
+}
+%end
+
 %ctor {
     prefsManager = [NSClassFromString(@"Velvet2PrefsManager") sharedInstance];
 

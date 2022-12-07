@@ -40,3 +40,6 @@
 
 @interface NCNotificationStructuredListViewController : UIViewController
 @end
+
+@interface NCNotificationSummaryContentView : UIView
+@end

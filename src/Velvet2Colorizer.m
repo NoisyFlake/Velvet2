@@ -14,7 +14,7 @@
 - (UIColor*)iconColor {
     if (!_iconColor) {
         NSArray *iconColors = [[CCColorCube new] extractColorsFromImage:self.appIcon flags:CCAvoidWhite|CCOnlyBrightColors count:1];
-        _iconColor = iconColors.count ? iconColors[0] : UIColor.clearColor;
+        _iconColor = iconColors.count ? iconColors[0] : nil;
     }
 
     return _iconColor;
@@ -34,7 +34,7 @@
             NSArray *gradientColors = @[(id)[self.manager colorForKey:@"backgroundGradient1" withIdentifier:self.identifier].CGColor, (id)[self.manager colorForKey:@"backgroundGradient2" withIdentifier:self.identifier].CGColor];
             backgroundColor = [UIColor colorFromGradient:gradientColors withDirection:[self.manager settingForKey:@"backgroundGradientDirection" withIdentifier:self.identifier] inFrame:backgroundView.frame];
         } else if ([backgroundType isEqual:@"icon"]) {
-            backgroundColor = [self.iconColor colorWithAlphaComponent:[self.manager alphaValueForKey:@"backgroundIconAlpha" withIdentifier:self.identifier]];
+            backgroundColor = self.iconColor ? [self.iconColor colorWithAlphaComponent:[self.manager alphaValueForKey:@"backgroundIconAlpha" withIdentifier:self.identifier]] : nil;
         }
     }
 
@@ -55,7 +55,7 @@
             NSArray *gradientColors = @[(id)[self.manager colorForKey:@"borderGradient1" withIdentifier:self.identifier].CGColor, (id)[self.manager colorForKey:@"borderGradient2" withIdentifier:self.identifier].CGColor];
             borderColor = [UIColor colorFromGradient:gradientColors withDirection:[self.manager settingForKey:@"borderGradientDirection" withIdentifier:self.identifier] inFrame:borderView.frame flipY:YES];
         } else if ([borderType isEqual:@"icon"]) {
-            borderColor = [self.iconColor colorWithAlphaComponent:[self.manager alphaValueForKey:@"borderIconAlpha" withIdentifier:self.identifier]];
+            borderColor = self.iconColor ? [self.iconColor colorWithAlphaComponent:[self.manager alphaValueForKey:@"borderIconAlpha" withIdentifier:self.identifier]] : nil;
         }
     }
 
@@ -74,7 +74,7 @@
         if ([shadowType isEqual:@"color"]) {
             shadowColor = [self.manager colorForKey:@"shadowColor" withIdentifier:self.identifier];
         } else if ([shadowType isEqual:@"icon"]) {
-            shadowColor = [self.iconColor colorWithAlphaComponent:[self.manager alphaValueForKey:@"shadowIconAlpha" withIdentifier:self.identifier]];
+            shadowColor = self.iconColor ? [self.iconColor colorWithAlphaComponent:[self.manager alphaValueForKey:@"shadowIconAlpha" withIdentifier:self.identifier]] : nil;
         }
     }
 
@@ -113,7 +113,7 @@
             NSArray *gradientColors = @[(id)[self.manager colorForKey:@"lineGradient1" withIdentifier:self.identifier].CGColor, (id)[self.manager colorForKey:@"lineGradient2" withIdentifier:self.identifier].CGColor];
             lineColor = [UIColor colorFromGradient:gradientColors withDirection:[self.manager settingForKey:@"lineGradientDirection" withIdentifier:self.identifier] inFrame:lineView.layer.sublayers[0].frame flipY:YES];
         } else if ([lineType isEqual:@"icon"]) {
-            lineColor = [self.iconColor colorWithAlphaComponent:[self.manager alphaValueForKey:@"lineIconAlpha" withIdentifier:self.identifier]];
+            lineColor = self.iconColor ? [self.iconColor colorWithAlphaComponent:[self.manager alphaValueForKey:@"lineIconAlpha" withIdentifier:self.identifier]] : nil;
         }
     }
 
@@ -136,7 +136,7 @@
             CGSize size = [title sizeThatFits:title.frame.size];
             titleColor = [UIColor colorFromGradient:gradientColors withDirection:[self.manager settingForKey:@"titleGradientDirection" withIdentifier:self.identifier] inFrame:CGRectMake(title.frame.origin.x, title.frame.origin.y, size.width, size.height)];
         } else if ([titleType isEqual:@"icon"]) {
-            titleColor = [self.iconColor colorWithAlphaComponent:[self.manager alphaValueForKey:@"titleIconAlpha" withIdentifier:self.identifier]];
+            titleColor = self.iconColor ? [self.iconColor colorWithAlphaComponent:[self.manager alphaValueForKey:@"titleIconAlpha" withIdentifier:self.identifier]] : nil;
         }
     }
 
@@ -158,7 +158,7 @@
             CGSize size = [message sizeThatFits:message.frame.size];
             messageColor = [UIColor colorFromGradient:gradientColors withDirection:[self.manager settingForKey:@"messageGradientDirection" withIdentifier:self.identifier] inFrame:CGRectMake(message.frame.origin.x, message.frame.origin.y, size.width, size.height)];
         } else if ([messageType isEqual:@"icon"]) {
-            messageColor = [self.iconColor colorWithAlphaComponent:[self.manager alphaValueForKey:@"messageIconAlpha" withIdentifier:self.identifier]];
+            messageColor = self.iconColor ? [self.iconColor colorWithAlphaComponent:[self.manager alphaValueForKey:@"messageIconAlpha" withIdentifier:self.identifier]] : nil;
         }
     }
 
@@ -179,7 +179,7 @@
             NSArray *gradientColors = @[(id)[self.manager colorForKey:@"dateGradient1" withIdentifier:self.identifier].CGColor, (id)[self.manager colorForKey:@"dateGradient2" withIdentifier:self.identifier].CGColor];
             dateColor = [UIColor colorFromGradient:gradientColors withDirection:[self.manager settingForKey:@"dateGradientDirection" withIdentifier:self.identifier] inFrame:date.frame];
         } else if ([dateType isEqual:@"icon"]) {
-            dateColor = [self.iconColor colorWithAlphaComponent:[self.manager alphaValueForKey:@"dateIconAlpha" withIdentifier:self.identifier]];
+            dateColor = self.iconColor ? [self.iconColor colorWithAlphaComponent:[self.manager alphaValueForKey:@"dateIconAlpha" withIdentifier:self.identifier]] : nil;
         }
     }
 

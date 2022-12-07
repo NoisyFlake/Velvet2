@@ -29,7 +29,7 @@
 				specifier.detailControllerClass = NSClassFromString(@"Velvet2SettingsController");
 
 				[mutableSpecifiers addObject:specifier];
-
+				
 				UIImage *icon = [UIImage _applicationIconImageForBundleIdentifier:app.applicationIdentifier format:0 scale:UIScreen.mainScreen.scale];
 
 				CGImageRef cgIcon = icon.CGImage;
@@ -43,6 +43,29 @@
             }
         }
 
+		// Add Focus Specifier
+		PSSpecifier* specifier = [PSSpecifier preferenceSpecifierNamed:@"Focus"
+										target:self
+										set:@selector(setPreferenceValue:specifier:)
+										get:@selector(readPreferenceValue:)
+										detail:Nil
+										cell:PSLinkCell
+										edit:Nil];
+
+		[specifier setProperty:@"com.noisyflake.velvetFocus" forKey:@"key"];
+		[specifier setProperty:@"Focus" forKey:@"label"];
+		[specifier setProperty:@"com.noisyflake.velvet2" forKey:@"defaults"];
+		[specifier setProperty:@"1" forKey:@"isController"];
+		specifier.detailControllerClass = NSClassFromString(@"Velvet2SettingsController");
+
+		UIImageSymbolConfiguration *config = [UIImageSymbolConfiguration configurationWithFont:[UIFont systemFontOfSize:24]];
+		UIImage *icon = [[UIImage systemImageNamed:@"moon.fill" withConfiguration:config] imageWithTintColor:[UIColor colorWithRed: 0.34 green: 0.34 blue: 0.81 alpha: 1.00] renderingMode:UIImageRenderingModeAlwaysOriginal];
+		[specifier setProperty:icon forKey:@"iconImage"];
+
+		[mutableSpecifiers addObject:specifier];
+
+
+		// Sort specifiers alphabetically
         [mutableSpecifiers sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES selector:@selector(caseInsensitiveCompare:)]]];
 
         _specifiers = mutableSpecifiers;
