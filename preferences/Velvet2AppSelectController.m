@@ -30,14 +30,14 @@
 
 				[mutableSpecifiers addObject:specifier];
 
-				UIImage *icon = [UIImage _applicationIconImageForBundleIdentifier:app.applicationIdentifier format:2 scale:UIScreen.mainScreen.scale];
-				UIGraphicsImageRenderer *renderer = [[UIGraphicsImageRenderer alloc] initWithSize:CGSizeMake(29,29)];
-				UIImage *iconResized = [renderer imageWithActions:^(UIGraphicsImageRendererContext*_Nonnull myContext) {
-					[icon drawInRect:(CGRect) {.origin = CGPointZero, .size = CGSizeMake(29,29)}];
-				}];
+				UIImage *icon = [UIImage _applicationIconImageForBundleIdentifier:app.applicationIdentifier format:0 scale:UIScreen.mainScreen.scale];
 
-				if (icon) {
-					[specifier setProperty:[iconResized imageWithRenderingMode:icon.renderingMode] forKey:@"iconImage"];
+				CGImageRef cgIcon = icon.CGImage;
+				CGFloat scale = (CGImageGetWidth(cgIcon) + CGImageGetHeight(cgIcon)) / (CGFloat)(29 + 29);
+				UIImage *iconResized = [UIImage imageWithCGImage:cgIcon scale:scale orientation:0];
+
+				if (iconResized) {
+					[specifier setProperty:iconResized forKey:@"iconImage"];
 				}
 				
             }
