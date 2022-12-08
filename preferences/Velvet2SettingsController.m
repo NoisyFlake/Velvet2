@@ -5,6 +5,19 @@
 - (NSArray *)specifiers {
 	if (!_specifiers) {
 	    _specifiers = [self visibleSpecifiersFromPlist:@"Settings"];
+
+		NSMutableArray *mutableSpecifiers = [_specifiers mutableCopy];
+
+		if ([self.identifier isEqual:@"com.noisyflake.velvetFocus"]) {
+			for (PSSpecifier *specifier in [mutableSpecifiers reverseObjectEnumerator]) {
+				NSString *key = specifier.properties[@"key"];
+				if ([key isEqual:@"Line"] || [key isEqual:@"Date"] || [key isEqual:@"appIconCornerRadiusCircle"]) {
+					specifier.properties[@"enabled"] = @NO;
+				}
+			}
+
+			_specifiers = mutableSpecifiers;
+		}
 	}
 
 	if (self.identifier && self.identifierName) {
