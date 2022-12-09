@@ -11,7 +11,7 @@
 		if ([self.identifier isEqual:@"com.noisyflake.velvetFocus"]) {
 			for (PSSpecifier *specifier in [mutableSpecifiers reverseObjectEnumerator]) {
 				NSString *key = specifier.properties[@"key"];
-				if ([key isEqual:@"Line"] || [key isEqual:@"Date"] || [key isEqual:@"appIconCornerRadiusCircle"]) {
+				if ([key isEqual:@"Date"] || [key isEqual:@"appIconCornerRadiusCircle"]) {
 					specifier.properties[@"enabled"] = @NO;
 				}
 			}

@@ -91,8 +91,19 @@ Velvet2PrefsManager *prefsManager;
 %end
 
 %hook NCNotificationSummaryPlatterView
+%property (nonatomic,retain) UIView *velvetView;
+
 -(void)didMoveToWindow {
-    %orig;
+    
+    if (!self.velvetView) {
+        UIView *velvetView = [UIView new];
+        [velvetView.layer insertSublayer:[CALayer layer] atIndex:0];
+        [velvetView.layer insertSublayer:[CALayer layer] atIndex:0];
+        [self insertSubview:velvetView atIndex:1];
+
+        self.velvetView = velvetView;
+        self.velvetView.clipsToBounds = YES;
+    }
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(velvetUpdateStyle) name:@"com.noisyflake.velvet2/updateStyle" object:nil];
 }
@@ -104,6 +115,7 @@ Velvet2PrefsManager *prefsManager;
 
 %new
 -(void)velvetUpdateStyle {
+    MTMaterialView *materialView                            = (MTMaterialView*)self.subviews[0];
     NCNotificationSummaryContentView *contentView           = [self valueForKey:@"summaryContentView"];
     UILabel *title                                          = [contentView valueForKey:@"summaryTitleLabel"];
     UILabel *message                                        = [contentView valueForKey:@"summaryLabel"];
@@ -111,14 +123,18 @@ Velvet2PrefsManager *prefsManager;
     Velvet2Colorizer *colorizer = [[Velvet2Colorizer alloc] initWithIdentifier:@"com.noisyflake.velvetFocus"];
 
     CGFloat cornerRadius = [[prefsManager settingForKey:@"cornerRadiusEnabled" withIdentifier:@"com.noisyflake.velvetFocus"] boolValue] ? [[prefsManager settingForKey:@"cornerRadiusCustom" withIdentifier:@"com.noisyflake.velvetFocus"] floatValue] : 19;
-
-    if (self.subviews[0]) {
-        self.subviews[0].layer.continuousCorners = cornerRadius < self.frame.size.height / 2;
-        self.subviews[0].layer.cornerRadius = MIN(cornerRadius, self.frame.size.height / 2);
     
-        [colorizer colorBackground:self.subviews[0]];
-        [colorizer colorBorder:self.subviews[0]];
-        [colorizer colorShadow:self.subviews[0]];
+    if (materialView) {
+        self.velvetView.frame = materialView.frame;
+        materialView.layer.continuousCorners = cornerRadius < self.frame.size.height / 2;
+        materialView.layer.cornerRadius = MIN(cornerRadius, self.frame.size.height / 2);
+        self.velvetView.layer.continuousCorners = cornerRadius < self.velvetView.frame.size.height / 2;
+	    self.velvetView.layer.cornerRadius = MIN(cornerRadius, self.velvetView.frame.size.height / 2);
+    
+        [colorizer colorBackground:self.velvetView];
+        [colorizer colorBorder:self.velvetView];
+        [colorizer colorShadow:materialView];
+        [colorizer colorLine:self.velvetView inFrame:materialView.frame];
         [colorizer colorTitle:title];
         [colorizer colorMessage:message];
         [colorizer setAppearance:self];
