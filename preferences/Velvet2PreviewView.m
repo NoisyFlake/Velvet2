@@ -34,7 +34,7 @@
 	[notificationView insertSubview:title atIndex:2];
 	self.titleLabel = title;
 
-	UILabel *message = [[UILabel alloc] initWithFrame:CGRectMake(materialView.frame.origin.x + 58, materialView.frame.origin.y + 28.6, 283, 36)];
+	UILabel *message = [[UILabel alloc] initWithFrame:CGRectMake(materialView.frame.origin.x + 58, materialView.frame.origin.y + 28.6, materialView.frame.size.width - 15 - (materialView.frame.origin.x + 58), 36)];
 	message.text = @"Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy est.";
 	message.font = [message.font fontWithSize:15];
 	message.numberOfLines = 2;
