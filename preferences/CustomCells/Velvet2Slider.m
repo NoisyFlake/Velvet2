@@ -21,6 +21,13 @@
 
             self.imageView.tintColor = kVelvetColor;
         }
+
+        // iOS 16 fix
+        for (NSLayoutConstraint *c in self.control.constraints) {
+            [self.control removeConstraint:c];
+        }
+
+        [self.control layoutIfNeeded];
     }
 
     return self;
@@ -37,25 +44,28 @@
             self.backgroundColor = [kVelvetColor colorWithAlphaComponent:0.3];
         }
     }
+
+    // Before iOS 16, we could simply set the frame of the control. However, iOS 16 introduces constraints that don't seem to be easily fixable, so instead we
+    // modify the subview (visualElement), since it isn't affected by these constraints
+
+    UISlider *slider = (UISlider *)self.control;
+    UIView *visualElement = slider.subviews[0];
     
     if (self.nameLabel) {
         self.nameLabel.frame = CGRectMake(self.specifier.properties[@"systemIcon"] ? 60 : 15, self.nameLabel.frame.origin.y, self.nameLabel.frame.size.width, self.nameLabel.frame.size.height);
-        [self.control setFrame:CGRectMake(self.control.frame.origin.x + self.nameLabel.frame.size.width + (self.specifier.properties[@"systemIcon"] ? 60 : 10), self.control.frame.origin.y, self.control.frame.size.width - self.nameLabel.frame.size.width - (self.specifier.properties[@"systemIcon"] ? 60 : 10), self.control.frame.size.height)];
+        [visualElement setFrame:CGRectMake(0 + self.nameLabel.frame.size.width + (self.specifier.properties[@"systemIcon"] ? 60 : 10), visualElement.frame.origin.y, slider.frame.size.width - self.nameLabel.frame.size.width - (self.specifier.properties[@"systemIcon"] ? 60 : 10), visualElement.frame.size.height)];
     }
 
     if (![self.specifier.properties[@"showValue"] boolValue]) return;
 
-    [self.control setFrame:CGRectMake(self.control.frame.origin.x, self.control.frame.origin.y, self.control.frame.size.width - 7, self.control.frame.size.height)];
-
-    UISlider *slider = (UISlider *)self.control;
-    UIView *visualElement = slider.subviews[0];
+    [visualElement setFrame:CGRectMake(visualElement.frame.origin.x, visualElement.frame.origin.y, visualElement.frame.size.width - 7, visualElement.frame.size.height)];
+    
     for (UIView *subview in visualElement.subviews) {
         if ([subview isKindOfClass:NSClassFromString(@"UILabel")]) {
             UILabel *label = (UILabel *)subview;
             label.frame = CGRectMake(label.frame.origin.x, label.frame.origin.y, label.frame.size.width + 15, label.frame.size.height);
         }
     }
-
 
 }
 @end

@@ -54,7 +54,7 @@ Velvet2PrefsManager *prefsManager;
     NCNotificationShortLookView *view                       = (NCNotificationShortLookView *)self.viewForPreview;
     MTMaterialView *materialView                            = view.backgroundMaterialView;
     NCNotificationViewControllerView *controllerView        = [self valueForKey:@"contentSizeManagingView"];
-    UIView *stackDimmingView                                = [controllerView valueForKey:@"stackDimmingView"];
+    UIView *stackDimmingView                                = [controllerView valueForKey:(SYSTEM_VERSION_LESS_THAN(@"16.0") ? @"stackDimmingView" : @"stackDimmingOverlayView")];
     NCNotificationSeamlessContentView *contentView          = [view valueForKey:@"notificationContentView"];
     UILabel *title                                          = [contentView valueForKey:@"primaryTextLabel"];
     UILabel *message                                        = [contentView valueForKey:@"secondaryTextElement"];
