@@ -31,19 +31,19 @@
 
 -(void)setupFooterVersion {
 	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-		NSPipe *pipe = [NSPipe pipe];
+		NSPipe *pipe = [NSPipe new];
 
-		NSTask *task = [[NSTask alloc] init];
-		task.arguments = @[@"-c", @"dpkg -s com.noisyflake.velvet2 | grep -i version | cut -d' ' -f2"];
-		task.launchPath = @"/bin/sh";
-		[task setStandardOutput: pipe];
+		NSTask *task = [NSTask new];
+		task.arguments = @[@"--showformat=${Version}", @"--show", @"com.noisyflake.velvet2"];
+		task.launchPath = ROOT_PATH_NS_VAR(@"/usr/bin/dpkg-query");
+		task.standardOutput = pipe;
 		[task launch];
 		[task waitUntilExit];
 
 		NSFileHandle *file = [pipe fileHandleForReading];
 		NSData *output = [file readDataToEndOfFile];
 		NSString *outputString = [[NSString alloc] initWithData:output encoding:NSUTF8StringEncoding];
-		outputString = [outputString stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+		outputString = [outputString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 		[file closeFile];
 
 		dispatch_async(dispatch_get_main_queue(), ^(void){
@@ -108,13 +108,4 @@
 	const char* args[] = {"sbreload", NULL};
 	posix_spawn(&pid, "/usr/bin/sbreload", NULL, NULL, (char* const*)args, NULL);
 }
-
-// -(void)showController:(id)controller {
-	
-// 	if ([controller isKindOfClass:NSClassFromString(@"Velvet2SettingsController")]) {
-// 		((Velvet2SettingsController *)controller).identifier = @"com.apple.mobilecal";
-// 	}
-
-// 	return [super showController:controller]; 
-// }
 @end

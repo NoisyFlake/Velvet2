@@ -1,6 +1,7 @@
 #import <Foundation/Foundation.h>
 #import <Preferences/PSSpecifier.h>
 #import <AudioToolbox/AudioServices.h>
+#import <rootless.h>
 
 #import "CoreServices.h"
 #import "Log.h"
