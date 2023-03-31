@@ -106,6 +106,6 @@
 -(void)respring {
 	pid_t pid;
 	const char* args[] = {"sbreload", NULL};
-	posix_spawn(&pid, "/usr/bin/sbreload", NULL, NULL, (char* const*)args, NULL);
+	posix_spawn(&pid, ROOT_PATH("/usr/bin/sbreload"), NULL, NULL, (char* const*)args, NULL);
 }
 @end
