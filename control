@@ -1,10 +1,10 @@
 Package: com.noisyflake.velvet2
 Name: Velvet 2
-Version: 2.0.2
+Version: 2.0.3
 Architecture: iphoneos-arm
 Description: A fully customizable notification experience
 Maintainer: NoisyFlake
 Author: NoisyFlake
 Section: Tweaks
-Depends: mobilesubstrate (>= 0.9.5000)
+Depends: mobilesubstrate (>= 0.9.5000), preferenceloader
 Conflicts: com.initwithframe.velvet

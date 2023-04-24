@@ -30,43 +30,21 @@
 }
 
 -(void)setupFooterVersion {
-	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-		NSPipe *pipe = [NSPipe new];
+	NSString *firstLine = [NSString stringWithFormat:@"Velvet %@", PACKAGE_VERSION];
 
-		NSTask *task = [NSTask new];
-		task.arguments = @[@"--showformat=${Version}", @"--show", @"com.noisyflake.velvet2"];
-		task.launchPath = ROOT_PATH_NS_VAR(@"/usr/bin/dpkg-query");
-		task.standardOutput = pipe;
-		[task launch];
-		[task waitUntilExit];
+	NSMutableAttributedString *fullFooter =  [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@\nwith \u2665 by NoisyFlake", firstLine]];
 
-		NSFileHandle *file = [pipe fileHandleForReading];
-		NSData *output = [file readDataToEndOfFile];
-		NSString *outputString = [[NSString alloc] initWithData:output encoding:NSUTF8StringEncoding];
-		outputString = [outputString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-		[file closeFile];
-
-		dispatch_async(dispatch_get_main_queue(), ^(void){
-			// Insert footer on the main queue
-			if ([outputString length] > 0) {
-				NSString *firstLine = [NSString stringWithFormat:@"Velvet %@", outputString];
-
-				NSMutableAttributedString *fullFooter =  [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@\nwith \u2665 by NoisyFlake", firstLine]];
-
-				[fullFooter beginEditing];
-				[fullFooter addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize:18] range:NSMakeRange(0, [firstLine length])];
-				[fullFooter endEditing];
-				
-				UILabel *footerLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 100)];
-				footerLabel.font = [UIFont systemFontOfSize:13];
-				footerLabel.textColor = UIColor.systemGrayColor;
-				footerLabel.numberOfLines = 2;
-				footerLabel.attributedText = fullFooter;
-				footerLabel.textAlignment = NSTextAlignmentCenter;
-				self.table.tableFooterView = footerLabel;
-			}
-		});
-	});
+	[fullFooter beginEditing];
+	[fullFooter addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize:18] range:NSMakeRange(0, [firstLine length])];
+	[fullFooter endEditing];
+	
+	UILabel *footerLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 100)];
+	footerLabel.font = [UIFont systemFontOfSize:13];
+	footerLabel.textColor = UIColor.systemGrayColor;
+	footerLabel.numberOfLines = 2;
+	footerLabel.attributedText = fullFooter;
+	footerLabel.textAlignment = NSTextAlignmentCenter;
+	self.table.tableFooterView = footerLabel;
 }
 
 -(void)resetSettings {

@@ -9,6 +9,6 @@ Velvet2_FILES = $(wildcard *.m CustomCells/*.m ../src/Velvet2PrefsManager.m ../s
 Velvet2_FRAMEWORKS = UIKit
 Velvet2_PRIVATE_FRAMEWORKS = Preferences
 Velvet2_INSTALL_PATH = $(THEOS_PACKAGE_INSTALL_PREFIX)/Library/PreferenceBundles
-Velvet2_CFLAGS = -fobjc-arc
+Velvet2_CFLAGS = -fobjc-arc -DPACKAGE_VERSION='@"$(THEOS_PACKAGE_BASE_VERSION)"'
 
 include $(THEOS_MAKE_PATH)/bundle.mk
