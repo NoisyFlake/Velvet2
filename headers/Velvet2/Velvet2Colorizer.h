@@ -18,5 +18,6 @@
 - (void)colorDate:(UILabel*)date;
 - (void)setAppIconCornerRadius:(UIView*)appIcon;
 - (void)setAppearance:(UIView*)view;
+- (void)toggleAppIconVisibility:(UIView*)appIcon withTitle:(UILabel*)title message:(UILabel*)message footer:(UILabel*)footer alwaysUpdate:(BOOL)alwaysUpdate;
 
 @end

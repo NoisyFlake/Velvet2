@@ -96,6 +96,7 @@
 		[colorizer colorMessage:self.messageLabel];
 		[colorizer colorDate:self.dateLabel];
 		[colorizer setAppearance:self.notificationView];
+		[colorizer toggleAppIconVisibility:self.appIcon withTitle:self.titleLabel message:self.messageLabel footer:nil alwaysUpdate:NO];
 	}];
 }
 

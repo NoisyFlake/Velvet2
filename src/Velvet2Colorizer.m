@@ -194,6 +194,27 @@
     appIcon.layer.cornerRadius = [[self.manager settingForKey:@"appIconCornerRadiusCircle" withIdentifier:self.identifier] boolValue] ? appIcon.frame.size.height / 2 : 0;
 }
 
+- (void)toggleAppIconVisibility:(UIView*)appIcon withTitle:(UILabel*)title message:(UILabel*)message footer:(UILabel*)footer alwaysUpdate:(BOOL)alwaysUpdate {
+    BOOL shouldHide = [[self.manager settingForKey:@"appIconHidden" withIdentifier:self.identifier] boolValue];
+
+    // AlwaysUpdate is necessary for the real notification, as layoutSubviews gets called constantly and would override our one-time change.
+    // However, in the Settings preview, this is not necessary and would only move the labels too far to the left
+    
+    if (shouldHide && (!appIcon.hidden || alwaysUpdate)) {
+        appIcon.alpha = 0; // For smooth animations in the preview
+        appIcon.hidden = YES;
+        title.frame = CGRectMake(title.frame.origin.x - appIcon.frame.size.width - 8, title.frame.origin.y, title.frame.size.width + appIcon.frame.size.width, title.frame.size.height);
+        message.frame = CGRectMake(message.frame.origin.x - appIcon.frame.size.width - 8, message.frame.origin.y, message.frame.size.width + appIcon.frame.size.width, message.frame.size.height);
+        if (footer) footer.frame = CGRectMake(footer.frame.origin.x - appIcon.frame.size.width - 8, footer.frame.origin.y, footer.frame.size.width + appIcon.frame.size.width, footer.frame.size.height);
+    } else if (!shouldHide && appIcon.hidden) {
+        appIcon.alpha = 1;
+        appIcon.hidden = NO;
+        title.frame = CGRectMake(title.frame.origin.x + appIcon.frame.size.width + 8, title.frame.origin.y, title.frame.size.width - appIcon.frame.size.width, title.frame.size.height);
+        message.frame = CGRectMake(message.frame.origin.x + appIcon.frame.size.width + 8, message.frame.origin.y, message.frame.size.width - appIcon.frame.size.width, message.frame.size.height);
+        if (footer) footer.frame = CGRectMake(footer.frame.origin.x + appIcon.frame.size.width + 8, footer.frame.origin.y, footer.frame.size.width - appIcon.frame.size.width, footer.frame.size.height);
+    }
+}
+
 - (void)setAppearance:(UIView*)view {
     NSString *appearance = [self.manager settingForKey:@"appearance" withIdentifier:self.identifier];
 	view.overrideUserInterfaceStyle = [appearance isEqual:@"dark"] ? UIUserInterfaceStyleDark : [appearance isEqual:@"light"] ? UIUserInterfaceStyleLight : UIUserInterfaceStyleUnspecified;

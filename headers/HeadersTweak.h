@@ -4,6 +4,7 @@
 #import "MaterialKit.h"
 #import "PlatterKit.h"
 #import "QuartzCore.h"
+#import "UIView+Private.h"
 #import "UserNotificationsKit.h"
 #import "UserNotificationsUIKit.h"
 #import "Velvet2/ColorDetection.h"

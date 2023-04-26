@@ -54,7 +54,7 @@ Velvet2PrefsManager *prefsManager;
     NCNotificationShortLookView *view                       = (NCNotificationShortLookView *)self.viewForPreview;
     MTMaterialView *materialView                            = view.backgroundMaterialView;
     NCNotificationViewControllerView *controllerView        = [self valueForKey:@"contentSizeManagingView"];
-    UIView *stackDimmingView                                = [controllerView valueForKey:(SYSTEM_VERSION_LESS_THAN(@"16.0") ? @"stackDimmingView" : @"stackDimmingOverlayView")];
+    UIView *stackDimmingView                                = SYSTEM_VERSION_LESS_THAN(@"16.0") ? [controllerView valueForKey:@"stackDimmingView"] : [view valueForKey:@"stackDimmingOverlayView"];
     NCNotificationSeamlessContentView *contentView          = [view valueForKey:@"notificationContentView"];
     UILabel *title                                          = [contentView valueForKey:@"primaryTextLabel"];
     UILabel *message                                        = [contentView valueForKey:@"secondaryTextElement"];
@@ -68,7 +68,8 @@ Velvet2PrefsManager *prefsManager;
     Velvet2Colorizer *colorizer = [[Velvet2Colorizer alloc] initWithIdentifier:identifier];
     colorizer.appIcon = appIcon;
 
-    CGFloat cornerRadius = [[prefsManager settingForKey:@"cornerRadiusEnabled" withIdentifier:identifier] boolValue] ? [[prefsManager settingForKey:@"cornerRadiusCustom" withIdentifier:identifier] floatValue] : 19;
+    CGFloat defaultCornerRadius = SYSTEM_VERSION_LESS_THAN(@"16.0") ? 19 : 23.5;
+    CGFloat cornerRadius = [[prefsManager settingForKey:@"cornerRadiusEnabled" withIdentifier:identifier] boolValue] ? [[prefsManager settingForKey:@"cornerRadiusCustom" withIdentifier:identifier] floatValue] : defaultCornerRadius;
 	materialView.layer.continuousCorners = cornerRadius < materialView.frame.size.height / 2;
 	materialView.layer.cornerRadius = MIN(cornerRadius, materialView.frame.size.height / 2);
     self.velvetView.layer.continuousCorners = cornerRadius < self.velvetView.frame.size.height / 2;
@@ -77,6 +78,8 @@ Velvet2PrefsManager *prefsManager;
     view.layer.cornerRadius = MIN(cornerRadius, materialView.frame.size.height / 2);
     materialView.superview.layer.cornerRadius = MIN(cornerRadius, materialView.frame.size.height / 2);
     stackDimmingView.layer.cornerRadius = MIN(cornerRadius, materialView.frame.size.height / 2);
+
+    stackDimmingView.hidden = [[prefsManager settingForKey:@"stackDimmingViewHidden" withIdentifier:identifier] boolValue];
     
     [colorizer setAppIconCornerRadius:appIconView];
     [colorizer colorBackground:self.velvetView];
@@ -122,7 +125,8 @@ Velvet2PrefsManager *prefsManager;
 
     Velvet2Colorizer *colorizer = [[Velvet2Colorizer alloc] initWithIdentifier:@"com.noisyflake.velvetFocus"];
 
-    CGFloat cornerRadius = [[prefsManager settingForKey:@"cornerRadiusEnabled" withIdentifier:@"com.noisyflake.velvetFocus"] boolValue] ? [[prefsManager settingForKey:@"cornerRadiusCustom" withIdentifier:@"com.noisyflake.velvetFocus"] floatValue] : 19;
+    CGFloat defaultCornerRadius = SYSTEM_VERSION_LESS_THAN(@"16.0") ? 19 : 23.5;
+    CGFloat cornerRadius = [[prefsManager settingForKey:@"cornerRadiusEnabled" withIdentifier:@"com.noisyflake.velvetFocus"] boolValue] ? [[prefsManager settingForKey:@"cornerRadiusCustom" withIdentifier:@"com.noisyflake.velvetFocus"] floatValue] : defaultCornerRadius;
     
     if (materialView) {
         self.velvetView.frame = materialView.frame;
@@ -139,6 +143,32 @@ Velvet2PrefsManager *prefsManager;
         [colorizer colorMessage:message];
         [colorizer setAppearance:self];
     }
+}
+%end
+
+%hook NCNotificationSeamlessContentView
+-(void)didMoveToWindow {
+    %orig;
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(velvetUpdateStyle) name:@"com.noisyflake.velvet2/updateStyle" object:nil];
+}
+-(void)layoutSubviews {
+    %orig;
+
+    [self velvetUpdateStyle];
+}
+
+%new
+-(void)velvetUpdateStyle {
+    NCNotificationShortLookViewController *controller = [self _viewControllerForAncestor];
+    Velvet2Colorizer *colorizer = [[Velvet2Colorizer alloc] initWithIdentifier:controller.notificationRequest.sectionIdentifier];
+
+    UILabel *title                                          = [self valueForKey:@"primaryTextLabel"];
+    UILabel *message                                        = [self valueForKey:@"secondaryTextElement"];
+    UILabel *footer                                         = [self valueForKey:@"footerTextLabel"];
+    NCBadgedIconView *badgedIconView                        = [self valueForKey:@"badgedIconView"];
+
+    [colorizer toggleAppIconVisibility:badgedIconView withTitle:title message:message footer:footer alwaysUpdate:YES];
 }
 %end
 

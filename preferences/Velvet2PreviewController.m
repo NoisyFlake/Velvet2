@@ -23,10 +23,20 @@
 						break;
 					} 
 				} else {
-					if (![[manager settingForKey:singleRequirement withIdentifier:self.identifier] boolValue]) {
-						[mutableSpecifiers removeObject:specifier];
-						break;
+					NSString *firstChar = [singleRequirement substringToIndex:1];
+
+					if ([firstChar isEqualToString:@"!"]) {
+						if ([[manager settingForKey:[singleRequirement substringFromIndex:1] withIdentifier:self.identifier] boolValue]) {
+							[mutableSpecifiers removeObject:specifier];
+							break;
+						}
+					} else {
+						if (![[manager settingForKey:singleRequirement withIdentifier:self.identifier] boolValue]) {
+							[mutableSpecifiers removeObject:specifier];
+							break;
+						}
 					}
+					
 				}
 			}
 		}

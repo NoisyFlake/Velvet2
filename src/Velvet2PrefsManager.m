@@ -55,7 +55,9 @@ static void sendUpdateNotification() {
         @"dateGradientDirection": @"right",
         @"cornerRadiusEnabled": @NO,
         @"cornerRadiusCustom": @19,
-        @"appIconCornerRadiusCircle": @NO
+        @"appIconHidden": @NO,
+        @"appIconCornerRadiusCircle": @NO,
+        @"stackDimmingViewHidden": @NO
     }];
 
     CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), NULL, (CFNotificationCallback)sendUpdateNotification, CFSTR("com.noisyflake.velvet2/preferenceUpdate"), NULL, CFNotificationSuspensionBehaviorCoalesce);

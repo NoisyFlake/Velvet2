@@ -24,6 +24,7 @@
 }
 @property (nonatomic,copy) UIImage * prominentIcon;
 @property (nonatomic,copy) UIImage * subordinateIcon;
+-(void)velvetUpdateStyle;
 @end
 
 @interface NCNotificationShortLookView : UIView {

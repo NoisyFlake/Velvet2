@@ -101,6 +101,31 @@
 		},
 		{
 			cell = PSGroupCell;
+			label = "App Icon";
+		},
+		{
+			cell = PSSwitchCell;
+			cellClass = Velvet2Switch;
+			cellSubtitleText = "Don't display any icon";
+			default = 0;
+			defaults = "com.noisyflake.velvet2";
+			key = appIconHidden;
+			label = "Hide App Icon";
+			systemIcon = "square.slash";
+        },
+		{
+			cell = PSSwitchCell;
+			cellClass = Velvet2Switch;
+			cellSubtitleText = "Display app icon as a circle";
+			default = 0;
+			defaults = "com.noisyflake.velvet2";
+			key = appIconCornerRadiusCircle;
+			label = "Round App Icon";
+			systemIcon = "circle.square";
+			require = "!appIconHidden";
+        },
+		{
+			cell = PSGroupCell;
 			label = "Extras";
 		},
 		{
@@ -130,12 +155,12 @@
 		{
 			cell = PSSwitchCell;
 			cellClass = Velvet2Switch;
-			cellSubtitleText = "Display app icon as a circle";
-			default = 1;
+			cellSubtitleText = "Don't dim notifications in a stack";
+			default = 0;
 			defaults = "com.noisyflake.velvet2";
-			key = appIconCornerRadiusCircle;
-			label = "Round App Icon";
-			systemIcon = "circle.square";
+			key = stackDimmingViewHidden;
+			label = "No Stack Dimming";
+			systemIcon = "rectangle.stack";
         }
 	);
 	title = "Global Settings";
