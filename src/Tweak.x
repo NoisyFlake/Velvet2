@@ -83,6 +83,7 @@ Velvet2PrefsManager *prefsManager;
     
     [colorizer setAppIconCornerRadius:appIconView];
     [colorizer colorBackground:self.velvetView];
+    [colorizer setBackgroundBlur:materialView];
     [colorizer colorBorder:self.velvetView];
     [colorizer colorShadow:materialView];
     [colorizer colorLine:self.velvetView inFrame:materialView.frame];

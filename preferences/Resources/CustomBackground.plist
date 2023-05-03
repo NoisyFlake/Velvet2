@@ -99,6 +99,21 @@
 			require = "backgroundEnabled&backgroundType=gradient";
 			systemIcon = "drop.circle";
 		},
+		{
+			cell = PSGroupCell;
+			label = "Misc.";
+			footerText = "This option disables the Glow feature";
+		},
+		{
+			cell = PSSwitchCell;
+			cellClass = Velvet2Switch;
+			cellSubtitleText = "Removes the background blur";
+			default = 1;
+			defaults = "com.noisyflake.velvet2";
+			key = backgroundBlurHidden;
+			label = "Hide Background Blur";
+			systemIcon = "square.dashed";
+		},
 	);
 	title = "Background";
 }

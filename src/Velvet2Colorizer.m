@@ -41,6 +41,12 @@
     backgroundView.backgroundColor = backgroundColor;
 }
 
+- (void)setBackgroundBlur:(UIView *)materialView {
+    BOOL hideBackground = [[self.manager settingForKey:@"backgroundBlurHidden" withIdentifier:self.identifier] boolValue];
+    materialView.alpha = hideBackground ? 0 : 1;
+    materialView.hidden = hideBackground ? YES : NO;
+}
+
 - (void)colorBorder:(UIView *)borderView {
     UIColor *borderColor;
 

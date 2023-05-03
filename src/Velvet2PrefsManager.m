@@ -23,6 +23,7 @@ static void sendUpdateNotification() {
         @"enabled": @YES,
         @"appearance": @"default",
         @"backgroundEnabled": @NO,
+        @"backgroundBlurHidden" : @NO,
         @"backgroundType": @"icon",
         @"backgroundIconAlpha": @50,
         @"backgroundGradientDirection": @"right",

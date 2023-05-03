@@ -88,6 +88,7 @@
 		self.velvetView.layer.cornerRadius = MIN(cornerRadius, self.velvetView.frame.size.height / 2);
 
 		[colorizer setAppIconCornerRadius:self.appIcon];
+		[colorizer setBackgroundBlur:self.materialView];
 		[colorizer colorBackground:self.velvetView];
 		[colorizer colorBorder:self.velvetView];
 		[colorizer colorShadow:self.materialView];
