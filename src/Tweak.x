@@ -173,6 +173,14 @@ Velvet2PrefsManager *prefsManager;
 }
 %end
 
+// Fix notifications in a stack having the wrong color because they were re-used
+
+%hook NCNotificationListView
+-(void)recycleVisibleViews{}
+-(void)_recycleViewIfNecessary:(id)arg1{}
+-(void)_recycleViewIfNecessary:(id)arg1 withDataSource:(id)arg2{}
+%end
+
 %ctor {
     prefsManager = [NSClassFromString(@"Velvet2PrefsManager") sharedInstance];
 
